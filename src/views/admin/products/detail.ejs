@@ -1,0 +1,50 @@
+<header class="page-head row-between">
+  <div>
+    <a href="/admin/products" class="small">&larr; Back to products</a>
+    <h1><%= product.name %></h1>
+    <p class="muted mono small"><%= product.code %></p>
+  </div>
+  <div class="head-actions">
+    <a href="/admin/products/<%= product.id %>/edit" class="btn btn-sm">Edit</a>
+  </div>
+</header>
+
+<% if (flash) { %><div class="alert alert-ok"><%= flash %></div><% } %>
+
+<section class="panel">
+  <dl class="detail-list">
+    <div><dt>Price</dt><dd><%= formatPeso(product.price) %></dd></div>
+    <div><dt>Stock</dt><dd>
+      <%= product.quantity %>
+      <% if (product.quantity === 0) { %><span class="badge badge-warn">Sold out</span><% } %>
+    </dd></div>
+    <div><dt>Category</dt><dd><%= product.category ? product.category.name : '—' %></dd></div>
+    <div><dt>One of a kind</dt><dd><%= product.isOneOfAKind ? 'Yes' : 'No' %></dd></div>
+    <div><dt>Status</dt><dd><%= product.isArchived ? 'Archived' : 'Active' %></dd></div>
+  </dl>
+
+  <% if (product.description) { %>
+    <h3 class="small">Description</h3>
+    <p class="muted"><%= product.description %></p>
+  <% } %>
+</section>
+
+<section class="panel danger-zone">
+  <h3>Manage</h3>
+  <% if (product.isArchived) { %>
+    <form method="post" action="/admin/products/<%= product.id %>/restore" class="inline">
+      <button type="submit" class="btn btn-ghost btn-sm">Restore to catalog</button>
+    </form>
+  <% } else { %>
+    <form method="post" action="/admin/products/<%= product.id %>/archive" class="inline">
+      <button type="submit" class="btn btn-ghost btn-sm">Archive</button>
+    </form>
+    <p class="small muted">Archiving hides it from the catalog but keeps its order history.</p>
+  <% } %>
+
+  <form method="post" action="/admin/products/<%= product.id %>/delete" class="inline"
+        onsubmit="return confirm('Permanently delete this product? This cannot be undone.')">
+    <button type="submit" class="linkish small danger">Delete permanently</button>
+  </form>
+  <p class="small muted">Only possible if the product has never been ordered.</p>
+</section>

@@ -1,0 +1,53 @@
+<header class="page-head">
+  <a href="/admin/products" class="small">&larr; Back to products</a>
+  <h1><%= product ? 'Edit product' : 'Add product' %></h1>
+</header>
+
+<% if (error) { %><div class="alert"><%= error %></div><% } %>
+
+<form method="post"
+      action="<%= product ? '/admin/products/' + product.id : '/admin/products' %>"
+      class="panel form-narrow">
+
+  <label>Product name
+    <input type="text" name="name" required maxlength="120" value="<%= values.name || '' %>">
+  </label>
+
+  <label>Description
+    <textarea name="description" rows="4"><%= values.description || '' %></textarea>
+  </label>
+
+  <div class="field-row">
+    <label>Price (₱)
+      <input type="number" name="price" step="0.01" min="0" required value="<%= values.price || '' %>">
+    </label>
+
+    <label>Stock quantity
+      <input type="number" name="quantity" step="1" min="0" value="<%= values.quantity !== undefined ? values.quantity : 0 %>">
+    </label>
+  </div>
+
+  <label>Category
+    <select name="category_id">
+      <option value="">No category</option>
+      <% categories.forEach(function (c) { %>
+        <option value="<%= c.id %>" <%= String(values.category_id) === String(c.id) ? 'selected' : '' %>><%= c.name %></option>
+      <% }); %>
+    </select>
+  </label>
+
+  <label class="checkbox">
+    <input type="checkbox" name="is_one_of_a_kind" <%= values.is_one_of_a_kind ? 'checked' : '' %>>
+    One of a kind
+    <span class="small muted">Shows a badge on the product page. Does not affect stock.</span>
+  </label>
+
+  <div class="form-actions">
+    <a href="/admin/products" class="btn btn-ghost">Cancel</a>
+    <button type="submit" class="btn"><%= product ? 'Save changes' : 'Create product' %></button>
+  </div>
+</form>
+
+<p class="small muted form-narrow">
+  Product photos are added in the next step of the build.
+</p>

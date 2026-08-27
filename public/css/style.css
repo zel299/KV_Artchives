@@ -1,0 +1,214 @@
+/* ============================================================
+   KV Artchives — base styles
+   Deliberately plain for now. Visual design comes in a later pass;
+   this exists so the scaffolding is readable while building.
+   ============================================================ */
+
+:root {
+  --ink: #1f1d1b;
+  --ink-soft: #6b6560;
+  --line: #e2ddd8;
+  --bg: #faf8f6;
+  --surface: #ffffff;
+  --accent: #b8524f;
+  --accent-dark: #8f3f3d;
+  --danger-bg: #fdeaea;
+  --danger-line: #e0a3a3;
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.55;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.narrow {
+  max-width: 420px;
+  margin: 40px auto;
+}
+
+.center { text-align: center; }
+.muted { color: var(--ink-soft); }
+.small { font-size: 0.875rem; }
+
+/* --- Header --- */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+.brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.nav-links a {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* --- Hero --- */
+.hero {
+  padding: 56px 0 40px;
+  text-align: center;
+}
+.hero h1 {
+  font-size: 2.2rem;
+  margin: 0 0 8px;
+}
+.lead {
+  color: var(--ink-soft);
+  margin: 0 0 24px;
+}
+
+/* --- Cards --- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.card h1 { margin-top: 0; font-size: 1.4rem; }
+
+.setup-note {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin: 24px 0 48px;
+}
+.setup-note h2 { margin-top: 0; font-size: 1.05rem; }
+.setup-note ul { margin: 10px 0 0; padding-left: 18px; }
+.setup-note li { font-size: 0.9rem; color: var(--ink-soft); }
+
+/* --- Forms --- */
+label {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px 12px;
+  font: inherit;
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-block;
+  padding: 11px 20px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+.btn:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+.btn-block { display: block; width: 100%; }
+.btn-sm { padding: 7px 14px; font-size: 0.825rem; }
+.btn-ghost {
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--line);
+}
+.btn-ghost:hover { background: #f2efec; border-color: var(--line); }
+
+/* --- Alerts --- */
+.alert {
+  padding: 11px 14px;
+  margin-bottom: 18px;
+  font-size: 0.875rem;
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-line);
+  border-radius: 6px;
+}
+
+/* --- Bits --- */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.row-between {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 14px;
+}
+
+/* --- Footer --- */
+.site-footer {
+  margin-top: 60px;
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+/* --- Admin auth page --- */
+.admin-auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+.admin-auth .card { width: 100%; max-width: 400px; }

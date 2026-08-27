@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin portal · KV Artchives</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin-auth">
+  <main class="narrow card">
+    <h1>Admin portal</h1>
+    <p class="muted">KV Artchives</p>
+
+    <% if (error) { %><div class="alert"><%= error %></div><% } %>
+
+    <form method="post" action="/admin/login">
+      <label>Email
+        <input type="email" name="email" required autocomplete="email">
+      </label>
+      <label>Password
+        <input type="password" name="password" required autocomplete="current-password">
+      </label>
+      <button type="submit" class="btn btn-block">Log in</button>
+    </form>
+
+    <p class="small center muted">Admin access only.</p>
+  </main>
+</body>
+</html>

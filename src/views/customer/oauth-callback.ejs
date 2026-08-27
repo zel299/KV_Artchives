@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Signing you in…</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="container narrow center" style="padding-top:80px">
+    <p>Signing you in…</p>
+    <noscript>JavaScript is required to complete sign-in.</noscript>
+  </main>
+
+  <form method="post" action="/auth/session" id="f">
+    <input type="hidden" name="access_token" id="at">
+    <input type="hidden" name="refresh_token" id="rt">
+  </form>
+
+  <script>
+    const p = new URLSearchParams(window.location.hash.slice(1));
+    const at = p.get('access_token');
+    const rt = p.get('refresh_token');
+    if (at && rt) {
+      document.getElementById('at').value = at;
+      document.getElementById('rt').value = rt;
+      document.getElementById('f').submit();
+    } else {
+      window.location.href = '/login';
+    }
+  </script>
+</body>
+</html>

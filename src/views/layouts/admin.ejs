@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= typeof title !== 'undefined' ? title : 'Admin' %> · KV Artchives</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <strong>KV Artchives</strong>
+      <span class="small muted">Admin portal</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="nav-label">Overview</span>
+      <a href="/admin" class="<%= currentPath === '/admin' ? 'active' : '' %>">Dashboard</a>
+
+      <span class="nav-label">Catalog and sales</span>
+      <a href="/admin/products" class="<%= currentPath.startsWith('/admin/products') ? 'active' : '' %>">Products</a>
+      <a href="/admin/orders" class="<%= currentPath.startsWith('/admin/orders') ? 'active' : '' %>">Orders</a>
+
+      <span class="nav-label">System</span>
+      <a href="/admin/settings" class="<%= currentPath.startsWith('/admin/settings') ? 'active' : '' %>">Settings</a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <span class="small muted"><%= user.full_name %></span>
+      <a href="/logout" class="small">Log out</a>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <%- body %>
+  </main>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<section class="narrow card">
+  <h1>Create your account</h1>
+
+  <% if (error) { %><div class="alert"><%= error %></div><% } %>
+
+  <form method="post" action="/signup">
+    <label>Full name
+      <input type="text" name="full_name" required value="<%= values.full_name || '' %>">
+    </label>
+    <label>Email
+      <input type="email" name="email" required value="<%= values.email || '' %>">
+    </label>
+    <label>Password
+      <input type="password" name="password" required minlength="8">
+    </label>
+    <label>Confirm password
+      <input type="password" name="confirm_password" required minlength="8">
+    </label>
+    <button type="submit" class="btn btn-block">Create account</button>
+  </form>
+
+  <div class="divider"><span>or</span></div>
+  <a href="/auth/google" class="btn btn-ghost btn-block">Continue with Google</a>
+
+  <p class="small center">Already have an account? <a href="/login">Log in</a></p>
+</section>

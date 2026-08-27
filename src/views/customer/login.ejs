@@ -1,0 +1,25 @@
+<section class="narrow card">
+  <h1>Welcome back</h1>
+  <p class="muted">Sign in to your KV Artchives account.</p>
+
+  <% if (error) { %><div class="alert"><%= error %></div><% } %>
+
+  <form method="post" action="/login">
+    <input type="hidden" name="next" value="<%= next %>">
+    <label>Email
+      <input type="email" name="email" required autocomplete="email">
+    </label>
+    <label>Password
+      <input type="password" name="password" required autocomplete="current-password">
+    </label>
+    <div class="row-between">
+      <a href="/forgot-password" class="small">Forgot password?</a>
+    </div>
+    <button type="submit" class="btn btn-block">Log in</button>
+  </form>
+
+  <div class="divider"><span>or</span></div>
+  <a href="/auth/google" class="btn btn-ghost btn-block">Continue with Google</a>
+
+  <p class="small center">No account yet? <a href="/signup">Create one</a></p>
+</section>

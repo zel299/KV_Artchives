@@ -1,0 +1,18 @@
+<header class="site-header">
+  <div class="container nav-inner">
+    <a href="/" class="brand">KV Artchives</a>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/shop">Shop</a>
+      <a href="/contact">Contact</a>
+      <% if (user) { %>
+        <a href="/orders">My Orders</a>
+        <a href="/cart">Cart</a>
+        <a href="/logout" class="muted"><%= user.full_name.split(' ')[0] %> · Log out</a>
+      <% } else { %>
+        <a href="/cart">Cart</a>
+        <a href="/login" class="btn btn-sm">Log in</a>
+      <% } %>
+    </nav>
+  </div>
+</header>
