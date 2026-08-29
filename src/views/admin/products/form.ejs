@@ -7,6 +7,7 @@
 
 <form method="post"
       action="<%= product ? '/admin/products/' + product.id : '/admin/products' %>"
+      enctype="multipart/form-data"
       class="panel form-narrow">
 
   <label>Product name
@@ -42,12 +43,13 @@
     <span class="small muted">Shows a badge on the product page. Does not affect stock.</span>
   </label>
 
+  <label>Product photos
+    <input type="file" name="images" accept="image/jpeg,image/png,image/webp" multiple>
+    <span class="small muted">Up to 5 images, 5 MB each. They are compressed automatically.</span>
+  </label>
+
   <div class="form-actions">
     <a href="/admin/products" class="btn btn-ghost">Cancel</a>
     <button type="submit" class="btn"><%= product ? 'Save changes' : 'Create product' %></button>
   </div>
 </form>
-
-<p class="small muted form-narrow">
-  Product photos are added in the next step of the build.
-</p>

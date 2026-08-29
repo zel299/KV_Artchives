@@ -1,5 +1,6 @@
 
 const { supabaseAdmin, supabaseAnon } = require('../config/supabase');
+const { productImageUrl } = require("../utils/imageUpload");
 
 /**
  * Product service
@@ -36,9 +37,10 @@ const LIST_COLUMNS = `
 function toPublicProduct(row) {
   if (!row) return null;
 
-  const images = (row.images || [])
+    const images = (row.images || [])
     .slice()
-    .sort((a, b) => a.sort_order - b.sort_order);
+    .sort((a, b) => a.sort_order - b.sort_order)
+    .map((img) => ({ ...img, url: productImageUrl(img.storage_path) }));
 
   return {
     id: row.id,
@@ -378,7 +380,7 @@ async function addImages(productId, paths) {
   
     let next = existing && existing.length ? existing[0].sort_order + 1 : 0;
 
-    const rows = paths.maps((path) => ({
+    const rows = paths.map((path) => ({
       product_id: productId,
       storage_path: path,
       sort_order: next++,

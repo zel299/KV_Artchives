@@ -1,0 +1,290 @@
+/* ============================================================
+   Admin portal styles
+   Sits on top of style.css. Plain and functional for now.
+   ============================================================ */
+
+body.admin {
+  display: flex;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--bg);
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+}
+
+.sidebar-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 20px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 14px 10px;
+}
+.sidebar-nav a {
+  padding: 8px 10px;
+  margin-bottom: 2px;
+  font-size: 0.9rem;
+  color: var(--ink);
+  text-decoration: none;
+  border-radius: 6px;
+}
+.sidebar-nav a:hover { background: #f3efec; }
+.sidebar-nav a.active {
+  background: #f6e8e7;
+  color: var(--accent-dark);
+  font-weight: 600;
+}
+.nav-label {
+  margin: 14px 10px 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.sidebar-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--line);
+}
+
+/* --- Main area --- */
+.admin-main {
+  flex: 1;
+  min-width: 0;
+  padding: 28px 32px 60px;
+}
+
+.page-head { margin-bottom: 22px; }
+.page-head h1 { margin: 4px 0 4px; font-size: 1.5rem; }
+.page-head p { margin: 0; }
+
+.row-between {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.head-actions { display: flex; gap: 8px; align-items: center; }
+
+/* --- Panels --- */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-bottom: 20px;
+}
+.panel h2 { margin-top: 0; font-size: 1.05rem; }
+.panel h3 { margin-top: 0; font-size: 0.95rem; }
+
+/* --- Stat cards --- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.stat-value { font-size: 1.5rem; font-weight: 700; }
+
+/* --- Filters --- */
+.filters {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.filters input[type="search"],
+.filters select {
+  width: auto;
+  margin-top: 0;
+  padding: 8px 10px;
+  font-size: 0.875rem;
+}
+.filters input[type="search"] { flex: 1; max-width: 300px; }
+
+/* --- Table --- */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.table th,
+.table td {
+  padding: 11px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+.table th {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: #faf7f5;
+}
+.table tbody tr:last-child td { border-bottom: none; }
+.table td a { color: var(--ink); text-decoration: none; font-weight: 500; }
+.table td a:hover { color: var(--accent); text-decoration: underline; }
+.table .num { text-align: right; }
+.table .actions { text-align: right; white-space: nowrap; }
+.table .actions a,
+.table .actions button { margin-left: 10px; }
+
+.mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+
+/* --- Badges --- */
+.badge {
+  display: inline-block;
+  padding: 2px 7px;
+  margin-left: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  background: #f0ebe7;
+  border-radius: 20px;
+  vertical-align: middle;
+}
+.badge-warn { color: #8a5a20; background: #fbf0dd; }
+
+/* --- Empty state --- */
+.empty {
+  padding: 44px 20px;
+  text-align: center;
+  color: var(--ink-soft);
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+}
+.empty p { margin: 0 0 14px; }
+
+/* --- Forms --- */
+.form-narrow { max-width: 560px; }
+.field-row { display: flex; gap: 14px; }
+.field-row label { flex: 1; }
+
+.checkbox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+.checkbox input { width: auto; margin: 0; }
+.checkbox .small { flex-basis: 100%; font-weight: 400; }
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* --- Detail list --- */
+.detail-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin: 0 0 18px;
+}
+.detail-list dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+.detail-list dd { margin: 3px 0 0; font-weight: 600; }
+
+/* --- Misc --- */
+.inline { display: inline; }
+.linkish {
+  padding: 0;
+  font: inherit;
+  color: var(--ink);
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.linkish:hover { color: var(--accent); }
+.linkish.danger { color: #a33; }
+
+.alert-ok {
+  color: #2c5c2c;
+  background: #eaf6e6;
+  border-color: #b8ddb0;
+}
+
+.danger-zone { border-color: #e8d6d6; }
+
+.pager { margin-top: 14px; align-items: center; }
+.pager a { padding: 3px 7px; color: var(--ink); text-decoration: none; }
+.pager a.current { font-weight: 700; color: var(--accent); }
+
+/* --- Mobile --- */
+@media (max-width: 720px) {
+  body.admin { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .sidebar-brand,
+  .sidebar-foot { display: none; }
+  .sidebar-nav { flex-direction: row; padding: 8px; }
+  .nav-label { display: none; }
+  .admin-main { padding: 18px 16px 40px; }
+  .field-row { flex-direction: column; gap: 0; }
+  .table { display: block; overflow-x: auto; }
+}
+
+/* --- Product image grid --- */
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.image-grid img {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  object-fit: cover;
+}

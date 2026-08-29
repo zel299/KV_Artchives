@@ -29,6 +29,19 @@
   <% } %>
 </section>
 
+<section class="panel">
+  <h3 class="small">Photos</h3>
+  <% if (product.images.length === 0) { %>
+    <p class="muted small">No photos yet. Add some from the edit form.</p>
+  <% } else { %>
+    <div class="image-grid">
+      <% product.images.forEach(function (img) { %>
+        <img src="<%= img.url %>" alt="<%= product.name %>" width="160">
+      <% }); %>
+    </div>
+  <% } %>
+</section>
+
 <section class="panel danger-zone">
   <h3>Manage</h3>
   <% if (product.isArchived) { %>

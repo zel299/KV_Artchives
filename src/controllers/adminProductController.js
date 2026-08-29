@@ -87,6 +87,8 @@ async function doCreate(req, res, next) {
       req.user.id
     );
 
+    await handleImages(req.files, id);
+
     res.redirect(`/admin/products/${id}?msg=Product+created`);
   } catch (err) {
     next(err);
@@ -183,6 +185,8 @@ async function doEdit(req, res, next) {
       });
     }
 
+    await handleImages(req.files, id);
+
     res.redirect(`/admin/products/${id}?msg=Changes+saved`);
   } catch (err) {
     next(err);
@@ -262,7 +266,7 @@ async function handleImages(files, productId) {
   const paths = [];
   for (const file of files) {
     const path = await uploadProductImage(file.buffer);
-    path.push(path);
+    paths.push(path);
   }
 
   await productService.addImages(productId, paths);
@@ -278,5 +282,4 @@ module.exports = {
   doArchive,
   doRestore,
   doDelete,
-  handleImages
 };
