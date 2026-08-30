@@ -1,18 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><%= typeof title !== 'undefined' ? title : 'KV Artchives' %></title>
-  <link rel="stylesheet" href="/css/style.css">
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title><%= title || 'KV Artchives' %></title>
+
+    <!-- GOOGLE FONTS -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@600&family=Albert+Sans:wght@400;500;600;700&family=Averia+Serif+Libre:wght@300;400;700&family=Bebas+Neue&family=Berkshire+Swash&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+>
+    >
+
+    <!-- HOMEPAGE CSS -->
+    <link
+        rel="stylesheet"
+        href="/css/homepage.css"
+    >
+
 </head>
+
 <body>
-  <%- include('../partials/nav') %>
-  <main class="container">
-    <%- body %>
-  </main>
-  <footer class="site-footer">
-    <p>&copy; <%= new Date().getFullYear() %> KV Artchives</p>
-  </footer>
+
+    <!-- NAVBAR -->
+    <%- include('../partials/nav') %>
+
+    <!-- PAGE CONTENT -->
+    <main>
+        <%- body %>
+    </main>
+
+    <!-- FOOTER -->
+    <%- include('../partials/footer') %>
+
 </body>
+
 </html>
