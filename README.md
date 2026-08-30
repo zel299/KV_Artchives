@@ -1,4 +1,4 @@
-# KV Artchives — Web-Based Digital Storefront with Ordering System
+# KV Artchives — Web-Based Digital Storefront with Ordering System for KV Artchives
 
 A web-based storefront and ordering system built for KV Artchives, a small
 handmade clay business that currently takes all of its orders through
@@ -8,7 +8,7 @@ The system replaces that manual process with a proper catalog, cart, and
 checkout flow, and gives the shop owner an admin portal to manage products,
 confirm payments, and track orders from placement through to delivery.
 
-Capstone project for BS Information Technology.
+CC106 Project
 
 ---
 
@@ -22,7 +22,7 @@ Capstone project for BS Information Technology.
 | Bernardo, Ruzzel M. | Project Manager · Developer/Database |
 | Carmen, Paul Genesis L. | Developer |
 | Cuntapay, Karla S. | Research/Documents |
-| Ileto, Kyle Sonrey G. | Research/Documents |
+| Ileto, Kyle Sonrey G. | UI/UX |
 | Pascual, Kit Eriana Arvee B. | UI/UX · Developer |
 | Reyes, Tristan John Nicolas R. | Research/Documents |
 
