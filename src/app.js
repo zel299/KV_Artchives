@@ -56,17 +56,12 @@ app.get('/health', (req, res) => {
     });
 });
 
-/* =========================
-   ROUTES
-========================= */
 
 app.use('/', require('./routes/auth'));
 
 app.use('/admin', require('./routes/admin'));
 
-/* =========================
-   HOME PAGE
-========================= */
+
 
 app.get('/', (req, res) => {
     res.render('customer/home', {
@@ -74,9 +69,6 @@ app.get('/', (req, res) => {
     });
 });
 
-/* =========================
-   404 PAGE
-========================= */
 
 app.use((req, res) => {
     res.status(404).render('customer/error', {
@@ -86,9 +78,7 @@ app.use((req, res) => {
     });
 });
 
-/* =========================
-   ERROR HANDLER
-========================= */
+
 
 app.use((err, req, res, next) => {
     console.error('[error]', err);
