@@ -25,18 +25,17 @@
 
         </div>
 
-
         <div class="hero-image">
+            <div class="hero-bg"></div>
 
-            <img
-                src="/img/hero.jpg"
-                alt="KV Artchives handmade clay creations"
-            >
+            <img src="/css/images/hero-image.png" 
+            alt="KV Artchives"
+            class="main-image">
 
-            <div class="hero-badge">
-                KV Artchives
-            </div>
-
+            <div class="small-image">
+            <img src="/css/images/small-hero-image.png" 
+                alt="KV Artchives creation">
+                </div>
         </div>
 
     </div>
@@ -44,104 +43,70 @@
 </section>
 
 <section class="shop-section">
-
     <div class="container">
-
         <div class="section-heading">
-
             <span>OUR SHOP</span>
-
             <h2>
                 Made by Hand, Made for You
             </h2>
-
         </div>
 
-
         <div class="product-grid">
-
             <% products.forEach(function (product) { %>
                 <%- include('../partials/product-card', { product }) %>
             <% }); %>
-
         </div>
-
 
         <div class="center-btn">
-
             <a href="/shop" class="btn see-more">See More Creations →</a>
-
         </div>
-
     </div>
-
 </section>
 
 <section class="story-section">
-
     <div class="container story-grid">
-
         <div class="story-image">
-
-            <img
-                src="/img/story.jpg"
-                alt="KV Artchives story"
-            >
-
+            <img src="/css/images/our-story-image.png" 
+                 alt="KV Artchives story" >
         </div>
 
-
         <div class="story-content">
-
             <span class="eyebrow">
                 Our Story
             </span>
-
             <h2>
                 Small Creations,
                 <br>
                 Big Stories.
             </h2>
-
             <p>
                 Every piece at KV Artchives starts as a simple
                 block of clay and is meticulously shaped,
-                baked, and painted by hand.
+                baked, and painted by hand. We believe in bringing 
+                a little bit of magic into everyday objects.
             </p>
-
             <a href="/about" class="text-link">Read Our Story →</a>
-
         </div>
-
     </div>
-
 </section>
 
 <section class="commission-section">
-
     <div class="container commission-grid">
-
         <div class="commission-image">
-
+            <div class="commission-bg"></div>
             <img
-                src="/img/commission.jpg"
-                alt="Custom handmade commissions"
-            >
-
+                src="/css/images/commission-hl-image.png" 
+                alt="KV Artchives Commission" >
         </div>
 
-
         <div class="commission-content">
-
             <span class="section-label">
                 COMMISSION HIGHLIGHT
             </span>
-
             <h2>
                 Your Vision,
                 <span>Hand-Sculpted.</span>
             </h2>
-
             <p>
                 Our custom process is a collaborative journey.
                 From initial sketches to the final glaze,
@@ -149,49 +114,31 @@
                 favorite memories and ideas in clay.
             </p>
 
-
             <div class="steps">
-
                 <div class="step">
-
                     <span>1</span>
-
                     <p>
                         Message us on Instagram or Facebook
                         with your idea and reference photos.
                     </p>
-
                 </div>
 
-
                 <div class="step">
-
                     <span>2</span>
-
                     <p>
                         We sculpt and share progress updates.
                     </p>
-
                 </div>
 
-
                 <div class="step">
-
                     <span>3</span>
-
                     <p>
                         Baked, painted, and shipped to your door.
                     </p>
-
                 </div>
-
+                
             </div>
-
-
             <a href="https://www.instagram.com/kv.artchives" target="_blank" rel="noopener" class="btn btn-primary commission-btn">✧ Start Your Custom Journey</a>
-
         </div>
-
     </div>
-
 </section>
