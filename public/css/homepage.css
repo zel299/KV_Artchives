@@ -40,12 +40,9 @@ a {
     position: absolute;
     width: 450px;
     height: 485px;
-
     background: #F38383;
     opacity: 0.2;
-
     border-radius: 42% 58% 52% 48% / 55% 48% 52% 45%;
-
     z-index: 1;
 }
 
@@ -93,10 +90,8 @@ a {
     background: #fff0f0;
     border-top: 4px solid var(--soft-pink);
     border-bottom: 1px solid #eadada;
-
     display: flex;
     align-items: center;
-
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -112,9 +107,7 @@ a {
     display: flex;
     align-items: center;
     gap: 10px;
-
     color: #e75353;
-
     font-family: "Berkshire Swash", cursive;
     font-weight: 300;
     font-size: 18px;

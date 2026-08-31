@@ -1,25 +1,145 @@
-<section class="narrow card">
-  <h1>Welcome back</h1>
-  <p class="muted">Sign in to your KV Artchives account.</p>
+<!DOCTYPE html>
 
-  <% if (error) { %><div class="alert"><%= error %></div><% } %>
+<html lang="en">
 
-  <form method="post" action="/login">
-    <input type="hidden" name="next" value="<%= next %>">
-    <label>Email
-      <input type="email" name="email" required autocomplete="email">
-    </label>
-    <label>Password
-      <input type="password" name="password" required autocomplete="current-password">
-    </label>
-    <div class="row-between">
-      <a href="/forgot-password" class="small">Forgot password?</a>
-    </div>
-    <button type="submit" class="btn btn-block">Log in</button>
-  </form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | KV Artchives</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@600&family=Albert+Sans:wght@400;500;600;700&family=Averia+Serif+Libre:wght@300;400;700&family=Bebas+Neue&family=Berkshire+Swash&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
-  <div class="divider"><span>or</span></div>
-  <a href="/auth/google" class="btn btn-ghost btn-block">Continue with Google</a>
+</head>
 
-  <p class="small center">No account yet? <a href="/signup">Create one</a></p>
-</section>
+<body>
+    <main class="login-page">
+        <a href="/" class="back-home">
+            <span class="back-arrow">←</span>
+            <span>BACK TO HOME</span>
+        </a>
+
+        <section class="login-card">
+            <div class="login-brand">
+                <div class="brand-logo">
+                    KV
+                </div>
+                <h2>KV Artchives</h2>
+            </div>
+
+            <h1>Welcome Back!</h1>
+            <p class="login-subtitle">
+                Sign in to your KV Artchives account to continue.
+            </p>
+
+
+            <% if (error) { %>
+                <div class="error-message">
+                    <%= error %>
+                </div>
+            <% } %>
+
+            <form
+                class="login-form"
+                method="POST"
+                action="/login"
+            >
+                <input
+                    type="hidden"
+                    name="next"
+                    value="<%= next %>"
+                >
+
+                <div class="form-group">
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <div class="password-header">
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <a href="/forgot-password">
+                            Forgot Password?
+                        </a>
+                    </div>
+
+
+                    <div class="password-wrapper">
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            id="togglePassword"
+                            aria-label="Show password"
+                        >
+                            👁
+                        </button>
+                    </div>
+                </div>
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                >
+                    LOG IN
+                </button>
+            </form>
+
+            <div class="divider">
+                <span></span>
+                <p>OR</p>
+                <span></span>
+            </div>
+
+            <a href="/auth/google" class="google-btn">
+                <img
+                    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                    alt="Google"
+                    class="google-icon"
+                >
+                <span>Continue with Google</span>
+            </a>
+            <p class="create-account">
+                Don't have a customer account yet?
+                <a href="/signup">
+                    Create an Account
+                </a>
+            </p>
+        </section>
+    </main>
+
+    <script>
+        const passwordInput = document.getElementById("password");
+        const togglePassword = document.getElementById("togglePassword");
+        togglePassword.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                togglePassword.textContent = "🙈";
+            } else {
+                passwordInput.type = "password";
+                togglePassword.textContent = "👁";
+            }
+        });
+    </script>
+</body>
+
+</html>
