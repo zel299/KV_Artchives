@@ -1,26 +1,243 @@
-<section class="narrow card">
-  <h1>Create your account</h1>
+<!DOCTYPE html>
 
-  <% if (error) { %><div class="alert"><%= error %></div><% } %>
+<html lang="en">
 
-  <form method="post" action="/signup">
-    <label>Full name
-      <input type="text" name="full_name" required value="<%= values.full_name || '' %>">
-    </label>
-    <label>Email
-      <input type="email" name="email" required value="<%= values.email || '' %>">
-    </label>
-    <label>Password
-      <input type="password" name="password" required minlength="8">
-    </label>
-    <label>Confirm password
-      <input type="password" name="confirm_password" required minlength="8">
-    </label>
-    <button type="submit" class="btn btn-block">Create account</button>
-  </form>
+<head>
 
-  <div class="divider"><span>or</span></div>
-  <a href="/auth/google" class="btn btn-ghost btn-block">Continue with Google</a>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | KV Artchives</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700&family=Berkshire+Swash&family=Inter:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="/css/signup.css">
 
-  <p class="small center">Already have an account? <a href="/login">Log in</a></p>
-</section>
+</head>
+
+
+<body>
+    <main class="signup-page">
+        <a href="/" class="back-home">
+            <span class="back-arrow">←</span>
+            <span>Back</span>
+        </a>
+
+        <section class="signup-card">
+            <div class="signup-brand">
+                <h2>KV Artchives</h2>
+            </div>
+
+            <h1>Create Your Account</h1>
+            <p class="signup-subtitle">
+                Start your collection today.
+            </p>
+
+            <% if (error) { %>
+                <div class="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+
+
+            <form
+                method="POST"
+                action="/signup"
+                class="signup-form"
+            >
+                <div class="form-group">
+                    <label for="full_name">
+                        Full Name
+                    </label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">
+                            👤
+                        </span>
+                        <input
+                            type="text"
+                            id="full_name"
+                            name="full_name"
+                            placeholder="Enter your name"
+                            required
+                            value="<%= values.full_name || '' %>"
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        Email
+                    </label>
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ✉️
+                        </span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                            value="<%= values.email || '' %>"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="password-row">
+                    <div class="form-group">
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper password-wrapper">
+
+                            <span class="input-icon">
+                                🔒
+                            </span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter password"
+                                required
+                                minlength="8"
+                            >
+
+                            <button
+                                type="button"
+                                class="toggle-password"
+                                id="togglePassword"
+                                aria-label="Show password"
+                            >
+                                👁
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm_password">
+                            Confirm Password
+                        </label>
+                        <div class="input-wrapper password-wrapper">
+                            <span class="input-icon">
+                                🔐
+                            </span>
+
+                            <input
+                                type="password"
+                                id="confirm_password"
+                                name="confirm_password"
+                                placeholder="Confirm password"
+                                required
+                                minlength="8"
+                            >
+
+                            <button
+                                type="button"
+                                class="toggle-password"
+                                id="toggleConfirmPassword"
+                                aria-label="Show password"
+                            >
+                                👁
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <label class="terms">
+                    <input
+                        type="checkbox"
+                        required
+                    >
+                    <span>
+                        I agree to the
+                        <a href="#">Terms and Conditions</a>
+                        and
+                        <a href="#">Privacy Policy</a>.
+                    </span>
+                </label>
+
+                <button
+                    type="submit"
+                    class="signup-btn"
+                >
+                    CREATE ACCOUNT
+                </button>
+
+            </form>
+
+            <p class="login-link">
+                Already have an account?
+                <a href="/login">
+                    Log In
+                </a>
+            </p>
+
+        </section>
+    </main>
+
+    <script>
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const confirmPasswordInput =
+            document.getElementById("confirm_password");
+
+
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+        const toggleConfirmPassword =
+            document.getElementById("toggleConfirmPassword");
+
+
+        togglePassword.addEventListener("click", function () {
+
+            if (passwordInput.type === "password") {
+
+                passwordInput.type = "text";
+
+                togglePassword.textContent = "🙈";
+
+            } else {
+
+                passwordInput.type = "password";
+
+                togglePassword.textContent = "👁";
+
+            }
+
+        });
+
+
+        toggleConfirmPassword.addEventListener("click", function () {
+
+            if (confirmPasswordInput.type === "password") {
+
+                confirmPasswordInput.type = "text";
+
+                toggleConfirmPassword.textContent = "🙈";
+
+            } else {
+
+                confirmPasswordInput.type = "password";
+
+                toggleConfirmPassword.textContent = "👁";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

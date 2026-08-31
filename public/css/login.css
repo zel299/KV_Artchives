@@ -128,15 +128,11 @@ body {
     outline: none;
     font-family: "Inter", sans-serif;
     font-size: 11px;
-    color: #5a3824;
+    color: #000;
 }
 
 .form-group input::placeholder {
     color: #aaa;
-}
-
-.form-group input:focus {
-    border-color: #ffa7a7;
 }
 
 .password-header {
