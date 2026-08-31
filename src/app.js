@@ -61,13 +61,7 @@ app.use('/', require('./routes/auth'));
 
 app.use('/admin', require('./routes/admin'));
 
-
-
-app.get('/', (req, res) => {
-    res.render('customer/home', {
-        title: 'KV Artchives'
-    });
-});
+app.use("/", require("./routes/customer"));
 
 
 app.use((req, res) => {

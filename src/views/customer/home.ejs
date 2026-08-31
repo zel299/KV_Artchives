@@ -21,12 +21,7 @@
                 Discover something that brightens your day.
             </p>
 
-            <a
-                href="/commissions"
-                class="btn btn-primary"
-            >
-                Commission a Piece
-            </a>
+            <a href="https://www.instagram.com/kv.artchives" target="_blank" rel="noopener" class="btn btn-primary">Commission a Piece</a>
 
         </div>
 
@@ -34,7 +29,7 @@
         <div class="hero-image">
 
             <img
-                src="/images/hero.jpg"
+                src="/img/hero.jpg"
                 alt="KV Artchives handmade clay creations"
             >
 
@@ -65,125 +60,16 @@
 
         <div class="product-grid">
 
-
-            <article class="product-card">
-
-                <img
-                    src="/images/egg.jpg"
-                    alt="Sunny Egg Ref Magnet"
-                >
-
-                <div class="product-info">
-
-                    <div class="product-title">
-
-                        <h3>
-                            Sunny Egg Ref Magnet
-                        </h3>
-
-                        <span>₱120</span>
-
-                    </div>
-
-                    <p>
-                        A tiny handmade piece designed
-                        to add a playful touch to your space.
-                    </p>
-
-                    <a
-                        href="/shop"
-                        class="btn btn-outline"
-                    >
-                        View Details
-                    </a>
-
-                </div>
-
-            </article>
-
-
-            <article class="product-card">
-
-                <img
-                    src="/images/dish.jpg"
-                    alt="Pastel Treat Dish"
-                >
-
-                <div class="product-info">
-
-                    <div class="product-title">
-
-                        <h3>
-                            Pastel Treat Dish
-                        </h3>
-
-                        <span>₱95</span>
-
-                    </div>
-
-                    <p>
-                        A charming little piece made
-                        to brighten up your everyday corner.
-                    </p>
-
-                    <a
-                        href="/shop"
-                        class="btn btn-outline"
-                    >
-                        View Details
-                    </a>
-
-                </div>
-
-            </article>
-
-
-            <article class="product-card">
-
-                <img
-                    src="/images/cake.jpg"
-                    alt="Strawberry Cream Cake"
-                >
-
-                <div class="product-info">
-
-                    <div class="product-title">
-
-                        <h3>
-                            Strawberry Cream Cake
-                        </h3>
-
-                        <span>₱85</span>
-
-                    </div>
-
-                    <p>
-                        A delightful handmade piece inspired
-                        by sweet and cozy moments.
-                    </p>
-
-                    <a
-                        href="/shop"
-                        class="btn btn-outline"
-                    >
-                        View Details
-                    </a>
-
-                </div>
-
-            </article>
+            <% products.forEach(function (product) { %>
+                <%- include('../partials/product-card', { product }) %>
+            <% }); %>
 
         </div>
 
 
         <div class="center-btn">
 
-            <a
-                href="/shop"
-                class="btn see-more"
-            >
-                See More Creations →
-            </a>
+            <a href="/shop" class="btn see-more">See More Creations →</a>
 
         </div>
 
@@ -198,7 +84,7 @@
         <div class="story-image">
 
             <img
-                src="/images/story.jpg"
+                src="/img/story.jpg"
                 alt="KV Artchives story"
             >
 
@@ -223,12 +109,7 @@
                 baked, and painted by hand.
             </p>
 
-            <a
-                href="/about"
-                class="text-link"
-            >
-                Read Our Story →
-            </a>
+            <a href="/about" class="text-link">Read Our Story →</a>
 
         </div>
 
@@ -243,7 +124,7 @@
         <div class="commission-image">
 
             <img
-                src="/images/commission.jpg"
+                src="/img/commission.jpg"
                 alt="Custom handmade commissions"
             >
 
@@ -276,7 +157,8 @@
                     <span>1</span>
 
                     <p>
-                        Share your idea and reference photos.
+                        Message us on Instagram or Facebook
+                        with your idea and reference photos.
                     </p>
 
                 </div>
@@ -306,12 +188,7 @@
             </div>
 
 
-            <a
-                href="/commissions"
-                class="btn btn-primary commission-btn"
-            >
-                ✧ Start Your Custom Journey
-            </a>
+            <a href="https://www.instagram.com/kv.artchives" target="_blank" rel="noopener" class="btn btn-primary commission-btn">✧ Start Your Custom Journey</a>
 
         </div>
 

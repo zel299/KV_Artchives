@@ -1,0 +1,24 @@
+
+<article class="product-card">
+
+    <img
+        src="<%= product.primaryImage ? product.primaryImage.url : '/img/placeholder.png' %>"
+        alt="<%= product.name %>"
+    >
+
+    <div class="product-info">
+
+        <div class="product-title">
+            <h3><%= product.name %></h3>
+            <span><%= formatPeso(product.price) %></span>
+        </div>
+
+        <p><%= product.description %></p>
+
+        <a href="/products/<%= product.id %>" class="btn btn-outline">
+            View Details
+        </a>
+
+    </div>
+
+</article>
