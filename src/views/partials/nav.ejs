@@ -1,95 +1,65 @@
 <header class="site-header">
 
     <div class="container nav-inner">
-
         <a href="/" class="brand">
-
             <div class="brand-logo">
                 KV
             </div>
-
             <span>KV Artchives</span>
-
         </a>
 
-
         <nav class="nav-links">
-
             <a
                 href="/"
                 class="<%= currentPath === '/' ? 'active' : '' %>"
             >
                 HOME
             </a>
-
             <a href="/about">
                 ABOUT
             </a>
-
             <a href="/gallery">
                 GALLERY
             </a>
-
             <a href="/shop">
                 SHOP
             </a>
-
             <a href="/commissions">
                 COMMISSIONS
             </a>
 
         </nav>
-
-
         <div class="nav-actions">
-
             <% if (user) { %>
-
                 <a href="/account">
-
                     <%= user.full_name
                         ? user.full_name.split(' ')[0]
                         : 'ACCOUNT'
                     %>
-
                 </a>
-
             <% } else { %>
-
                 <a href="/login">
                     LOG IN
                 </a>
-
             <% } %>
-
-
             <a href="/cart" class="cart-btn" aria-label="Shopping Cart">
                 <svg viewBox="0 0 120 120" aria-hidden="true">
-
-
                     <path
                         d="M12 12 H30 L48 65"
                         class="cart-line"
                     />
-
                     <path
                         d="M30 28 H108 L84 65 H48"
                         class="cart-basket"
                     />
-
                     <path
                         d="M48 65 L38 88 H98"
                         class="cart-bottom"
                     />
-
                     <circle cx="50" cy="105" r="10" />
                     <circle cx="88" cy="105" r="10" />
-
                 </svg>
             </a>
-
         </div>
-
     </div>
-
 </header>
