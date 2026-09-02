@@ -1,0 +1,282 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+}
+
+.login-page {
+    min-height: 100vh;
+    background: #ffa7a733;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    padding: 40px;
+}
+
+.back-home {
+    position: absolute;
+    top: 40px;
+    left: 70px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Inter", sans-serif;
+    color: #e75353;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.back-arrow {
+    font-size: 20px;
+    line-height: 1;
+    position: relative;
+    top: -2px;
+}
+
+.login-card {
+    width: 450px;
+    background: #ffffff;
+    padding: 30px 38px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 40px #ffa7a733;
+}
+
+.login-brand {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.brand-logo {
+    width: 42px;
+    height: 42px;
+
+    margin: 0 auto;
+
+    border: 1px solid #e06a6a;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #d95b5b;
+
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 17px;
+}
+
+.login-brand h2 {
+    margin-top: 6px;
+    font-family: "Berkshire Swash", cursive;
+    font-weight: 400;
+    font-size: 18px;
+    color: #e75353;
+}
+
+.login-card h1 {
+    font-family: "Abhaya Libre", serif;
+    font-size: 28px;
+    color: #5e2e00;
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+.login-subtitle {
+    font-size: 10px;
+    color: #5e2e00;
+    margin-top: 10px;
+    margin-bottom: 22px;
+    font-family: "Inter", sans-serif;
+    font-weight: 200;
+}
+
+.login-form {
+    width: 100%;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 10px;
+    font-family: "Inter", sans-serif;
+    color: #5e2e00;
+    margin-bottom: 7px;
+}
+
+.form-group input {
+    width: 100%;
+    height: 42px;
+    padding: 0 14px;
+    border: 1px solid #e6cccc;
+    border-radius: 8px;
+    background: transparent;
+    outline: none;
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    color: #000;
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+.password-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.password-header a {
+    text-decoration: none;
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    color: #AD292E;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 45px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+.login-btn {
+    width: 100%;
+    height: 42px;
+    margin-top: 3px;
+    border: none;
+    border-radius: 25px;
+    background: #e75353;
+    color: white;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.divider span {
+    flex: 1;
+    height: 1px;
+    background: #e5cccc;
+}
+
+.divider p {
+    font-family: "Inter", sans-serif;
+    font-size: 9px;
+    color: #59413F;
+    letter-spacing: 1px;
+}
+
+.google-btn {
+    width: 100%;
+    height: 42px;
+    border: 1px solid #e5cccc;
+    border-radius: 25px;
+    background: transparent;
+    color: #5e2e00;
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.google-btn:hover {
+    background: rgba(243, 131, 131, 0.08);
+}
+
+.google-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+}
+
+.create-account {
+    margin-top: 25px;
+    font-size: 10px;
+    font-family: "Inter", sans-serif;
+    color: #5e2e00;
+}
+
+.create-account a {
+    text-decoration: none;
+    color: #AD292E;
+    font-family: "Inter", sans-serif;
+}
+
+.create-account a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    margin-bottom: 15px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #ffe5e5;
+    color: #AD292E;
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    text-align: left;
+}
+
+@media (max-width: 600px) {
+
+    .login-page {
+        padding: 20px;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 420px;
+
+        padding: 30px 25px;
+    }
+
+    .back-home {
+        top: 20px;
+        left: 20px;
+    }
+
+}
