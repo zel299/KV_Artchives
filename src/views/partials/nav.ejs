@@ -15,28 +15,15 @@
 
         <nav class="nav-links">
 
-            <a
-                href="/"
-                class="<%= currentPath === '/' ? 'active' : '' %>"
-            >
-                HOME
-            </a>
+            <a href="/" class="<%= currentPath === '/' ? 'active' : '' %>">HOME</a>
 
-            <a href="/about">
-                ABOUT
-            </a>
+            <a href="/about" class="<%= currentPath === '/about' ? 'active' : '' %>">ABOUT</a>
 
-            <a href="/gallery">
-                GALLERY
-            </a>
+            <a href="/gallery" class="<%= currentPath === '/gallery' ? 'active' : '' %>">GALLERY</a>
 
-            <a href="/shop">
-                SHOP
-            </a>
+            <a href="/shop" class="<%= currentPath.startsWith('/shop') || currentPath.startsWith('/products') ? 'active' : '' %>">SHOP</a>
 
-            <a href="/commissions">
-                COMMISSIONS
-            </a>
+            <a href="/commissions" class="<%= currentPath === '/commissions' ? 'active' : '' %>">COMMISSIONS</a>
 
         </nav>
 
@@ -45,20 +32,11 @@
 
             <% if (user) { %>
 
-                <a href="/account">
-
-                    <%= user.full_name
-                        ? user.full_name.split(' ')[0]
-                        : 'ACCOUNT'
-                    %>
-
-                </a>
+                <a href="/account" class="account-link"><%= user.full_name && user.full_name.includes(" ") ? user.full_name.split(" ")[0] : "ACCOUNT" %></a>
 
             <% } else { %>
 
-                <a href="/login">
-                    LOG IN
-                </a>
+                <a href="/login">LOG IN</a>
 
             <% } %>
 

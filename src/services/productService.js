@@ -84,7 +84,7 @@ async function listAvailable({ search, categoryId, page = 1, perPage = 12 } = {}
 
   let query = supabaseAnon
     .from('products')
-    .select(LIST_COLUMNS, { count: 'exact' })
+    .select(`${LIST_COLUMNS}, description`, { count: 'exact' })
     .eq('is_archived', false);
 
   if (search) query = query.ilike('name', `%${search}%`);

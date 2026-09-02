@@ -12,6 +12,7 @@ function baseUrl(req) {
 function showLogin(req, res) {
   res.render('customer/login', {
     title: 'Log in',
+    layout: false,
     error: null,
     next: req.query.next || '',
   });
@@ -24,6 +25,7 @@ async function doLogin(req, res) {
   if (!email || !password) {
     return res.status(400).render('customer/login', {
       title: 'Log in',
+      layout: false,
       error: 'Enter your email and password.',
       next: nextUrl,
     });
@@ -38,6 +40,7 @@ async function doLogin(req, res) {
     // Deliberately vague: do not reveal whether the email exists.
     return res.status(401).render('customer/login', {
       title: 'Log in',
+      layout: false,
       error: 'That email and password do not match.',
       next: nextUrl,
     });
@@ -55,7 +58,12 @@ async function doLogin(req, res) {
 // ---------------------------------------------------------------
 
 function showSignup(req, res) {
-  res.render('customer/signup', { title: 'Create account', error: null, values: {} });
+  res.render('customer/signup', {
+    title: 'Create account',
+    layout: false,
+    error: null,
+    values: {},
+  });
 }
 
 async function doSignup(req, res) {
@@ -65,6 +73,7 @@ async function doSignup(req, res) {
   const fail = (msg, status = 400) =>
     res.status(status).render('customer/signup', {
       title: 'Create account',
+      layout: false,
       error: msg,
       values,
     });
