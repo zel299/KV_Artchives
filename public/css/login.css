@@ -22,8 +22,8 @@ body {
 
 .back-home {
     position: absolute;
-    top: 40px;
-    left: 70px;
+    top: 30px;
+    left: 35px;
     display: flex;
     align-items: center;
     gap: 8px;
