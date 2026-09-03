@@ -9,5 +9,6 @@ router.get("/about", ctrl.about);
 
 router.get("/gallery", ctrl.gallery);
 
+router.get("/commissions", ctrl.commissions);
 
 module.exports = router;

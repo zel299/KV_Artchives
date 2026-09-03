@@ -34,5 +34,11 @@ function gallery(req, res) {
 
 }
 
+function commissions(req, res) {
+  res.render("customer/commissions", {
+    title: "Commissions | KV Artchives"
+  });
+}
 
-module.exports = { home, about, gallery };
+
+module.exports = { home, about, gallery, commissions };
