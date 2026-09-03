@@ -30,6 +30,7 @@ body {
     font-family: "Inter", sans-serif;
     color: #e75353;
     font-size: 12px;
+    text-decoration: none;
     letter-spacing: 2px;
 }
 
@@ -37,7 +38,7 @@ body {
     font-size: 20px;
     line-height: 1;
     position: relative;
-    top: -2px;
+    top: -1px;
 }
 
 .login-card {
