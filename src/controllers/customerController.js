@@ -14,4 +14,31 @@ async function home(req, res, next) {
   }
 }
 
-module.exports = { home };
+function about(req, res) {
+
+  res.render("customer/about", {
+
+    title: "About | KV Artchives"
+
+  });
+
+}
+
+function gallery(req, res) {
+
+  res.render("customer/gallery", {
+
+    title: "Gallery | KV Artchives"
+
+  });
+
+}
+
+function commissions(req, res) {
+  res.render("customer/commissions", {
+    title: "Commissions | KV Artchives"
+  });
+}
+
+
+module.exports = { home, about, gallery, commissions };
