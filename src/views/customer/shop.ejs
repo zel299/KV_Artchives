@@ -1,0 +1,58 @@
+
+<section class="shop-page">
+
+    <div class="container">
+
+        <div class="section-heading">
+            <span>OUR SHOP</span>
+            <h2>Every Piece, Made by Hand</h2>
+        </div>
+
+        <form method="get" action="/shop" class="shop-filters">
+
+            <input
+                type="search"
+                name="q"
+                value="<%= search %>"
+                placeholder="Search creations..."
+            >
+
+            <select name="category">
+                <option value="">All categories</option>
+                <% categories.forEach(function (c) { %>
+                <option value="<%= c.id %>" <%= String(categoryId) === String(c.id) ? "selected" : "" %>><%= c.name %></option>
+            <% }); %>
+            </select>
+
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <% if (products.length === 0) { %>
+        
+            <p class="shop-empty"> No pieces found. Try a different search.</p>
+        <% } else { %>
+
+            <div class="product-grid">
+                <% products.forEach(function (product) { %>
+                    <%- include('../partials/product-card', { product }) %>
+                <% }); %>
+            </div>
+        
+            <% } %>
+
+            <% if (totalPages > 1) {
+
+                <nav class="pagination">
+
+                    <% for (let i = 1; i <= totalPages; i++) { %>
+                    
+                        href="/shop?page=<%= i %><= search ? '&q=" + encodeURIComponent(search) : '' %><%= categoryId ? '&category=' + categoryId : '' %>"
+                        class="<%= i === page ? 'active' : '' %>"
+                    ><%= i %></a>
+                <% } %>
+                </nav>
+                
+            <% } %>
+    </div>
+
+</section>

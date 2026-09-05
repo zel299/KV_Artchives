@@ -1,0 +1,129 @@
+.shop-page {
+    padding: 60px 0 90px;
+}
+
+.shop-filters {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    margin-bottom: 45px;
+}
+
+.shop-filters input,
+.shop-filters select {
+    height: 48px;
+    padding: 0 22px;
+
+    border: 1px solid #f0b7b4;
+    border-radius: 30px;
+
+    background: #fffafa;
+    color: var(--brown);
+
+    font-family: "Albert Sans", sans-serif;
+    font-size: 14px;
+
+    transition: 0.25s;
+}
+
+.shop-filters input {
+    min-width: 260px;
+}
+
+.shop-filters input::placeholder {
+    color: #b89b86;
+}
+
+.shop-filters input:focus,
+.shop-filters select:focus {
+    outline: none;
+    border-color: var(--dark-pink);
+    box-shadow: 0 0 0 3px rgba(231, 83, 83, 0.12);
+}
+
+.shop-filters select {
+    appearance: none;
+    -webkit-appearance: none;
+
+    padding-right: 46px;
+    cursor: pointer;
+
+    background-image:
+        url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23e75353' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+}
+
+.shop-filters select:hover {
+    border-color: var(--light-pink);
+}
+
+.shop-filters .btn {
+    height: 48px;
+    padding: 0 34px;
+}
+
+.shop-empty {
+    text-align: center;
+    padding: 70px 0;
+
+    font-family: "Albert Sans", sans-serif;
+    font-size: 16px;
+    color: #5e2e00;
+    opacity: 0.65;
+}
+
+@media (max-width: 700px) {
+
+    .shop-filters {
+        gap: 10px;
+    }
+
+    .shop-filters input {
+        min-width: 100%;
+    }
+
+    .shop-filters select,
+    .shop-filters .btn {
+        flex: 1;
+    }
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 50px;
+}
+
+.pagination a {
+    display: grid;
+    place-items: center;
+
+    min-width: 42px;
+    height: 42px;
+    padding: 0 12px;
+
+    border: 1px solid #f0b7b4;
+    border-radius: 50%;
+
+    font-family: "Albert Sans", sans-serif;
+    font-size: 14px;
+    color: var(--brown);
+
+    transition: 0.25s;
+}
+
+.pagination a:hover {
+    border-color: var(--dark-pink);
+    color: var(--dark-pink);
+}
+
+.pagination a.active {
+    background: var(--dark-pink);
+    border-color: var(--dark-pink);
+    color: #ffffff;
+}
