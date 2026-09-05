@@ -1,4 +1,3 @@
-
 <section class="shop-page">
 
     <div class="container">
@@ -20,16 +19,18 @@
             <select name="category">
                 <option value="">All categories</option>
                 <% categories.forEach(function (c) { %>
-                <option value="<%= c.id %>" <%= String(categoryId) === String(c.id) ? "selected" : "" %>><%= c.name %></option>
-            <% }); %>
+                    <option value="<%= c.id %>" <%= String(categoryId) === String(c.id) ? "selected" : "" %>><%= c.name %></option>
+                <% }); %>
             </select>
 
             <button type="submit" class="btn btn-primary">Search</button>
+
         </form>
 
         <% if (products.length === 0) { %>
-        
-            <p class="shop-empty"> No pieces found. Try a different search.</p>
+
+            <p class="shop-empty">No pieces found. Try a different search.</p>
+
         <% } else { %>
 
             <div class="product-grid">
@@ -37,22 +38,19 @@
                     <%- include('../partials/product-card', { product }) %>
                 <% }); %>
             </div>
-        
-            <% } %>
 
-            <% if (totalPages > 1) {
+        <% } %>
 
-                <nav class="pagination">
+        <% if (totalPages > 1) { %>
 
-                    <% for (let i = 1; i <= totalPages; i++) { %>
-                    
-                        href="/shop?page=<%= i %><= search ? '&q=" + encodeURIComponent(search) : '' %><%= categoryId ? '&category=' + categoryId : '' %>"
-                        class="<%= i === page ? 'active' : '' %>"
-                    ><%= i %></a>
+            <nav class="pagination">
+                <% for (let i = 1; i <= totalPages; i++) { %>
+                    <a href="/shop?page=<%= i %><%= search ? '&q=' + encodeURIComponent(search) : '' %><%= categoryId ? '&category=' + categoryId : '' %>" class="<%= i === page ? 'active' : '' %>"><%= i %></a>
                 <% } %>
-                </nav>
-                
-            <% } %>
+            </nav>
+
+        <% } %>
+
     </div>
 
 </section>
