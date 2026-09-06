@@ -8,5 +8,9 @@ router.get("/shop", ctrl.shop);
 router.get("/about", ctrl.about);
 router.get("/gallery", ctrl.gallery);
 router.get("/commissions", ctrl.commissions);
+router.get("/contact", ctrl.contact);
+router.get("/faqs", ctrl.faqs);
+router.get("/shipping-info", ctrl.shippinginfo);
+router.get("/privacy-policy", ctrl.privacypolicy);
 
 module.exports = router;

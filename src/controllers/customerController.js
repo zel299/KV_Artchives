@@ -59,4 +59,32 @@ async function shop(req, res, next) {
   }
 }
 
-module.exports = { home, about, gallery, commissions, shop };
+function contact(req, res) {
+  res.render("customer/contact", {
+    title: "Contact",
+    pageCss: "info-pages",
+  });
+}
+
+function faqs(req, res) {
+  res.render("customer/faqs", {
+    title: "FAQs",
+    pageCss: "info-pages",
+  });
+}
+
+function shippinginfo(req, res) {
+  res.render("customer/shipping-info", {
+    title: "Shipping Information",
+    pageCss: "info-pages",
+  });
+}
+
+function privacypolicy(req, res) {
+  res.render("customer/privacy-policy", {
+    title: "Privacy Policy",
+    pageCss: "info-pages",
+  });
+}
+
+module.exports = { home, about, gallery, commissions, shop, contact, faqs, shippinginfo, privacypolicy };
