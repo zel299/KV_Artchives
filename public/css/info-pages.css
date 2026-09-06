@@ -81,7 +81,7 @@
 
 .contact-card h2 {
     margin: 0 0 12px;
-    font-family: "Abhaya Libre", serif;
+    font-family: "Albert Sans", sans-serif;
     font-size: 25px;
     font-weight: 500;
     color: #5e2e00;
@@ -90,7 +90,7 @@
 .contact-card p {
     max-width: 330px;
     margin: 0;
-    font-family: "Abhaya Libre", serif;
+    font-family: "Albert Sans", sans-serif;
     font-size: 15px;
     line-height: 1.65;
     color: #5e2e00;
@@ -225,6 +225,7 @@
     font-size: 18px;
     font-family: "Albert Sans", sans-serif;
     line-height: 1.7;
+    text-align: justify;
 }
 
 .faq-item.active .faq-answer {
@@ -259,6 +260,7 @@
 .privacy-content {
     width: min(100%, 1000px);
     margin: 0 auto;
+    text-align: justify;
 }
 
 .policy-section {
@@ -511,6 +513,7 @@
     font-family: "Inter", sans-serif;
     line-height: 1.7;
     color: #5e2e00;
+    text-align: justify;
 }
 
 
@@ -619,6 +622,7 @@
 }
 
 .bottom-icon {
+    font-size: 20px;
     display: inline-block;
     margin-right: 8px;
 }
@@ -637,6 +641,7 @@
     font-family: "Inter", sans-serif;
     line-height: 1.65;
     color: #000;
+    text-align: justify;
 }
 
 
