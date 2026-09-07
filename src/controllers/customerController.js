@@ -59,4 +59,26 @@ async function shop(req, res, next) {
   }
 }
 
-module.exports = { home, about, gallery, commissions, shop };
+async function productDetail(req, res, next) {
+  try {
+    const product = await productService.getPublicById(req.params.id);
+
+    if (!product) {
+      return res.status(404).render("customer/error", {
+        title: "Not found",
+        status: 404,
+        message: "That product does not exist.",
+      });
+    }
+
+    res.render("customer/product-detail", {
+      title: product.name,
+      pageCss: "productdetail",
+      product,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { home, about, gallery, commissions, shop, productDetail };

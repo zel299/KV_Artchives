@@ -1,0 +1,208 @@
+
+.product-page {
+    padding: 45px 0 100px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 30px;
+
+    font-family: "Albert Sans", sans-serif;
+    font-size: 14px;
+    color: var(--dark-pink);
+
+    transition: 0.25s;
+}
+
+.back-link:hover {
+    opacity: 0.7;
+}
+
+.product-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+/* --- Gallery --- */
+
+.product-main-image {
+    width: 100%;
+    height: 460px;
+
+    object-fit: cover;
+
+    border-radius: 22px;
+    border: 6px solid #ffffff;
+    box-shadow: 0 8px 25px rgba(94, 46, 0, 0.08);
+}
+
+.product-thumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 16px;
+}
+
+.product-thumb {
+    width: 78px;
+    height: 78px;
+
+    object-fit: cover;
+
+    border-radius: 14px;
+    border: 3px solid #ffffff;
+    box-shadow: 0 4px 12px rgba(94, 46, 0, 0.08);
+
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.product-thumb:hover {
+    transform: translateY(-3px);
+    border-color: var(--light-pink);
+}
+
+/* --- Summary --- */
+
+.product-summary {
+    padding-top: 10px;
+}
+
+.product-code {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: var(--dark-pink);
+
+    margin-bottom: 10px;
+}
+
+.product-summary h1 {
+    font-family: "Berkshire Swash", cursive;
+    font-size: 44px;
+    line-height: 1.15;
+    font-weight: 400;
+    color: var(--brown);
+
+    margin-bottom: 14px;
+}
+
+.product-price {
+    font-family: "Averia Serif Libre", serif;
+    font-size: 30px;
+    color: var(--dark-pink);
+
+    margin-bottom: 22px;
+}
+
+.product-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-bottom: 26px;
+}
+
+.badge {
+    padding: 7px 18px;
+    border-radius: 30px;
+
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.6px;
+}
+
+.badge.in-stock {
+    background: #e7f5e9;
+    color: #2f6b3a;
+}
+
+.badge.sold-out {
+    background: #f3e2e2;
+    color: #8a4141;
+}
+
+.badge.one-of-a-kind {
+    background: var(--light-pink);
+    color: var(--brown);
+}
+
+.product-description {
+    font-family: "Albert Sans", sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #5e2e00;
+
+    margin-bottom: 20px;
+}
+
+.product-category {
+    font-family: "Albert Sans", sans-serif;
+    font-size: 14px;
+    color: #5e2e00;
+    opacity: 0.7;
+
+    margin-bottom: 30px;
+}
+
+.product-summary .btn {
+    width: 100%;
+    max-width: 320px;
+}
+
+.product-summary .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.product-summary .btn:disabled:hover {
+    transform: none;
+}
+
+.product-summary .small.muted {
+    display: block;
+    margin-top: 12px;
+
+    font-family: "Albert Sans", sans-serif;
+    font-size: 13px;
+    color: #5e2e00;
+    opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+
+    .product-detail {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .product-main-image {
+        height: 380px;
+    }
+
+    .product-summary h1 {
+        font-size: 36px;
+    }
+
+    .product-summary .btn {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 460px) {
+
+    .product-main-image {
+        height: 300px;
+    }
+
+    .product-summary h1 {
+        font-size: 30px;
+    }
+
+    .product-price {
+        font-size: 25px;
+    }
+}
