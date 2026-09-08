@@ -1,39 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><%= typeof title !== 'undefined' ? title : 'Admin' %> · KV Artchives</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/admin.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | KV Artchives</title>
+
+    <link rel="stylesheet" href="/css/admin-layout.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 </head>
-<body class="admin">
-  <aside class="sidebar">
-    <div class="sidebar-brand">
-      <strong>KV Artchives</strong>
-      <span class="small muted">Admin portal</span>
-    </div>
 
-    <nav class="sidebar-nav">
-      <span class="nav-label">Overview</span>
-      <a href="/admin" class="<%= currentPath === '/admin' ? 'active' : '' %>">Dashboard</a>
+<body>
 
-      <span class="nav-label">Catalog and sales</span>
-      <a href="/admin/products" class="<%= currentPath.startsWith('/admin/products') ? 'active' : '' %>">Products</a>
-      <a href="/admin/orders" class="<%= currentPath.startsWith('/admin/orders') ? 'active' : '' %>">Orders</a>
+<div class="admin-layout">
 
-      <span class="nav-label">System</span>
-      <a href="/admin/settings" class="<%= currentPath.startsWith('/admin/settings') ? 'active' : '' %>">Settings</a>
-    </nav>
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+    <aside class="admin-sidebar">
 
-    <div class="sidebar-foot">
-      <span class="small muted"><%= user.full_name %></span>
-      <a href="/logout" class="small">Log out</a>
-    </div>
-  </aside>
+        <!-- Logo -->
+        <div class="sidebar-brand">
 
-  <main class="admin-main">
-    <%- body %>
-  </main>
+            <div class="brand-logo">
+                <span>kv</span>
+                <small>ARTCHIVES</small>
+            </div>
+
+            <div class="brand-title">
+                <strong>KV Artchives</strong>
+                <span>Admin Portal</span>
+            </div>
+
+        </div>
+
+
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+
+            <!-- Overview -->
+            <div class="nav-section">
+
+                <p class="nav-section-title">
+                    Overview
+                </p>
+
+                <a href="/admin/dashboard" class="nav-link active">
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-grip"></i>
+                    </span>
+
+                    <span>Dashboard</span>
+                </a>
+
+            </div>
+
+
+            <!-- Catalog -->
+            <div class="nav-section">
+
+                <p class="nav-section-title">
+                    Catalog and Sales
+                </p>
+
+                <a href="/admin/products" class="nav-link">
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-box"></i>
+                    </span>
+
+                    <span>Products</span>
+                </a>
+
+                <a href="/admin/orders" class="nav-link">
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </span>
+
+                    <span>Orders</span>
+                </a>
+
+                <a href="/admin/transactions" class="nav-link">
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-money-bill"></i>
+                    </span>
+
+                    <span>Transactions</span>
+                </a>
+
+            </div>
+
+
+            <!-- People -->
+            <div class="nav-section">
+
+                <p class="nav-section-title">
+                    People and Insights
+                </p>
+
+                <a href="/admin/customers" class="nav-link">
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-user-group"></i>
+                    </span>
+
+                    <span>Customers</span>
+                </a>
+
+                <a href="/admin/reports" class="nav-link">
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-chart-column"></i>
+                    </span>
+
+                    <span>Reports</span>
+                </a>
+
+            </div>
+
+
+            <!-- System -->
+            <div class="nav-section">
+
+                <p class="nav-section-title">
+                    System
+                </p>
+
+                <a href="/admin/settings" class="nav-link">
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-gear"></i>
+                    </span>
+
+                    <span>Settings</span>
+                </a>
+
+            </div>
+
+        </nav>
+
+
+        <!-- Logout -->
+        <div class="sidebar-bottom">
+
+            <a href="/logout" class="nav-link logout-link">
+
+                <span class="nav-icon">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </span>
+
+                <span>Logout</span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+    <main class="admin-main">
+
+
+        <!-- =========================
+             TOP HEADER
+        ========================== -->
+        <header class="admin-header">
+
+            <div class="header-spacer"></div>
+
+            <div class="header-actions">
+
+                <!-- Notification -->
+                <button class="header-icon-btn" type="button">
+                    <i class="fa-solid fa-bell"></i>
+                </button>
+
+
+                <!-- Admin -->
+                <button class="admin-profile" type="button">
+
+                    <div class="admin-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <span class="admin-name">
+                        Admin User
+                    </span>
+
+                    <i class="fa-solid fa-caret-down profile-arrow"></i>
+
+                </button>
+
+            </div>
+
+        </header>
+
+        <%- body %>
+
+    </main>
+</div>
+
 </body>
 </html>
+
+

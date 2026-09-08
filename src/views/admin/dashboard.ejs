@@ -1,20 +1,349 @@
-<header class="page-head">
-  <h1>Dashboard</h1>
-  <p class="muted">Overview of the shop.</p>
-</header>
+<link rel="stylesheet" href="/css/dashboard.css">
 
-<div class="stat-grid">
-  <div class="stat"><span class="stat-label">Total sales</span><span class="stat-value">—</span></div>
-  <div class="stat"><span class="stat-label">Total orders</span><span class="stat-value">—</span></div>
-  <div class="stat"><span class="stat-label">Transactions</span><span class="stat-value">—</span></div>
-  <div class="stat"><span class="stat-label">Customers</span><span class="stat-value">—</span></div>
-</div>
+<section class="dashboard-content">
 
-<section class="panel">
-  <h2>Coming next</h2>
-  <p class="muted small">
-    These figures, the Units Sold chart, and the New Orders table are filled in
-    once orders exist (Phase 6). Product management is ready now.
-  </p>
-  <a href="/admin/products" class="btn">Manage products</a>
+    <!-- =========================
+         DASHBOARD CONTENT
+    ========================== -->
+
+    <!-- Dashboard Heading -->
+    <div class="dashboard-heading">
+        <div>
+            <h1>Dashboard Overview</h1>
+            <p>
+                Here's how the shop is doing today,
+                freshly baked and ready to review.
+            </p>
+        </div>
+
+        <button class="date-filter" type="button">
+            <i class="fa-regular fa-calendar"></i>
+            <span>Last 7 days</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+    </div>
+
+
+    <!-- =========================
+         STAT CARDS
+    ========================== -->
+    <div class="stats-grid">
+
+        <!-- Total Sales -->
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                </div>
+
+                <span class="stat-change">—</span>
+            </div>
+
+            <div class="stat-info">
+                <span class="stat-label">Total Sales</span>
+
+                <strong class="stat-value empty-value">
+                    —
+                </strong>
+            </div>
+        </div>
+
+
+        <!-- Total Orders -->
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+
+                <span class="stat-change">—</span>
+            </div>
+
+            <div class="stat-info">
+                <span class="stat-label">Total Orders</span>
+
+                <strong class="stat-value empty-value">
+                    —
+                </strong>
+            </div>
+        </div>
+
+
+        <!-- Transactions -->
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-receipt"></i>
+                </div>
+
+                <span class="stat-change">—</span>
+            </div>
+
+            <div class="stat-info">
+                <span class="stat-label">Transactions</span>
+
+                <strong class="stat-value empty-value">
+                    —
+                </strong>
+            </div>
+        </div>
+
+
+        <!-- Customers -->
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+
+                <span class="stat-change">—</span>
+            </div>
+
+            <div class="stat-info">
+                <span class="stat-label">Customers</span>
+
+                <strong class="stat-value empty-value">
+                    —
+                </strong>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         ACTIVITY + ORDER STATUS
+    ========================== -->
+    <div class="dashboard-row top-charts">
+
+        <!-- Customer Activity -->
+        <div class="dashboard-card customer-activity">
+
+            <div class="card-header">
+                <h2>Customer Activity</h2>
+            </div>
+
+            <div class="activity-content">
+
+                <div class="chart-legend">
+                    <span>
+                        <i class="legend-dot new-dot"></i>
+                        New
+                    </span>
+
+                    <span>
+                        <i class="legend-dot returning-dot"></i>
+                        Returning
+                    </span>
+                </div>
+
+                <div class="empty-line-chart">
+                    <div class="empty-chart-message">
+                        No data available yet
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Order Status -->
+        <div class="dashboard-card order-status-card">
+
+            <div class="card-header">
+                <h2>Order Status</h2>
+            </div>
+
+            <div class="order-status-content">
+
+                <div class="empty-donut">
+                    <div class="donut-inner">
+                        <strong>—</strong>
+                        <span>Orders</span>
+                    </div>
+                </div>
+
+                <div class="status-legend">
+
+                    <span>
+                        <i></i>
+                        Pending
+                    </span>
+
+                    <span>
+                        <i></i>
+                        Confirmed
+                    </span>
+
+                    <span>
+                        <i></i>
+                        Production
+                    </span>
+
+                    <span>
+                        <i></i>
+                        To Ship
+                    </span>
+
+                    <span>
+                        <i></i>
+                        Completed
+                    </span>
+
+                    <span>
+                        <i></i>
+                        Cancelled
+                    </span>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         SALES OVERVIEW
+    ========================== -->
+    <div class="dashboard-card sales-card">
+
+        <div class="card-header">
+            <h2>Sales Overview</h2>
+
+            <button class="more-btn" type="button">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+        </div>
+
+        <div class="sales-chart">
+            <div class="sales-empty">
+                No sales data available yet
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         ORDERS + TRANSACTIONS
+    ========================== -->
+    <div class="dashboard-row bottom-section">
+
+        <!-- New Orders -->
+        <div class="dashboard-card orders-card">
+
+            <div class="card-header">
+                <h2>New Orders</h2>
+            </div>
+
+            <div class="empty-table">
+
+                <div class="empty-table-icon">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+
+                <h3>No orders yet</h3>
+
+                <p>
+                    New orders will appear here once customers place an order.
+                </p>
+
+            </div>
+
+            <a href="/admin/orders" class="card-link">
+                See All Orders
+            </a>
+
+        </div>
+
+
+        <!-- Recent Transactions -->
+        <div class="dashboard-card transactions-card">
+
+            <div class="card-header">
+                <h2>Recent Transactions</h2>
+            </div>
+
+            <div class="empty-table">
+
+                <div class="empty-table-icon">
+                    <i class="fa-solid fa-receipt"></i>
+                </div>
+
+                <h3>No transactions yet</h3>
+
+                <p>
+                    Recent transactions will appear here.
+                </p>
+
+            </div>
+
+            <a href="/admin/transactions" class="card-link">
+                View All Transactions
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         QUICK ACTIONS
+    ========================== -->
+    <div class="dashboard-card quick-actions-card">
+
+        <div class="card-header">
+            <h2>Quick Actions</h2>
+        </div>
+
+        <div class="quick-actions">
+
+            <a href="/admin/products/create" class="quick-action">
+                <span class="quick-action-icon">
+                    <i class="fa-solid fa-plus"></i>
+                </span>
+
+                <span>Create Product</span>
+
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+
+            <a href="/admin/settings" class="quick-action">
+                <span class="quick-action-icon">
+                    <i class="fa-solid fa-user-gear"></i>
+                </span>
+
+                <span>Manage Account</span>
+
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+
+            <a href="/admin/transactions" class="quick-action">
+                <span class="quick-action-icon">
+                    <i class="fa-solid fa-receipt"></i>
+                </span>
+
+                <span>Transactions</span>
+
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+
+            <a href="/admin/reports" class="quick-action">
+                <span class="quick-action-icon">
+                    <i class="fa-solid fa-chart-column"></i>
+                </span>
+
+                <span>View Reports</span>
+
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+        </div>
+
+    </div>
+
 </section>
