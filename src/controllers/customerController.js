@@ -87,4 +87,11 @@ function privacypolicy(req, res) {
   });
 }
 
-module.exports = { home, about, gallery, commissions, shop, contact, faqs, shippinginfo, privacypolicy };
+function cart(req, res) {
+    res.render("customer/cart", {
+        title: "Your Cart",
+        pageCss: "cart",
+    });
+}
+
+module.exports = { home, about, gallery, commissions, shop, contact, faqs, shippinginfo, privacypolicy, cart };

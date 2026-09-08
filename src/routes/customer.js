@@ -12,5 +12,6 @@ router.get("/contact", ctrl.contact);
 router.get("/faqs", ctrl.faqs);
 router.get("/shipping-info", ctrl.shippinginfo);
 router.get("/privacy-policy", ctrl.privacypolicy);
+router.get("/cart", ctrl.cart);
 
 module.exports = router;
