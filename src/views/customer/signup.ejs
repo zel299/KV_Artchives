@@ -99,15 +99,6 @@
                                 required
                                 minlength="8"
                             >
-
-                            <button
-                                type="button"
-                                class="toggle-password"
-                                id="togglePassword"
-                                aria-label="Show password"
-                            >
-                                👁
-                            </button>
                         </div>
                     </div>
 
@@ -125,15 +116,6 @@
                                 required
                                 minlength="8"
                             >
-
-                            <button
-                                type="button"
-                                class="toggle-password"
-                                id="toggleConfirmPassword"
-                                aria-label="Show password"
-                            >
-                                👁
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -169,57 +151,6 @@
 
         </section>
     </main>
-
-    <script>
-
-        const passwordInput =
-            document.getElementById("password");
-
-        const confirmPasswordInput =
-            document.getElementById("confirm_password");
-
-
-        const togglePassword =
-            document.getElementById("togglePassword");
-
-        const toggleConfirmPassword =
-            document.getElementById("toggleConfirmPassword");
-
-
-        togglePassword.addEventListener("click", function () {
-
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                togglePassword.textContent = "🙈";
-
-            } else {
-                passwordInput.type = "password";
-                togglePassword.textContent = "👁";
-
-            }
-
-        });
-
-
-        toggleConfirmPassword.addEventListener("click", function () {
-
-            if (confirmPasswordInput.type === "password") {
-
-                confirmPasswordInput.type = "text";
-
-                toggleConfirmPassword.textContent = "🙈";
-
-            } else {
-
-                confirmPasswordInput.type = "password";
-
-                toggleConfirmPassword.textContent = "👁";
-
-            }
-
-        });
-
-    </script>
 
 </body>
 
