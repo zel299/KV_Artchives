@@ -11,7 +11,7 @@
     --pink-light: #ffb1b1;
     --red: #e85d5d;
     --red-dark: #b52c32;
-    --brown: #663718;
+    --brown: #5e2e00;
     --brown-light: #875c3b;
     --text: #68432a;
     --muted: #967b68;
@@ -107,34 +107,19 @@ a {
 /* Logo circle */
 
 .brand-logo {
-    position: relative;
     width: 47px;
     height: 47px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1.5px solid var(--red);
-    border-radius: 50%;
-    color: var(--red);
-    transform: rotate(-7deg);
+    flex-shrink: 0;
 }
 
-.brand-logo span {
-    font-family: "Playfair Display", serif;
-    font-size: 22px;
-    font-style: italic;
-    font-weight: 600;
-    line-height: 1;
-}
-
-.brand-logo small {
-    position: absolute;
-    bottom: -3px;
-    font-size: 4px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    background: var(--cream);
-    padding: 0 3px;
+.brand-logo img {
+    width: 47px;
+    height: 47px;
+    object-fit: contain;
+    display: block;
 }
 
 
@@ -149,14 +134,16 @@ a {
 
 .brand-title strong {
     color: var(--red);
-    font-family: "Playfair Display", serif;
+    font-family: "Berkshire Swash", cursive;
+    font-weight: 300;
     font-size: 11px;
 }
 
 .brand-title span {
-    margin-top: 2px;
+    margin-top: 5px;
+    font-family: "Inter", sans-serif;
     font-size: 9px;
-    color: var(--brown);
+    color: #5e2e00;
     font-weight: 500;
 }
 
@@ -177,12 +164,13 @@ a {
 
 .nav-section-title {
     margin: 0 10px 9px;
-    color: #9d8373;
-    font-family: "DM Sans", sans-serif;
-    font-size: 8px;
-    font-weight: 700;
+    color: #59413F;
+    opacity: 0.7;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 1.4px;
+    letter-spacing: 2px;
 }
 
 
@@ -196,9 +184,10 @@ a {
     gap: 10px;
     padding: 0 10px;
     border-radius: 6px;
-    color: var(--brown);
-    font-size: 11px;
-    font-weight: 500;
+    color: #5e2e00;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
     transition:
         background 0.2s ease,
         color 0.2s ease;

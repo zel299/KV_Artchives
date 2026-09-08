@@ -1,5 +1,3 @@
-
-
 .dashboard-content {
     padding: 17px 19px 25px;
 }
@@ -14,14 +12,16 @@
 
 .dashboard-heading h1 {
     margin-bottom: 1px;
-    color: var(--brown);
+    color: #5e2e00;
     font-family: "Berkshire Swash", cursive;
+    font-weight: 300;
     font-size: 28px;
     line-height: 1.2;
 }
 
 .dashboard-heading p {
-    color: var(--brown);
+    color: #5e2e00;
+    font-family: "Inter", sans-serif;
     font-size: 11px;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .stat-card {
-    min-height: 93px;
+    min-height: 120px;
     padding: 14px 14px 13px;
     background: var(--white);
     border: 1px solid rgba(211, 166, 155, 0.35);
@@ -689,7 +689,7 @@
 
     color: var(--brown);
 
-    font-family: "Playfair Display", serif;
+    font-family: "Berkshire Swash", cursive;
 
     font-size: 28px;
     line-height: 1.2;
@@ -755,7 +755,7 @@
 }
 
 .stat-card {
-    min-height: 93px;
+    min-height: 120px;
 
     padding: 14px 14px 13px;
 
