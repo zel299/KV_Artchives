@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="/css/my-orders.css">
+
+<main class="orders-page">
+
+    <section class="orders-header">
+        <h1>My Orders</h1>
+        <p>Keep track of your little treasures from order to delivery.</p>
+    </section>
+
+    <div class="order-filters">
+
+        <button type="button" class="filter active">ALL</button>
+        <button type="button" class="filter">TO PAY</button>
+        <button type="button" class="filter">TO CONFIRM</button>
+        <button type="button" class="filter">IN PROGRESS</button>
+        <button type="button" class="filter">TO SHIP</button>
+        <button type="button" class="filter">COMPLETED</button>
+        <button type="button" class="filter">CANCELLED</button>
+
+    </div>
+
+    <section class="orders-empty">
+
+        <h2>NO ORDER/S YET</h2>
+        <p>
+            You haven't placed any orders yet.
+            Your little treasures will appear here once you do.
+        </p>
+
+    </section>
+<script>
+    const filters = document.querySelectorAll(".filter");
+
+    filters.forEach(filter => {
+        filter.addEventListener("click", function () {
+
+            filters.forEach(button => {
+                button.classList.remove("active");
+            });
+
+            this.classList.add("active");
+        });
+    });
+</script>
+</main>
