@@ -94,4 +94,18 @@ function cart(req, res) {
     });
 }
 
-module.exports = { home, about, gallery, commissions, shop, contact, faqs, shippinginfo, privacypolicy, cart };
+function accountsettings(req, res) {
+    res.render("customer/account-settings", {
+        title: "Account Settings",
+        pageCss: "account-setting",
+    });
+}
+
+function myorders(req, res) {
+    res.render("customer/my-orders", {
+        title: "My Orders",
+        pageCss: "my-orders",
+    });
+}
+
+module.exports = { home, about, gallery, commissions, shop, contact, faqs, shippinginfo, privacypolicy, cart, accountsettings, myorders };

@@ -32,7 +32,25 @@
 
             <% if (user) { %>
 
-                <a href="/account" class="account-link"><%= user.full_name && user.full_name.includes(" ") ? user.full_name.split(" ")[0] : "ACCOUNT" %></a>
+                <div class="account-menu">
+
+                    <button type="button" class="account-btn" id="accountBtn">
+                        HI, <span class="account-name"></span><%= user.full_name && user.full_name.includes(" ")
+                            ? user.full_name.split(" ")[0].toUpperCase()
+                            : "ACCOUNT" %>!</span>
+                        <span class="account-arrow">⌄</span>
+                    </button>
+
+                    <div class="account-dropdown" id="accountDropdown">
+                        <a href="/account/orders">My Orders</a>
+                        <a href="/account">Account Settings</a>
+    
+                        <div class="dropdown-divider"></div>
+
+                        <a href="/logout">Log Out</a>
+                    </div>
+
+                </div>
 
             <% } else { %>
 
@@ -69,5 +87,25 @@
         </div>
 
     </div>
+
+<script>
+    const accountBtn = document.getElementById("accountBtn");
+    const accountDropdown = document.getElementById("accountDropdown");
+
+    if (accountBtn && accountDropdown) {
+        accountBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            accountDropdown.classList.toggle("show");
+        });
+
+        document.addEventListener("click", function () {
+            accountDropdown.classList.remove("show");
+        });
+
+        accountDropdown.addEventListener("click", function (event) {
+            event.stopPropagation();
+        });
+    }
+</script>
 
 </header>

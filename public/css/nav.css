@@ -1,0 +1,198 @@
+.site-header {
+    height: 75px;
+    background: #fff0f0;
+    border-top: 4px solid var(--soft-pink);
+    border-bottom: 1px solid #eadada;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #e75353;
+    font-family: "Berkshire Swash", cursive;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.brand-logo {
+    width: 36px;
+    height: 36px;
+
+    border: 1px solid #e75353;
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 10px;
+}
+
+.nav-links {
+    display: flex;
+    color: #5e2e00;
+    gap: 40px;
+}
+
+.nav-links a,
+.nav-actions a {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 1.4px;
+    color: #5e2e00;
+}
+
+.account-link {
+    max-width: 110px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.account-menu {
+    position: relative;
+}
+
+.account-btn {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: #e75353;
+    border: 1px solid #ffa7a7;
+    border-radius: 20px;
+    padding: 6px 16px;
+    cursor: pointer;
+    color: #fffbf1;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 1.4px;
+}
+
+.account-arrow {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 17px;
+    color: #fffbf1;
+    font-weight: 800;
+    line-height: 1;
+    position: relative;
+    top: -7px;
+    left: 2px;
+}
+
+
+.account-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 200px;
+    padding: 10px;
+    background: #fffbf1;
+    border: 1px solid #ffa7a7;
+    border-radius: 14px;
+
+
+    display: none;
+    z-index: 1000;
+}
+
+.account-dropdown.show {
+    display: block;
+}
+
+.account-dropdown a {
+    display: block;
+    padding: 10px 12px;
+    font-family: "Inter", sans-serif;
+    color: #5e2e00;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.account-dropdown a:hover {
+    background: #fff0f0;
+}
+
+.dropdown-divider {
+    height: 1px;
+    margin: 6px 0;
+    background: #f1dede;
+}
+
+
+.cart-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+
+
+    background: transparent;
+    border: none;
+
+    color: #5e2e00;
+    transition: 0.25s;
+}
+
+.cart-btn svg {
+    width: 35px;
+    height: 25px;
+
+    overflow: visible;
+}
+
+.cart-line,
+.cart-basket,
+.cart-bottom {
+    fill: none;
+    stroke: #5e2e00;
+
+    stroke-width: 11;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+}
+
+.cart-btn circle {
+    fill: #5e2e00;
+}
+
+.cart-btn:hover {
+    transform: translateY(-2px);
+}
+
+.cart-btn:hover .cart-line,
+.cart-btn:hover .cart-basket,
+.cart-btn:hover .cart-bottom {
+    stroke: #e75353;
+}
+
+.cart-btn:hover circle {
+    fill: #e75353;
+}
+
+.nav-links .active,
+.nav-links a:hover,
+.nav-actions a:hover {
+    color: var(--dark-pink);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}

@@ -13,5 +13,7 @@ router.get("/faqs", ctrl.faqs);
 router.get("/shipping-info", ctrl.shippinginfo);
 router.get("/privacy-policy", ctrl.privacypolicy);
 router.get("/cart", ctrl.cart);
+router.get("/account", ctrl.accountsettings);
+router.get("/account/orders", ctrl.myorders);
 
 module.exports = router;
