@@ -59,6 +59,28 @@ async function shop(req, res, next) {
   }
 }
 
+async function productDetail(req, res, next) {
+  try {
+    const product = await productService.getPublicById(req.params.id);
+
+    if (!product) {
+      return res.status(404).render("customer/error", {
+        title: "Not found",
+        status: 404,
+        message: "That product does not exist.",
+      });
+    }
+
+    res.render("customer/product-detail", {
+      title: product.name,
+      pageCss: "productdetail",
+      product,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
 function contact(req, res) {
   res.render("customer/contact", {
     title: "Contact",
@@ -88,24 +110,38 @@ function privacypolicy(req, res) {
 }
 
 function cart(req, res) {
-    res.render("customer/cart", {
-        title: "Your Cart",
-        pageCss: "cart",
-    });
+  res.render("customer/cart", {
+    title: "Your Cart",
+    pageCss: "cart",
+  });
 }
 
 function accountsettings(req, res) {
-    res.render("customer/account-settings", {
-        title: "Account Settings",
-        pageCss: "account-setting",
-    });
+  res.render("customer/account-settings", {
+    title: "Account Settings",
+    pageCss: "account-setting",
+  });
 }
 
 function myorders(req, res) {
-    res.render("customer/my-orders", {
-        title: "My Orders",
-        pageCss: "my-orders",
-    });
+  res.render("customer/my-orders", {
+    title: "My Orders",
+    pageCss: "my-orders",
+  });
 }
 
-module.exports = { home, about, gallery, commissions, shop, contact, faqs, shippinginfo, privacypolicy, cart, accountsettings, myorders };
+module.exports = {
+  home,
+  about,
+  gallery,
+  commissions,
+  shop,
+  productDetail,
+  contact,
+  faqs,
+  shippinginfo,
+  privacypolicy,
+  cart,
+  accountsettings,
+  myorders,
+};

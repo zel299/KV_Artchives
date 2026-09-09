@@ -1,0 +1,68 @@
+<section class="product-page">
+
+    <div class="container">
+
+        <a href="/shop" class="back-link">&larr; Back to shop</a>
+
+        <div class="product-detail">
+
+            <div class="product-gallery">
+
+                <% if (product.images.length === 0) { %>
+                    <img src="/images/placeholder.png" alt="<%= product.name %>" class="product-main-image">
+                <% } else { %>
+                    <img src="<%= product.images[0].url %>" alt="<%= product.name %>" class="product-main-image" id="mainImage">
+
+                    <% if (product.images.length > 1) { %>
+                        <div class="product-thumbs">
+                            <% product.images.forEach(function (img) { %>
+                                <img src="<%= img.url %>" alt="<%= product.name %>" class="product-thumb" data-full="<%= img.url %>">
+                            <% }); %>
+                        </div>
+                    <% } %>
+                <% } %>
+
+            </div>
+
+            <div class="product-summary">
+
+                <p class="product-code"><%= product.code %></p>
+
+                <h1><%= product.name %></h1>
+
+                <p class="product-price"><%= formatPeso(product.price) %></p>
+
+                <div class="product-badges">
+                    <% if (product.inStock) { %>
+                        <span class="badge in-stock">In stock</span>
+                    <% } else { %>
+                        <span class="badge sold-out">Sold out</span>
+                    <% } %>
+
+                    <% if (product.isOneOfAKind) { %>
+                        <span class="badge one-of-a-kind">One of a kind</span>
+                    <% } %>
+                </div>
+
+                <% if (product.description) { %>
+                    <p class="product-description"><%= product.description %></p>
+                <% } %>
+
+                <% if (product.category) { %>
+                    <p class="product-category">Category: <%= product.category.name %></p>
+                <% } %>
+
+                <% if (product.inStock) { %>
+                    <button type="button" class="btn btn-primary add-to-cart" disabled>Add to Cart</button>
+                    <p class="small muted">Cart coming soon.</p>
+                <% } else { %>
+                    <button type="button" class="btn btn-primary" disabled>Sold Out</button>
+                <% } %>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
