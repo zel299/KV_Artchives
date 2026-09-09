@@ -81,4 +81,67 @@ async function productDetail(req, res, next) {
   }
 }
 
-module.exports = { home, about, gallery, commissions, shop, productDetail };
+function contact(req, res) {
+  res.render("customer/contact", {
+    title: "Contact",
+    pageCss: "info-pages",
+  });
+}
+
+function faqs(req, res) {
+  res.render("customer/faqs", {
+    title: "FAQs",
+    pageCss: "info-pages",
+  });
+}
+
+function shippinginfo(req, res) {
+  res.render("customer/shipping-info", {
+    title: "Shipping Information",
+    pageCss: "info-pages",
+  });
+}
+
+function privacypolicy(req, res) {
+  res.render("customer/privacy-policy", {
+    title: "Privacy Policy",
+    pageCss: "info-pages",
+  });
+}
+
+function cart(req, res) {
+  res.render("customer/cart", {
+    title: "Your Cart",
+    pageCss: "cart",
+  });
+}
+
+function accountsettings(req, res) {
+  res.render("customer/account-settings", {
+    title: "Account Settings",
+    pageCss: "account-setting",
+  });
+}
+
+function myorders(req, res) {
+  res.render("customer/my-orders", {
+    title: "My Orders",
+    pageCss: "my-orders",
+  });
+}
+
+module.exports = {
+  home,
+  about,
+  gallery,
+  commissions,
+  shop,
+  productDetail,
+  contact,
+  faqs,
+  shippinginfo,
+  privacypolicy,
+  cart,
+  accountsettings,
+  myorders,
+};

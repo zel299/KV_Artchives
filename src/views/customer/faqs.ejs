@@ -1,0 +1,178 @@
+<link rel="stylesheet" href="/css/info-pages.css">
+
+<main class="info-page faq-page">
+
+    <section class="info-hero">
+
+        <h1>Frequently Asked Questions</h1>
+
+        <p class="page-subtitle">
+            Find answers to common questions about our handmade pieces,
+            commissions, and ordering.
+        </p>
+    </section>
+
+
+    <section class="faq-accordion">
+
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>HOW ARE YOUR HANDMADE PIECES CREATED?</span>
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    Our handmade pieces are carefully created by hand using 
+                    clay and other materials needed to complete each design. 
+                    We shape and mold the clay, add the small details, and 
+                    carefully finish each piece to achieve its intended look. 
+                    Since every piece is handmade, each creation has its own 
+                    small differences and unique character.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>WHAT IS YOUR CREATION PROCESS?</span>
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    Our creation process starts with developing the 
+                    design and preparing the materials needed for 
+                    the piece. The clay is then carefully shaped and 
+                    formed according to the design, followed by adding 
+                    details and other elements that make the piece unique. 
+                    Once the piece is finished, it is carefully checked 
+                    and given its final touches before it is prepared for 
+                    the customer.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>HOW LONG DOES IT TAKE TO MAKE A PIECE?</span>
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                   The time needed to create a piece depends on its design, 
+                   size, and level of detail. Simple pieces may take less time, 
+                   while more detailed or personalized designs require more time
+                    and attention to make sure every part is carefully finished. 
+                    Custom orders may also take longer because they are created 
+                    specifically according to the customer's request.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>WHAT MATERIALS DO YOU USE?</span>
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    We mainly use clay to create our handmade 
+                    pieces, together with other materials needed 
+                    for adding details, attaching components, 
+                    and giving each creation its finished look. 
+                    The materials used may vary depending on 
+                    the design and type of piece being made. We 
+                    carefully choose the materials needed to create 
+                    each piece while keeping its handmade quality and 
+                    appearance.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>CAN I REQUEST A CUSTOM PIECE?</span>
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    Yes! KV Artchives accepts commission requests 
+                    for personalized handmade pieces. You can share 
+                    your ideas, preferred design, or inspiration with 
+                    us, and we can discuss the details of your requested
+                    piece. Since custom pieces are made specifically for 
+                    each customer, the design, details, and production time 
+                    may vary depending on the request. For commission inquiries, 
+                    please visit our Commissions section and contact us through 
+                    our available channels.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>HOW CAN I PLACE AN ORDER?</span>
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    You can browse the available handmade pieces through 
+                    our Shop and select a product to view its details before 
+                    placing an order. Once you decide on a piece, you can 
+                    proceed with the ordering and checkout process provided 
+                    on the website. For custom or personalized pieces, orders 
+                    are handled through our commission process, where you can 
+                    contact us directly to discuss your request and the details 
+                    of your desired piece.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>WHERE CAN I CONTACT KV ARTCHIVES?</span>
+                <span class="faq-icon">+</span>
+            </button>
+
+            <div class="faq-answer">
+                <p>
+                    For questions, commission requests, order concerns, or other 
+                    inquiries, you can contact KV Artchives through the contact 
+                    channels provided on our website. You may also reach out to 
+                    us regarding a specific handmade piece, custom request, or any 
+                    information you would like to clarify before placing an order.
+                </p>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+    document.querySelectorAll(".faq-question").forEach(button => {
+        button.addEventListener("click", () => {
+
+            const currentItem = button.parentElement;
+
+            document.querySelectorAll(".faq-item").forEach(item => {
+                if (item !== currentItem) {
+                    item.classList.remove("active");
+                }
+            });
+
+            currentItem.classList.toggle("active");
+        });
+    });
+</script>
