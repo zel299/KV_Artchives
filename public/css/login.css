@@ -152,7 +152,7 @@ body {
 }
 
 .password-wrapper input {
-    padding-right: 45px;
+    padding-right: 15px;
 }
 
 .toggle-password {
@@ -261,6 +261,7 @@ body {
     font-size: 10px;
     text-align: left;
 }
+
 
 @media (max-width: 600px) {
 

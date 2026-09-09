@@ -5,7 +5,7 @@
         <a href="/" class="brand">
 
             <div class="brand-logo">
-                KV
+                <img src="/images/logo.png" alt="KV Artchives">
             </div>
 
             <span>KV Artchives</span>
@@ -32,7 +32,23 @@
 
             <% if (user) { %>
 
-                <a href="/account" class="account-link"><%= user.full_name && user.full_name.includes(" ") ? user.full_name.split(" ")[0] : "ACCOUNT" %></a>
+                <div class="account-menu">
+
+                    <button type="button" class="account-btn" id="accountBtn">
+                        HI, <%= user.full_name && user.full_name.includes(" ") ? user.full_name.split(" ")[0].toUpperCase() : "THERE" %>!
+                        <span class="account-arrow">⌄</span>
+                    </button>
+
+                    <div class="account-dropdown" id="accountDropdown">
+                        <a href="/my-orders">My Orders</a>
+                        <a href="/account">Account Settings</a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a href="/logout">Log Out</a>
+                    </div>
+
+                </div>
 
             <% } else { %>
 
@@ -44,21 +60,9 @@
             <a href="/cart" class="cart-btn" aria-label="Shopping Cart">
                 <svg viewBox="0 0 120 120" aria-hidden="true">
 
-
-                    <path
-                        d="M12 12 H30 L48 65"
-                        class="cart-line"
-                    />
-
-                    <path
-                        d="M30 28 H108 L84 65 H48"
-                        class="cart-basket"
-                    />
-
-                    <path
-                        d="M48 65 L38 88 H98"
-                        class="cart-bottom"
-                    />
+                    <path d="M12 12 H30 L48 65" class="cart-line" />
+                    <path d="M30 28 H108 L84 65 H48" class="cart-basket" />
+                    <path d="M48 65 L38 88 H98" class="cart-bottom" />
 
                     <circle cx="50" cy="105" r="10" />
                     <circle cx="88" cy="105" r="10" />
@@ -71,3 +75,23 @@
     </div>
 
 </header>
+
+<script>
+    const accountBtn = document.getElementById("accountBtn");
+    const accountDropdown = document.getElementById("accountDropdown");
+
+    if (accountBtn && accountDropdown) {
+        accountBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            accountDropdown.classList.toggle("show");
+        });
+
+        document.addEventListener("click", function () {
+            accountDropdown.classList.remove("show");
+        });
+
+        accountDropdown.addEventListener("click", function (event) {
+            event.stopPropagation();
+        });
+    }
+</script>

@@ -1,0 +1,227 @@
+.account-page {
+    min-height: calc(100vh - 75px);
+    padding: 55px 40px 80px;
+    background: #fff0f0;
+}
+
+.account-header {
+    width: min(100%, 1150px);
+    margin: 0 auto 32px;
+}
+
+.account-header h1 {
+    margin: 0;
+    font-family: "Berkshire Swash", cursive;
+    font-size: 38px;
+    font-weight: 300;
+    color: #5e2e00;
+}
+
+.account-header p {
+    margin: 8px 0 0;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: #5e2e00;
+}
+
+.account-content {
+    width: min(100%, 1150px);
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    grid-template-rows: auto auto;
+    gap: 20px 22px;
+}
+
+.account-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 8px 25px rgba(94, 46, 0, 0.06);
+}
+
+.personal-card {
+    grid-column: 1;
+}
+
+.address-card {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+}
+
+.password-card {
+    grid-column: 1;
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    font-family: "Albert Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #5e2e00;
+}
+
+.card-title > span:first-child {
+    font-size: 17px;
+}
+
+.edit-link,
+.add-link,
+.change-password {
+    margin-left: auto;
+
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #5e2e00;
+    text-decoration: none;
+}
+
+.edit-link:hover,
+.add-link:hover,
+.change-password:hover {
+    color: #e75353;
+}
+
+.card-description {
+    margin: 7px 0 15px;
+
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #796969;
+}
+
+.personal-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 35px;
+    margin-top: 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info-label {
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #5e2e00;
+}
+
+.info-value {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    color: #000;
+}
+
+.address-box {
+    margin-top: 10px;
+    padding: 15px;
+
+    background: #F7F3E9;
+    border-radius: 10px;
+}
+
+.address-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.address-top strong {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    color: #5e2e00;
+}
+
+.address-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.address-actions button {
+    border: none;
+    background: transparent;
+    color: #5e2e00;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.default-badge {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 3px 8px;
+
+    border-radius: 10px;
+    background: #ffa7a7;
+
+    font-family: "Inter", sans-serif;
+    font-size: 9px;
+    color: #5e2e00;
+}
+
+.address-box p {
+    margin: 8px 0 0;
+
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    line-height: 1.5;
+    color: #796969;
+}
+
+.password-info {
+    margin-top: 18px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.password-dots {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #5e5e5e;
+}
+
+
+/* Responsive */
+
+@media (max-width: 800px) {
+
+    .account-page {
+        padding: 45px 20px 60px;
+    }
+
+    .account-content {
+        grid-template-columns: 1fr;
+    }
+
+    .personal-card,
+    .address-card,
+    .password-card {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .account-header h1 {
+        font-size: 32px;
+    }
+
+    .personal-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

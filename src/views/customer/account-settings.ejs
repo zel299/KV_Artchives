@@ -1,0 +1,120 @@
+<link rel="stylesheet" href="/css/account-settings.css">
+
+<main class="account-page">
+
+    <section class="account-header">
+        <h1>Account Settings</h1>
+        <p>Manage your personal information, password, and delivery details.</p>
+    </section>
+
+    <section class="account-content">
+
+        <div class="account-card personal-card">
+
+            <div class="card-title">
+                <span></span>
+                <span>Personal Information</span>
+
+                <a href="#" class="edit-link">✎ Edit</a>
+            </div>
+
+            <div class="personal-info-grid">
+
+                <div class="info-item">
+                    <span class="info-label">Full Name</span>
+                    <span class="info-value">
+                        <%= user?.full_name || "Not provided" %>
+                    </span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">Username</span>
+                    <span class="info-value">
+                        <%= user?.username || "Not provided" %>
+                    </span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">Contact Number</span>
+                    <span class="info-value">
+                        <%= user?.phone || "Not provided" %>
+                    </span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">Email Address</span>
+                    <span class="info-value">
+                        <%= user?.email || "Not provided" %>
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="account-card address-card">
+
+            <div class="card-title">
+                <span></span>
+                <span>Saved Address</span>
+
+                <a href="#" class="add-link">+ Add</a>
+            </div>
+
+            <p class="card-description">
+                Use this address for faster checkout.
+            </p>
+
+            <div class="address-box">
+
+                <div class="address-top">
+                    <strong>
+                        <%= user?.full_name || "Your Name" %>
+                    </strong>
+
+                    <div class="address-actions">
+                        <button type="button">✎</button>
+                        <button type="button"></button>
+                    </div>
+                </div>
+
+                <span class="default-badge">Default</span>
+
+                <p>
+                    ☎ <%= user?.phone || "No contact number" %>
+                </p>
+
+                <p>
+                    Your saved address will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="account-card password-card">
+
+            <div class="card-title">
+                <span> </span>
+                <span>Password</span>
+
+                <a href="#" class="change-password">
+                    Change Password
+                </a>
+            </div>
+
+            <div class="password-info">
+
+                <span class="info-label">Current Password</span>
+
+                <span class="password-dots">
+                    ••••••••••••
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
