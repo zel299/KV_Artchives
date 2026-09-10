@@ -8,8 +8,32 @@ const expressLayouts = require('express-ejs-layouts');
 const config = require('./config');
 const { attachUser } = require('./middleware/auth');
 
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+
 const app = express();
 
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
+        imgSrc: ["'self'", "data:", "https://*.supabase.co", "https://www.gstatic.com"],
+        connectSrc: ["'self'", "https://*.supabase.co"],
+      },
+    },
+  })
+);
+
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 300,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 app.set('view engine', 'ejs');
 
@@ -61,7 +85,7 @@ app.use('/', require('./routes/auth'));
 
 app.use('/admin', require('./routes/admin'));
 
-app.use("/", require("./routes/customer"));
+app.use("/",generalLimiter, require("./routes/customer"));
 
 
 app.use((req, res) => {
