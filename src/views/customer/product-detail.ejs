@@ -53,8 +53,16 @@
                 <% } %>
 
                 <% if (product.inStock) { %>
-                    <button type="button" class="btn btn-primary add-to-cart" disabled>Add to Cart</button>
-                    <p class="small muted">Cart coming soon.</p>
+
+                    <form method="post" action="/cart/add" class="add-to-cart-form">
+                        <input type="hidden" name="product_id" value="<%= product.id %>">
+
+                        <label for="quantity" class="qty-label">Quantity</label>
+                        <input type="number" id="quantity" name="quantity" value="1" min="1" step="1">
+
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+
                 <% } else { %>
                     <button type="button" class="btn btn-primary" disabled>Sold Out</button>
                 <% } %>
