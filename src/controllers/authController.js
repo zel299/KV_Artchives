@@ -59,7 +59,6 @@ async function doLogin(req, res) {
 
   res.redirect(nextUrl.startsWith('/') ? nextUrl : '/');
 
-  res.redirect(nextUrl.startsWith('/') ? nextUrl : '/');
 }
 
 // ---------------------------------------------------------------
