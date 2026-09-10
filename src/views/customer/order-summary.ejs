@@ -1,0 +1,280 @@
+<link rel="stylesheet" href="/css/order-summary.css">
+
+<section class="order-hero">
+    <h1 class="order-hero__title">
+        Complete Your Order <span class="heart">&#9825;</span>
+    </h1>
+
+    <p class="order-hero__subtitle">
+        Almost yours. Just a few details to finalize your order.
+    </p>
+</section>
+
+<section class="order-review">
+    <div class="order-review__grid">
+
+        <!-- LEFT COLUMN -->
+        <div class="order-review__left">
+
+            <!-- CUSTOMER INFORMATION -->
+            <div class="panel">
+
+                <h2 class="panel__title">
+                    <span class="icon">&#128100;</span>
+                    Customer Information
+                </h2>
+
+                <div class="info-group">
+                    <label>Full Name</label>
+                    <p class="info-value">
+                        <%= customer.fullName %>
+                    </p>
+                </div>
+
+                <div class="info-group">
+                    <label>Email</label>
+                    <p class="info-value info-value--disabled">
+                        <%= customer.email %>
+                    </p>
+                </div>
+
+                <div class="info-group">
+                    <label>Phone Number</label>
+                    <p class="info-value">
+                        <%= customer.phone %>
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- DELIVERY ADDRESS -->
+            <div class="panel">
+
+                <div class="panel__header">
+
+                    <h2 class="panel__title">
+                        <span class="icon">&#128205;</span>
+                        Delivery Address
+                    </h2>
+
+                    <% if (address && address.isDefault) { %>
+                        <span class="badge badge--default">
+                            Default
+                        </span>
+                    <% } %>
+
+                </div>
+
+                <div class="address-box">
+
+                    <p class="address-box__name">
+                        <%= customer.fullName %>
+                    </p>
+
+                    <p>
+                        <%= customer.phone %>
+                    </p>
+
+                    <p>
+                        <%= address.street %>,
+                    </p>
+
+                    <p>
+                        <%= address.barangay %>,
+                    </p>
+
+                    <p>
+                        <%= address.city %>,
+                        <%= address.province %>,
+                        <%= address.zip %>
+                    </p>
+
+                </div>
+
+                <div class="address-actions">
+
+                    <button
+                        type="button"
+                        class="btn-pill btn-pill--edit"
+                        data-action="edit-address"
+                    >
+                        <span class="icon">&#9998;</span>
+                        Edit
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn-pill btn-pill--edit"
+                        data-action="change-address"
+                    >
+                        <span class="icon">&#8646;</span>
+                        Change Address
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn-pill btn-pill--outline"
+                        data-action="add-address"
+                    >
+                        <span class="icon">+</span>
+                        Add New Address
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- DOWNPAYMENT NOTICE -->
+            <div class="notice">
+
+                <span class="notice__icon">
+                    &#9432;
+                </span>
+
+                <div>
+
+                    <p class="notice__title">
+                        70% Downpayment Required
+                    </p>
+
+                    <p class="notice__text">
+                        A 70% downpayment is required to confirm your order.
+                        You may complete the payment after submitting your order
+                        using the available GCash or Bank Transfer options.
+                        The downpayment must be paid within 3 days from order
+                        submission to keep your order active.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT COLUMN -->
+        <div class="order-review__right">
+
+            <div class="summary-card">
+
+                <!-- SUMMARY HEADER -->
+                <div class="summary-card__header">
+                    <span class="icon">&#128203;</span>
+                    Order Summary
+                </div>
+
+
+                <!-- ITEMS -->
+                <div class="summary-card__body">
+
+                    <% items.forEach(function(item) { %>
+
+                        <div class="summary-item">
+
+                            <img
+                                src="<%= item.product.image %>"
+                                alt="<%= item.product.name %>"
+                                class="summary-item__img"
+                            >
+
+                            <div class="summary-item__info">
+
+                                <p class="summary-item__name">
+                                    <%= item.product.name %>
+                                </p>
+
+                                <p class="summary-item__category">
+                                    <%= item.product.category || '' %>
+                                </p>
+
+                                <span class="summary-item__qty">
+                                    Qty: <%= item.quantity %>
+                                </span>
+
+                            </div>
+
+                            <div class="summary-item__price">
+                                &#8369;<%= Number(item.lineTotal).toFixed(2) %>
+                            </div>
+
+                        </div>
+
+                    <% }); %>
+
+
+                    <!-- ORDER NOTE -->
+                    <% if (orderNote) { %>
+
+                        <div class="order-note">
+
+                            <p class="order-note__title">
+                                <span class="icon">&#128221;</span>
+                                Order Note
+                            </p>
+
+                            <p class="order-note__text">
+                                "<%= orderNote %>"
+                            </p>
+
+                        </div>
+
+                    <% } %>
+
+                </div>
+
+
+                <!-- TOTALS -->
+                <div class="summary-card__totals">
+
+                    <div class="totals-row">
+                        <span>Subtotal</span>
+
+                        <span>
+                            &#8369;<%= Number(subtotal).toFixed(2) %>
+                        </span>
+                    </div>
+
+
+                    <div class="totals-row">
+                        <span>Shipping Fee</span>
+
+                        <span>
+                            &#8369;<%= Number(shippingFee || 0).toFixed(2) %>
+                        </span>
+                    </div>
+
+
+                    <hr>
+
+
+                    <div class="totals-row totals-row--total">
+                        <span>Order Total</span>
+
+                        <span>
+                            &#8369;<%= Number(orderTotal || subtotal).toFixed(2) %>
+                        </span>
+                    </div>
+
+
+                    <!-- FINAL SUBMIT -->
+                    <form action="/checkout/summary" method="POST">
+
+                        <button
+                            type="submit"
+                            class="btn-submit"
+                        >
+                            Submit Order
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
