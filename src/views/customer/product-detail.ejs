@@ -58,7 +58,33 @@
                         <input type="hidden" name="product_id" value="<%= product.id %>">
 
                         <label for="quantity" class="qty-label">Quantity</label>
-                        <input type="number" id="quantity" name="quantity" value="1" min="1" step="1">
+                        
+                        <div class="product-qty-control">
+                            <button
+                                type="button"
+                                class="qty-btn qty-minus"
+                                aria-label="Decrease quantity"
+                            >
+                                −
+                            </button>
+
+                            <input
+                                type="number"
+                                id="quantity"
+                                name="quantity"
+                                value="1"
+                                min="1"
+                                step="1"
+                            >
+
+                            <button
+                                type="button"
+                                class="qty-btn qty-plus"
+                                aria-label="Increase quantity"
+                            >
+                                +
+                            </button>
+                        </div>
 
                         <button type="submit" class="btn btn-primary">Add to Cart</button>
                     </form>
@@ -74,3 +100,41 @@
     </div>
 
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const quantityInput = document.getElementById("quantity");
+    const minusButton = document.querySelector(".product-qty-control .qty-minus");
+    const plusButton = document.querySelector(".product-qty-control .qty-plus");
+
+    if (!quantityInput || !minusButton || !plusButton) return;
+
+    minusButton.addEventListener("click", function () {
+        let quantity = parseInt(quantityInput.value) || 1;
+
+        if (quantity > 1) {
+            quantity--;
+            quantityInput.value = quantity;
+        }
+    });
+
+    plusButton.addEventListener("click", function () {
+        let quantity = parseInt(quantityInput.value) || 1;
+
+        quantity++;
+        quantityInput.value = quantity;
+    });
+
+    quantityInput.addEventListener("input", function () {
+        let quantity = parseInt(quantityInput.value) || 1;
+
+        if (quantity < 1) {
+            quantity = 1;
+        }
+
+        quantityInput.value = quantity;
+    });
+
+});
+</script>
