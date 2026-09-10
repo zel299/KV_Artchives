@@ -125,12 +125,15 @@ async function removeItem(db, userId, itemId) {
 async function clearCart(db, userId) {
   const cartId = await getOrCreateCart(db, userId);
 
-  const { error } = await db
+  const { data, error } = await db
     .from("cart_items")
     .delete()
-    .eq("cart_id", cartId);
+    .eq("cart_id", cartId)
+    .select("id");
 
   if (error) throw new Error(`clearCart failed: ${error.message}`);
+
+  return (data || []).length;
 }
 
 const GUEST_COOKIE = "kv_cart";
