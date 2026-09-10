@@ -2,65 +2,382 @@
 
     <section class="cart-header">
         <h1>Your Cart</h1>
-        <p>Review your selected pieces before checkout.</p>
+        <p>
+            Review your selected pieces before checkout.
+        </p>
     </section>
 
     <% if (items.length === 0) { %>
 
         <section class="empty-cart">
-            <h2>NO ITEM/S IN YOUR CART</h2>
+            <h2>
+                NO ITEM/S IN YOUR CART
+            </h2>
         </section>
 
     <% } else { %>
 
-        <section class="cart-items">
+        <div class="cart-select-all">
 
-            <% items.forEach(function (item) { %>
+            <input
+                type="checkbox"
+                id="select-all"
+            >
 
-                <article class="cart-item">
+            <label for="select-all">
+                Select All (<%= items.length %> items)
+            </label>
 
-                    <img src="<%= item.product.primaryImage ? item.product.primaryImage.url : '/images/placeholder.png' %>" alt="<%= item.product.name %>">
+        </div>
 
-                    <div class="cart-item-info">
-                        <h3><a href="/products/<%= item.product.id %>"><%= item.product.name %></a></h3>
-                        <p class="cart-item-price"><%= formatPeso(item.product.price) %></p>
-                        <% if (!item.product.inStock) { %>
-                            <span class="badge sold-out">Sold out</span>
-                        <% } %>
-                    </div>
+        <section class="cart-layout">
 
-                    <form method="post" action="/cart/<%= item.id %>/update" class="cart-qty-form">
-                        <input type="number" name="quantity" value="<%= item.quantity %>" min="1" step="1">
-                        <button type="submit">Update</button>
-                    </form>
+            <section class="cart-items">
+                <% items.forEach(function (item) { %>
 
-                    <p class="cart-line-total"><%= formatPeso(item.lineTotal) %></p>
+                    <article class="cart-item">
 
-                    <form method="post" action="/cart/<%= item.id %>/remove">
-                        <button type="submit" class="cart-remove" aria-label="Remove item">&times;</button>
-                    </form>
+                        <input
+                            type="checkbox"
+                            class="cart-item-checkbox"
+                            data-price="<%= item.product.price %>"
+                        >
 
-                </article>
+                        <img
+                            src="<%= item.product.primaryImage ? item.product.primaryImage.url : '/images/placeholder.png' %>"
+                            alt="<%= item.product.name %>"
+                        >
 
-            <% }); %>
+                        <div class="cart-item-info">
+
+                            <h3>
+                                <a href="/products/<%= item.product.id %>">
+                                    <%= item.product.name %>
+                                </a>
+                            </h3>
+
+                            <p class="cart-item-price">
+                                <%= formatPeso(item.product.price) %>
+                            </p>
+
+                            <% if (!item.product.inStock) { %>
+
+                                <span class="badge sold-out">
+                                    Sold out
+                                </span>
+
+                            <% } %>
+
+                            <form
+                                method="post"
+                                action="/cart/<%= item.id %>/update"
+                                class="cart-qty-form"
+                                data-price="<%= item.product.price %>"
+
+                            >
+
+                                <button
+                                    type="button"
+                                    class="qty-btn qty-minus"
+                                    aria-label="Decrease quantity"
+                                >
+                                    −
+                                </button>
+
+                                <input
+                                    type="number"
+                                    name="quantity"
+                                    value="<%= item.quantity %>"
+                                    min="1"
+                                    step="1"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="qty-btn qty-plus"
+                                    aria-label="Increase quantity"
+                                >
+                                    +
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    class="qty-update"
+                                >
+                                    Update
+                                </button>
+                            </form>
+
+                        </div>
+
+                        <p class="cart-line-total">
+                            <span class="line-total-value">
+                                <%= formatPeso(item.lineTotal) %>
+                            </span>
+                        </p>
+
+                        <form
+                            method="post"
+                            action="/cart/<%= item.id %>/remove"
+                            class="cart-remove-form"
+                        >
+
+                            <button
+                                type="submit"
+                                class="cart-remove"
+                                aria-label="Remove item"
+                            >
+                                &times;
+                            </button>
+                        </form>
+                    </article>
+
+
+                <% }); %>
+
+
+            </section>
+
+            <section class="cart-summary">
+
+                <div class="cart-summary-heading">
+                    Order Summary
+                </div>
+
+                <div class="cart-total">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong id="cart-subtotal">
+                        ₱0.00
+                    </strong>
+
+                </div>
+
+
+                <p class="cart-note">
+                    Shipping is calculated after your order is confirmed.
+                </p>
+
+
+                <a
+                    href="/checkout"
+                    class="btn btn-primary checkout-disabled"
+                    id="checkout-button"
+                    aria-disabled="true"
+                >
+                    Proceed to Checkout
+                </a>
+
+
+            </section>
+
 
         </section>
 
-        <section class="cart-summary">
-
-            <div class="cart-total">
-                <span>Subtotal</span>
-                <strong><%= formatPeso(subtotal) %></strong>
-            </div>
-
-            <p class="cart-note">
-                Shipping is calculated after your order is confirmed.
-            </p>
-
-            <a href="/checkout" class="btn btn-primary">Proceed to Checkout</a>
-
-        </section>
 
     <% } %>
 
+
 </main>
+
+
+<!-- =========================================================
+     QUANTITY BUTTON SCRIPT
+========================================================= -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const selectAll = document.getElementById("select-all");
+    const itemCheckboxes = document.querySelectorAll(".cart-item-checkbox");
+    const subtotalElement = document.getElementById("cart-subtotal");
+    const checkoutButton = document.getElementById("checkout-button");
+
+    function formatPeso(amount) {
+        return new Intl.NumberFormat("en-PH", {
+            style: "currency",
+            currency: "PHP"
+        }).format(amount);
+    }
+
+    function updateCart() {
+
+        let subtotal = 0;
+        let selectedCount = 0;
+
+        itemCheckboxes.forEach(function (checkbox) {
+
+            const cartItem = checkbox.closest(".cart-item");
+            const quantityInput = cartItem.querySelector(
+                'input[name="quantity"]'
+            );
+
+            const lineTotalElement = cartItem.querySelector(
+                ".line-total-value"
+            );
+
+            const price = parseFloat(checkbox.dataset.price) || 0;
+            const quantity = parseInt(quantityInput.value) || 1;
+
+            // Calculate line total
+            const lineTotal = price * quantity;
+
+            // Update displayed line total
+            if (lineTotalElement) {
+                lineTotalElement.textContent = formatPeso(lineTotal);
+            }
+
+            // Add only selected items
+            if (checkbox.checked) {
+                subtotal += lineTotal;
+                selectedCount++;
+            }
+        });
+
+        // Update subtotal
+        subtotalElement.textContent = formatPeso(subtotal);
+
+
+        // Update Select All state
+        if (selectedCount === 0) {
+
+            selectAll.checked = false;
+            selectAll.indeterminate = false;
+
+        } else if (selectedCount === itemCheckboxes.length) {
+
+            selectAll.checked = true;
+            selectAll.indeterminate = false;
+
+        } else {
+
+            selectAll.checked = false;
+            selectAll.indeterminate = true;
+        }
+
+
+        // Enable / disable checkout
+        if (selectedCount === 0) {
+
+            checkoutButton.classList.add("checkout-disabled");
+            checkoutButton.setAttribute("aria-disabled", "true");
+            checkoutButton.removeAttribute("href");
+
+        } else {
+
+            checkoutButton.classList.remove("checkout-disabled");
+            checkoutButton.setAttribute("aria-disabled", "false");
+            checkoutButton.setAttribute("href", "/checkout");
+        }
+    }
+
+
+    // SELECT ALL
+    if (selectAll) {
+
+        selectAll.addEventListener("change", function () {
+
+            itemCheckboxes.forEach(function (checkbox) {
+                checkbox.checked = selectAll.checked;
+            });
+
+            updateCart();
+        });
+    }
+
+
+    // INDIVIDUAL CHECKBOXES
+    itemCheckboxes.forEach(function (checkbox) {
+
+        checkbox.addEventListener("change", function () {
+            updateCart();
+        });
+    });
+
+
+    // QUANTITY CONTROLS
+    document.querySelectorAll(".cart-qty-form").forEach(function (form) {
+
+        const minusButton = form.querySelector(".qty-minus");
+        const plusButton = form.querySelector(".qty-plus");
+        const quantityInput = form.querySelector(
+            'input[name="quantity"]'
+        );
+
+
+        // MINUS
+        if (minusButton) {
+
+            minusButton.addEventListener("click", function () {
+
+                let quantity =
+                    parseInt(quantityInput.value) || 1;
+
+                if (quantity > 1) {
+                    quantity--;
+                    quantityInput.value = quantity;
+
+                    updateCart();
+                }
+            });
+        }
+
+
+        // PLUS
+        if (plusButton) {
+
+            plusButton.addEventListener("click", function () {
+
+                let quantity =
+                    parseInt(quantityInput.value) || 1;
+
+                quantity++;
+                quantityInput.value = quantity;
+
+                updateCart();
+            });
+        }
+
+
+        // MANUAL INPUT
+        if (quantityInput) {
+
+            quantityInput.addEventListener("input", function () {
+
+                let quantity =
+                    parseInt(quantityInput.value) || 1;
+
+                if (quantity < 1) {
+                    quantity = 1;
+                    quantityInput.value = 1;
+                }
+
+                updateCart();
+            });
+        }
+    });
+
+
+    // PREVENT CHECKOUT WHEN NOTHING IS SELECTED
+    if (checkoutButton) {
+
+        checkoutButton.addEventListener("click", function (event) {
+
+            if (
+                checkoutButton.classList.contains(
+                    "checkout-disabled"
+                )
+            ) {
+                event.preventDefault();
+            }
+        });
+    }
+
+
+    // INITIAL STATE
+    updateCart();
+
+});
+</script>
