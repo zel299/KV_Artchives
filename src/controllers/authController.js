@@ -1,5 +1,7 @@
-const { supabaseAnon, supabaseAdmin, SUPABASE_URL } = require('../config/supabase');
+
 const { setSession, clearSession } = require('../middleware/auth');
+const { supabaseAnon, supabaseAdmin, supabaseForUser, SUPABASE_URL } = require('../config/supabase');
+const cartService = require('../services/cartService');
 
 function baseUrl(req) {
   return `${req.protocol}://${req.get('host')}`;
@@ -48,7 +50,14 @@ async function doLogin(req, res) {
 
   setSession(res, data.session);
 
-  // TODO (Phase 5): merge any guest cart into this account here.
+  try {
+    const db = supabaseForUser(data.session.access_token);
+    await cartService.mergeGuestCart(db, data.user.id, req, res);
+  } catch (err) {
+    console.error("[cart] merge failed:", err.message);
+  }
+
+  res.redirect(nextUrl.startsWith('/') ? nextUrl : '/');
 
   res.redirect(nextUrl.startsWith('/') ? nextUrl : '/');
 }

@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/css/cart.css">
-
 <main class="cart-page">
 
     <section class="cart-header">
@@ -7,8 +5,64 @@
         <p>Review your selected pieces before checkout.</p>
     </section>
 
-    <section class="empty-cart">
-        <h2>NO ITEM/S IN YOUR CART</h2>
-    </section>
+    <% if (items.length === 0) { %>
+
+        <section class="empty-cart">
+            <h2>NO ITEM/S IN YOUR CART</h2>
+            <p>Browse the shop and add a piece you love.</p>
+            <a href="/shop" class="btn btn-primary">Go to Shop</a>
+        </section>
+
+    <% } else { %>
+
+        <section class="cart-items">
+
+            <% items.forEach(function (item) { %>
+
+                <article class="cart-item">
+
+                    <img src="<%= item.product.primaryImage ? item.product.primaryImage.url : '/images/placeholder.png' %>" alt="<%= item.product.name %>">
+
+                    <div class="cart-item-info">
+                        <h3><a href="/products/<%= item.product.id %>"><%= item.product.name %></a></h3>
+                        <p class="cart-item-price"><%= formatPeso(item.product.price) %></p>
+                        <% if (!item.product.inStock) { %>
+                            <span class="badge sold-out">Sold out</span>
+                        <% } %>
+                    </div>
+
+                    <form method="post" action="/cart/<%= item.id %>/update" class="cart-qty-form">
+                        <input type="number" name="quantity" value="<%= item.quantity %>" min="1" step="1">
+                        <button type="submit">Update</button>
+                    </form>
+
+                    <p class="cart-line-total"><%= formatPeso(item.lineTotal) %></p>
+
+                    <form method="post" action="/cart/<%= item.id %>/remove">
+                        <button type="submit" class="cart-remove" aria-label="Remove item">&times;</button>
+                    </form>
+
+                </article>
+
+            <% }); %>
+
+        </section>
+
+        <section class="cart-summary">
+
+            <div class="cart-total">
+                <span>Subtotal</span>
+                <strong><%= formatPeso(subtotal) %></strong>
+            </div>
+
+            <p class="cart-note">
+                Shipping is calculated after your order is confirmed.
+            </p>
+
+            <a href="/checkout" class="btn btn-primary">Proceed to Checkout</a>
+
+        </section>
+
+    <% } %>
 
 </main>

@@ -391,6 +391,19 @@ async function addImages(productId, paths) {
     if (error) throw new Error(`addImages failed: ${error.message}`);
 }
 
+async function getManyPublic(ids) {
+  if (!ids || ids.length === 0) return [];
+
+  const { data, error } = await supabaseAnon
+    .from("products")
+    .select(`${LIST_COLUMNS}, description`)
+    .in("id", ids)
+    .eq("is_archived", false);
+
+  if (error) throw new Error(`getManyPublic failed: ${error.message}`);
+  return (data || []).map(toPublicProduct);
+}
+
 module.exports = {
   listAvailable,
   getPublicById,
@@ -405,5 +418,6 @@ module.exports = {
   adjustStock,
   setStock,
   listCategories,
-  addImages
+  addImages, 
+  getManyPublic
 };
