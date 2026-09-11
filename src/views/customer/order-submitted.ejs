@@ -1,0 +1,132 @@
+<main class="order-submitted-page">
+
+    <section class="order-success-header">
+
+        <div class="success-icon">
+            <span>✓</span>
+        </div>
+
+        <h1>Order Submitted!</h1>
+
+        <p>
+            Your order has been successfully submitted and is now
+            <strong>waiting for seller confirmation.</strong>
+        </p>
+
+    </section>
+
+    <section class="order-card">
+
+        <h2>Order Summary</h2>
+
+        <div class="order-items">
+
+            <% if (order.items && order.items.length > 0) { %>
+
+                <% order.items.forEach(item => { %>
+
+                    <div class="order-item">
+
+                        <div class="product-image">
+                            <img
+                                src="<%= item.image_url || item.image || '/images/placeholder.png' %>"
+                                alt="<%= item.product_name || item.name %>"
+                            >
+                        </div>
+
+                        <div class="product-details">
+
+                            <span class="product-name">
+                                <%= item.product_name || item.name %>
+                            </span>
+
+                            <span class="product-qty">
+                                Qty:<%= item.quantity %>
+                            </span>
+
+                        </div>
+
+                        <div class="product-price">
+                            ₱<%= Number(item.price * item.quantity).toFixed(0) %>
+                        </div>
+
+                    </div>
+
+                <% }) %>
+
+            <% } %>
+
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-row">
+            <span>Subtotal</span>
+
+            <span>
+                ₱<%= Number(order.subtotal).toFixed(0) %>
+            </span>
+        </div>
+
+        <div class="summary-row">
+            <span>Shipping (Standard)</span>
+
+            <span>
+                ₱<%= Number(order.shipping_fee || 150).toFixed(0) %>
+            </span>
+        </div>
+
+        <div class="summary-divider total-divider"></div>
+
+        <div class="summary-row total-row">
+            <span>Total</span>
+
+            <strong>
+                ₱<%= Number(order.total).toFixed(0) %>
+            </strong>
+        </div>
+
+        <div class="important-note">
+
+            <div class="important-note-title">
+                <span class="note-icon">!</span>
+                <strong>IMPORTANT NOTE!</strong>
+            </div>
+
+            <p>
+                Please wait for the seller's confirmation before making
+                your <strong>60% downpayment via GCash.</strong>
+                Once your order is confirmed, the payment instructions
+                will be available in My Orders. The remaining 30% is due upon 
+                completion before shipping.
+            </p>
+
+            <p>
+                Please complete your downpayment within
+                <strong>3 days after confirmation</strong> to avoid
+                automatic cancellation.
+            </p>
+
+        </div>
+
+    </section>
+
+    <div class="order-actions">
+
+        <a
+            href="/orders/<%= order.id %>"
+            class="view-order-btn"
+        >
+            View my Order
+        </a>
+
+        <a
+            href="/shop"
+            class="back-shop-btn"
+        >
+            Back to Shop
+        </a>
+
+    </div>
+
+</main>

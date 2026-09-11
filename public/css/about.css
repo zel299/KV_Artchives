@@ -74,6 +74,10 @@
     letter-spacing: 1px;
 }
 
+.view-gallery-btn i {
+    margin-right:6px;
+}
+
 .view-gallery-btn:hover {
     background: #ffa7a7;
     color: white;
@@ -374,7 +378,7 @@
     align-items: center;
     border-radius: 50%;
     background: #ffa7a755;
-    color: white;
+    color: #f38383;
     font-size: 18px;
 }
 

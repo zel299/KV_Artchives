@@ -60,6 +60,17 @@ body {
     margin-bottom: 20px;
 }
 
+.form-group .field-hint {
+    display: block;
+    margin-top: 5px;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #5e2e00;
+    opacity: 0.5;
+}
+
+
 .form-group--full {
     margin-top: 8px;
 }
