@@ -277,4 +277,39 @@ async function listOrdersForCustomer(db, userId, status = null) {
   }));
 }
 
-module.exports = { placeOrder, insertOrder, createOrder, getOrderForCustomer, toCustomerOrder, listOrdersForCustomer, STATUS_LABELS, ORDER_TABS };
+async function getLastShippingDetails(db, userId) {
+  const { data, error } = await db
+    .from("orders")
+    .select(`
+      ship_full_name, ship_contact_no, ship_address,
+      ship_barangay, ship_city, ship_province, ship_zip
+    `)
+    .eq("user_id", userId)
+    .order("placed_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) throw new Error(`getLastShippingDetails failed: ${error.message}`);
+  if (!data) return null;
+
+  return {
+    full_name: data.ship_full_name,
+    contact_no: data.ship_contact_no,
+    address: data.ship_address,
+    barangay: data.ship_barangay || "",
+    city: data.ship_city,
+    province: data.ship_province,
+    zip: data.ship_zip || "",
+    customer_note: ""
+  };
+}
+
+module.exports = { placeOrder, 
+  insertOrder, 
+  createOrder, 
+  getOrderForCustomer, 
+  toCustomerOrder, 
+  listOrdersForCustomer, 
+  getLastShippingDetails, 
+  STATUS_LABELS, 
+  ORDER_TABS };

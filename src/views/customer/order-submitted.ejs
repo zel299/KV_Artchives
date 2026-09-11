@@ -19,42 +19,33 @@
 
         <h2>Order Summary</h2>
 
+        <p class="order-code">Order <%= order.code %></p>
+
         <div class="order-items">
 
-            <% if (order.items && order.items.length > 0) { %>
+            <% order.items.forEach(function (item) { %>
 
-                <% order.items.forEach(item => { %>
+                <div class="order-item">
 
-                    <div class="order-item">
+                    <div class="product-details">
 
-                        <div class="product-image">
-                            <img
-                                src="<%= item.image_url || item.image || '/images/placeholder.png' %>"
-                                alt="<%= item.product_name || item.name %>"
-                            >
-                        </div>
+                        <span class="product-name">
+                            <%= item.name %>
+                        </span>
 
-                        <div class="product-details">
-
-                            <span class="product-name">
-                                <%= item.product_name || item.name %>
-                            </span>
-
-                            <span class="product-qty">
-                                Qty:<%= item.quantity %>
-                            </span>
-
-                        </div>
-
-                        <div class="product-price">
-                            ₱<%= Number(item.price * item.quantity).toFixed(0) %>
-                        </div>
+                        <span class="product-qty">
+                            Qty: <%= item.quantity %>
+                        </span>
 
                     </div>
 
-                <% }) %>
+                    <div class="product-price">
+                        <%= formatPeso(item.lineTotal) %>
+                    </div>
 
-            <% } %>
+                </div>
+
+            <% }); %>
 
         </div>
 
@@ -62,28 +53,19 @@
 
         <div class="summary-row">
             <span>Subtotal</span>
-
-            <span>
-                ₱<%= Number(order.subtotal).toFixed(0) %>
-            </span>
+            <span><%= formatPeso(order.subtotal) %></span>
         </div>
 
         <div class="summary-row">
-            <span>Shipping (Standard)</span>
-
-            <span>
-                ₱<%= Number(order.shipping_fee || 150).toFixed(0) %>
-            </span>
+            <span>Shipping</span>
+            <span>Calculated later</span>
         </div>
 
         <div class="summary-divider total-divider"></div>
 
         <div class="summary-row total-row">
-            <span>Total</span>
-
-            <strong>
-                ₱<%= Number(order.total).toFixed(0) %>
-            </strong>
+            <span>Down payment (60%)</span>
+            <strong><%= formatPeso(order.downPaymentAmount) %></strong>
         </div>
 
         <div class="important-note">
@@ -95,14 +77,18 @@
 
             <p>
                 Please wait for the seller's confirmation before making
-                your <strong>60% downpayment via GCash.</strong>
-                Once your order is confirmed, the payment instructions
-                will be available in My Orders. The remaining 30% is due upon 
-                completion before shipping.
+                your <strong>60% down payment via GCash</strong>. Once your
+                order is confirmed, the payment instructions will appear
+                in My Orders.
             </p>
 
             <p>
-                Please complete your downpayment within
+                The remaining balance, together with the shipping fee, is
+                requested once your pieces are finished and ready to ship.
+            </p>
+
+            <p>
+                Please complete your down payment within
                 <strong>3 days after confirmation</strong> to avoid
                 automatic cancellation.
             </p>
@@ -113,17 +99,11 @@
 
     <div class="order-actions">
 
-        <a
-            href="/orders/<%= order.id %>"
-            class="view-order-btn"
-        >
-            View my Order
+        <a href="/account/orders" class="view-order-btn">
+            View my Orders
         </a>
 
-        <a
-            href="/shop"
-            class="back-shop-btn"
-        >
+        <a href="/shop" class="back-shop-btn">
             Back to Shop
         </a>
 

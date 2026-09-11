@@ -13,6 +13,7 @@ const FIELDS = [
   "customer_note",
 ];
 
+
 function readValues(body) {
   const values = {};
   for (const field of FIELDS) {
@@ -26,10 +27,12 @@ async function showDetails(req, res, next) {
     const { items } = await cartService.getCartItems(req.db, req.user.id);
     if (items.length === 0) return res.redirect("/cart");
 
+    const last = await orderService.getLastShippingDetails(req.db, req.user.id);
+
     res.render("customer/customer-details", {
       title: "Checkout",
       pageCss: "customer-details",
-      values: {
+      values: last || {
         full_name: req.user.full_name || "",
         contact_no: req.user.contact_no || "",
         address: "",

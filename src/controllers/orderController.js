@@ -17,9 +17,9 @@ async function showOrder(req, res, next) {
       });
     }
 
-    res.render("customer/order-detail", {
+    res.render("customer/order-submitted", {
       title: `Order ${order.code}`,
-      pageCss: "order-detail",
+      pageCss: "order-submitted",
       order,
       flash: req.query.msg || null,
     });

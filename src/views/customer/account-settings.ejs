@@ -8,7 +8,7 @@
 
     <section class="account-header">
         <h1>Account Settings</h1>
-        <p>Manage your personal information, password, and delivery details.</p>
+        <p>Manage your personal information and delivery details.</p>
     </section>
 
     <section class="account-content">
@@ -27,28 +27,21 @@
                 <div class="info-item">
                     <span class="info-label">Full Name</span>
                     <span class="info-value">
-                        <%= user?.full_name || "Not provided" %>
-                    </span>
-                </div>
-
-                <div class="info-item">
-                    <span class="info-label">Username</span>
-                    <span class="info-value">
-                        <%= user?.username || "Not provided" %>
+                        <%= user.full_name || "Not provided" %>
                     </span>
                 </div>
 
                 <div class="info-item">
                     <span class="info-label">Contact Number</span>
                     <span class="info-value">
-                        <%= user?.phone || "Not provided" %>
+                        <%= user.contact_no || "Not provided" %>
                     </span>
                 </div>
 
                 <div class="info-item">
                     <span class="info-label">Email Address</span>
                     <span class="info-value">
-                        <%= user?.email || "Not provided" %>
+                        <%= user.email || "Not provided" %>
                     </span>
                 </div>
 
@@ -60,36 +53,28 @@
 
             <div class="card-title">
                 <i class="fa-solid fa-location-dot"></i>
-                <span>Saved Address</span>
-
-                <a href="#" class="add-link">+ Add</a>
+                <span>Delivery Address</span>
             </div>
 
             <p class="card-description">
-                Use this address for faster checkout.
+                Your most recent delivery address is used to fill in the
+                checkout form automatically. You can change it at checkout.
             </p>
 
             <div class="address-box">
 
                 <div class="address-top">
                     <strong>
-                        <%= user?.full_name || "Your Name" %>
+                        <%= user.full_name || "Your Name" %>
                     </strong>
-
-                    <div class="address-actions">
-                        <button type="button"><i class="fa-solid fa-pen"></i></button>
-                        <button type="button"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
                 </div>
 
-                <span class="default-badge">Default</span>
-
                 <p>
-                    ☎ <%= user?.phone || "No contact number" %>
+                    ☎ <%= user.contact_no || "No contact number" %>
                 </p>
 
                 <p>
-                    Your saved address will appear here.
+                    Your delivery address appears here after your first order.
                 </p>
 
             </div>
@@ -102,7 +87,7 @@
                 <i class="fa-solid fa-key"></i>
                 <span>Password</span>
 
-                <a href="#" class="change-password">
+                <a href="/forgot-password" class="change-password">
                     Change Password
                 </a>
             </div>
