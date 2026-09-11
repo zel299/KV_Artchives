@@ -1,27 +1,20 @@
 .order-submitted-page {
   min-height: calc(100vh - 70px);
-
-  padding: 55px 5% 100px;
-
+  padding: 42px 20px 70px;
   background: #fff0f0;
-
   color: #5e2e00;
-
   font-family: "Albert Sans", sans-serif;
-
   box-sizing: border-box;
 }
 
-.order-submitted-header {
+.order-success-header {
   text-align: center;
-
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
-.success-circle {
-  width: 58px;
-  height: 58px;
-
+.success-icon {
+  width: 46px;
+  height: 46px;
   margin: 0 auto 22px;
 
   border-radius: 50%;
@@ -33,760 +26,361 @@
   justify-content: center;
 
   box-shadow:
-    0 0 0 16px rgba(76, 175, 80, 0.08),
-    0 8px 25px rgba(76, 175, 80, 0.12);
+    0 0 0 13px rgba(76, 175, 80, 0.08),
+    0 5px 18px rgba(76, 175, 80, 0.15);
 }
 
-.success-circle span {
+.success-icon span {
   color: #ffffff;
-
-  font-size: 34px;
-
+  font-size: 27px;
   font-weight: 700;
-
   line-height: 1;
 }
 
-.order-submitted-header h1 {
-  margin: 0 0 10px;
+.order-success-header h1 {
+  margin: 0 0 8px;
 
   color: #5e2e00;
 
   font-family: "Berkshire Swash", Georgia, serif;
-
-  font-size: 42px;
-
+  font-size: 31px;
   font-weight: 500;
+
+  line-height: 1.2;
 }
 
-.order-submitted-header p {
-  margin: 0;
+.order-success-header p {
+  max-width: 560px;
+  margin: 0 auto;
 
-  color: #6b3510;
+  color: #5e2e00;
 
-  font-size: 15px;
-
+  font-size: 11px;
   line-height: 1.5;
 }
 
-.order-payment-layout {
-  width: 100%;
+.order-success-header p strong {
+  font-weight: 700;
+}
 
-  max-width: 1250px;
+.order-card {
+  width: 100%;
+  max-width: 544px;
 
   margin: 0 auto;
 
-  display: grid;
+  padding: 21px 20px;
 
-  grid-template-columns: 295px minmax(0, 1fr);
+  background: #ffffff;
 
-  gap: 38px;
+  border-radius: 7px;
 
-  align-items: start;
+  box-sizing: border-box;
+
+  box-shadow: 0 8px 25px rgba(94, 46, 0, 0.06);
 }
 
-.order-sidebar {
+.order-card h2 {
+  margin: 0 0 16px;
+
+  color: #222222;
+
+  font-family: "Abhaya Libre", Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.order-items {
+  width: 100%;
+}
+
+.order-item {
+  width: 100%;
+
   display: flex;
+  align-items: center;
 
-  flex-direction: column;
-
-  gap: 20px;
-}
-
-.order-summary-card {
-  padding: 27px 26px;
-
-  background: #ffd7d7;
-
-  border: 1px solid #efcaca;
-
-  border-radius: 15px;
+  gap: 10px;
 
   box-sizing: border-box;
 }
 
-.order-summary-card h2 {
-  margin: 0;
+.product-image {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  overflow: hidden;
+
+  border-radius: 5px;
+
+  background: #f5eeee;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+.product-details {
+  flex: 1;
+
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.product-name {
+  color: #5e2e00;
+
+  font-family: "Averia Serif Libre", serif;
+  font-size: 12px;
+  font-weight: 500;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-qty {
+  color: #7c6a61;
+
+  font-size: 9px;
+}
+
+.product-price {
+  flex-shrink: 0;
 
   color: #5e2e00;
 
-  font-family: "Abhaya Libre", serif;
-
-  font-size: 25px;
-
-  font-weight: 500;
+  font-family: "Abhaya Libre", Georgia, serif;
+  font-size: 11px;
 }
 
 .summary-divider {
   width: 100%;
-
   height: 1px;
 
-  margin: 18px 0 25px;
+  margin: 15px 0 17px;
 
-  background: rgba(94, 46, 0, 0.15);
+  background: #eee5e1;
+}
+
+.total-divider {
+  margin: 15px 0 16px;
 }
 
 .summary-row {
   width: 100%;
 
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
 
-  gap: 15px;
+  margin-bottom: 11px;
 
-  font-size: 14px;
+  color: #766760;
+
+  font-size: 11px;
 }
 
+.summary-row:last-child {
+  margin-bottom: 0;
+}
+
+.summary-row span:last-child,
 .summary-row strong {
-  font-size: 14px;
-
-  white-space: nowrap;
+  color: #5c514c;
 }
 
-.downpayment-box {
-  width: 100%;
+.total-row {
+  margin-bottom: 0;
 
-  margin-top: 20px;
+  color: #493d37;
 
-  padding: 17px 16px;
-
-  box-sizing: border-box;
-
-  background: #ffffff;
-
-  border-radius: 9px;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  gap: 15px;
+  font-family: "Abhaya Libre", Georgia, serif;
+  font-size: 12px;
 }
 
-.downpayment-label {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 2px;
+.total-row strong {
+  font-size: 12px;
+  font-weight: 500;
 }
 
-.downpayment-label span {
-  color: #f05252;
+.important-note {
+  margin-top: 16px;
 
-  font-size: 13px;
-}
+  padding: 10px 12px;
 
-.downpayment-label strong {
-  color: #f05252;
+  background: #ffd4d0;
 
-  font-size: 13px;
-}
-
-.downpayment-price {
-  color: #f05252;
-
-  font-size: 17px;
-
-  white-space: nowrap;
-}
-
-.important-note-card {
-  padding: 20px 22px;
-
-  background: #fffaf0;
-
-  border: 1px solid #e7cdbb;
-
-  border-radius: 15px;
+  border-radius: 5px;
 
   box-sizing: border-box;
 }
 
 .important-note-title {
   display: flex;
-
   align-items: center;
 
-  gap: 8px;
+  gap: 6px;
 
-  margin-bottom: 13px;
+  margin-bottom: 5px;
 
-  font-size: 13px;
-}
+  color: #b52e2e;
 
-.info-symbol {
-  font-size: 16px;
-}
-
-.important-note-card p {
-  margin: 0 0 10px;
-
-  color: #6b3510;
-
-  font-size: 13px;
-
-  line-height: 1.55;
-}
-
-.important-note-card p:last-child {
-  margin-bottom: 0;
-}
-
-.payment-column {
-  min-width: 0;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 25px;
-}
-
-
-.gcash-payment-card {
-  min-height: 330px;
-
-  padding: 30px;
-
-  box-sizing: border-box;
-
-  background: #ffffff;
-
-  border: 1px solid #efcaca;
-
-  border-top: 7px solid #ef6a6a;
-
-  border-radius: 15px;
-
-  display: grid;
-
-  grid-template-columns: 185px minmax(0, 1fr);
-
-  gap: 25px;
-
-  align-items: center;
-
-  box-shadow: 0 8px 25px rgba(94, 46, 0, 0.05);
-}
-
-
-.qr-section {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-}
-
-.qr-frame {
-  width: 178px;
-  height: 178px;
-
-  padding: 12px;
-
-  box-sizing: border-box;
-
-  background: #ffffff;
-
-  border: 1px solid #efcaca;
-
-  border-radius: 18px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  overflow: hidden;
-}
-
-.gcash-qr {
-  width: 100%;
-  height: 100%;
-
-  display: block;
-
-  object-fit: contain;
-}
-
-
-.qr-unavailable {
-  width: 100%;
-  height: 100%;
-
-  padding: 15px;
-
-  box-sizing: border-box;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-
-  text-align: center;
-}
-
-.qr-unavailable span {
-  font-size: 28px;
-
+  font-size: 8px;
   font-weight: 700;
 
-  color: #d6aaa4;
+  text-transform: uppercase;
 }
 
-.qr-unavailable p {
-  margin: 8px 0 0;
-
-  color: #9b7768;
-
-  font-size: 11px;
-
-  line-height: 1.4;
-}
-
-.scan-qr-label {
-  margin-top: 13px;
-
-  padding: 5px 13px;
-
-  border-radius: 20px;
-
-  background: #e7e2d9;
-
-  color: #5e2e00;
-
-  font-size: 12px;
-
-  font-weight: 600;
-}
-
-
-.gcash-payment-details h2 {
-  margin: 0 0 8px;
-
-  color: #5e2e00;
-
-  font-family: "Abhaya Libre", serif;
-
-  font-size: 25px;
-
-  font-weight: 500;
-}
-
-.payment-description {
-  margin: 0 0 25px;
-
-  color: #6b3510;
-
-  font-size: 14px;
-
-  line-height: 1.5;
-}
-
-.gcash-account-box {
-  padding: 17px 18px;
-
-  box-sizing: border-box;
-
-  background: #fffaf2;
-
-  border: 1px solid #e7cdbb;
-
-  border-radius: 13px;
-}
-
-.account-information-row {
-  min-height: 28px;
-
-  padding-bottom: 14px;
-
-  margin-bottom: 14px;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  gap: 20px;
-
-  border-bottom: 1px solid #ead7c9;
-}
-
-.account-information-row span {
-  color: #5e2e00;
-
-  font-size: 12px;
-
-  font-weight: 700;
-}
-
-.account-information-row strong {
-  color: #5e2e00;
-
-  font-size: 13px;
-
-  text-align: right;
-}
-
-.amount-to-pay {
-  padding: 13px 12px;
-
-  background: #ffffff;
-
-  border-radius: 9px;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  gap: 15px;
-}
-
-.amount-to-pay span {
-  color: #f05252;
-
-  font-size: 12px;
-
-  font-weight: 700;
-}
-
-.amount-to-pay strong {
-  color: #f05252;
-
-  font-size: 14px;
-}
-
-.payment-verification-card {
-  padding: 27px 30px;
-
-  box-sizing: border-box;
-
-  background: #ffffff;
-
-  border: 1px solid #efcaca;
-
-  border-radius: 15px;
-
-  box-shadow: 0 8px 25px rgba(94, 46, 0, 0.05);
-}
-
-.payment-verification-card h2 {
-  margin: 0 0 25px;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-  color: #5e2e00;
-
-  font-family: "Abhaya Libre", serif;
-
-  font-size: 24px;
-
-  font-weight: 500;
-}
-
-.verification-icon {
-  width: 25px;
-  height: 25px;
+.note-icon {
+  width: 12px;
+  height: 12px;
+
+  flex-shrink: 0;
 
   border-radius: 50%;
 
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  background: #fff1d7;
-
-  color: #ffb24d;
-
-  font-family: Arial, sans-serif;
-
-  font-size: 14px;
-}
-
-.payment-form-group {
-  margin-bottom: 20px;
-}
-
-.payment-form-group > label:first-child {
-  display: block;
-
-  margin-bottom: 9px;
-
-  color: #5e2e00;
-
-  font-size: 13px;
-
-  font-weight: 700;
-}
-
-.payment-form-group input[type="text"] {
-  width: 100%;
-  height: 38px;
-
-  padding: 0 16px;
-
-  box-sizing: border-box;
-
-  border: 1px solid #e8c6b9;
-
-  border-radius: 20px;
-
-  outline: none;
-
-  background: #fffaf3;
-
-  color: #5e2e00;
-
-  font-family: "Albert Sans", sans-serif;
-
-  font-size: 13px;
-}
-
-.payment-form-group input[type="text"]::placeholder {
-  color: #a9897c;
-}
-
-.payment-form-group input[type="text"]:focus {
-  border-color: #ef6a6a;
-
-  box-shadow: 0 0 0 3px rgba(239, 106, 106, 0.1);
-}
-
-.receipt-upload-area {
-  width: 100%;
-
-  min-height: 125px;
-
-  box-sizing: border-box;
-
-  border: 2px dashed #e6bdb7;
-
-  border-radius: 12px;
-
-  background: #fffaf3;
-
-  cursor: pointer;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-
-  transition: 0.2s ease;
-}
-
-.receipt-upload-area:hover {
-  background: #fff4f4;
-
-  border-color: #ef6a6a;
-}
-
-.upload-cloud {
-  margin-bottom: 8px;
-
-  color: #e5bdb8;
-
-  font-size: 31px;
-
-  line-height: 1;
-}
-
-.upload-main-text {
-  color: #5e2e00;
-
-  font-size: 13px;
-}
-
-.receipt-upload-area small {
-  margin-top: 4px;
-
-  color: #9b7768;
-
-  font-size: 11px;
-}
-
-.receipt-upload-area input[type="file"] {
-  display: none;
-}
-
-
-.selected-file-name {
-  margin: 8px 0 0;
-
-  color: #6b3510;
-
-  font-size: 12px;
-}
-
-.submit-payment-button {
-  width: 240px;
-  height: 38px;
-
-  margin-top: 18px;
-
-  border: none;
-
-  border-radius: 22px;
-
-  background: #e75353;
+  background: #b52e2e;
 
   color: #ffffff;
 
-  font-family: "Albert Sans", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  font-size: 13px;
-
-  letter-spacing: 1px;
-
-  cursor: pointer;
-
-  transition: 0.2s ease;
+  font-size: 8px;
+  font-weight: 700;
 }
 
-.submit-payment-button:hover {
-  background: #df4646;
+.important-note p {
+  margin: 0 0 3px;
+
+  color: #9b3939;
+
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+.important-note p:last-child {
+  margin-bottom: 0;
+}
+
+.important-note strong {
+  font-weight: 700;
+}
+
+.order-actions {
+  width: 100%;
+  max-width: 340px;
+
+  margin: 20px auto 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+}
+
+.view-order-btn,
+.back-shop-btn {
+  width: 181px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  border-radius: 18px;
+
+  text-decoration: none;
+
+  font-family: "Albert Sans", sans-serif;
+  font-size: 9px;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.view-order-btn {
+  background: #f47c7c;
+  color: #5e2e00;
+
+  border: 1px solid #f47c7c;
+}
+
+.view-order-btn:hover {
+  background: #ed6d6d;
+  border-color: #ed6d6d;
 
   transform: translateY(-1px);
 }
 
-.order-payment-actions {
-  display: flex;
-
-  justify-content: center;
-
-  gap: 15px;
-}
-
-.view-order-button,
-.back-shop-button {
-  width: 240px;
-  height: 38px;
-
-  box-sizing: border-box;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  border-radius: 22px;
-
-  text-decoration: none;
-
-  font-size: 13px;
-
-  transition: 0.2s ease;
-}
-
-.view-order-button {
-  background: #f47b7b;
-
-  color: #5e2e00;
-}
-
-.view-order-button:hover {
-  background: #ed6969;
-}
-
-.back-shop-button {
+.back-shop-btn {
   background: #ffffff;
-
   color: #5e2e00;
 
-  border: 1.5px solid #ef6a6a;
+  border: 1px solid #f47c7c;
 }
 
-.back-shop-button:hover {
-  background: #fff4f4;
+.back-shop-btn:hover {
+  background: #fff7f7;
+
+  transform: translateY(-1px);
 }
 
-@media (max-width: 650px) {
+@media (max-width: 600px) {
   .order-submitted-page {
-    padding: 35px 20px 70px;
+    padding: 35px 16px 55px;
   }
 
-  .order-submitted-header h1 {
-    font-size: 34px;
+  .order-success-header {
+    margin-bottom: 25px;
   }
 
-  .order-submitted-header p {
-    font-size: 13px;
+  .order-success-header h1 {
+    font-size: 28px;
   }
 
-  .order-sidebar {
-    display: flex;
+  .order-success-header p {
+    font-size: 10px;
+    padding: 0 10px;
+  }
+
+  .order-card {
+    padding: 20px 16px;
+  }
+
+  .order-card h2 {
+    font-size: 19px;
+  }
+
+  .order-actions {
+    max-width: 100%;
 
     flex-direction: column;
+
+    gap: 10px;
   }
 
-  .gcash-payment-card {
-    grid-template-columns: 1fr;
-
-    text-align: center;
-
-    padding: 25px 20px;
-  }
-
-  .qr-section {
-    margin: 0 auto;
-  }
-
-  .gcash-payment-details h2 {
-    font-size: 23px;
-  }
-
-  .account-information-row {
-    text-align: left;
-  }
-
-  .account-information-row strong {
-    text-align: right;
-  }
-
-  .payment-verification-card {
-    padding: 22px;
-  }
-
-  .payment-verification-card h2 {
-    font-size: 21px;
-  }
-
-  .submit-payment-button {
+  .view-order-btn,
+  .back-shop-btn {
     width: 100%;
-  }
-
-  .order-payment-actions {
-    flex-direction: column;
-  }
-
-  .view-order-button,
-  .back-shop-button {
-    width: 100%;
+    max-width: 340px;
   }
 }

@@ -1,364 +1,132 @@
 <main class="order-submitted-page">
 
-  <section class="order-submitted-header">
+    <section class="order-success-header">
 
-    <div class="success-circle">
-      <span>✓</span>
-    </div>
+        <div class="success-icon">
+            <span>✓</span>
+        </div>
 
-    <h1>Order Submitted!</h1>
+        <h1>Order Submitted!</h1>
 
-    <p>
-      Your order has been successfully submitted, but your
-      60% downpayment is still pending.
-    </p>
+        <p>
+            Your order has been successfully submitted and is now
+            <strong>waiting for seller confirmation.</strong>
+        </p>
 
-  </section>
+    </section>
 
-  <section class="order-payment-layout">
-
-    <aside class="order-sidebar">
-
-      <!-- ORDER SUMMARY -->
-      <div class="order-summary-card">
+    <section class="order-card">
 
         <h2>Order Summary</h2>
 
-        <div class="summary-divider"></div>
+        <div class="order-items">
 
+            <% if (order.items && order.items.length > 0) { %>
 
-        <div class="summary-row">
-          <span>Order Total</span>
+                <% order.items.forEach(item => { %>
 
-          <strong>
-            ₱<%= Number(order.total).toFixed(2) %>
-          </strong>
-        </div>
+                    <div class="order-item">
 
+                        <div class="product-image">
+                            <img
+                                src="<%= item.image_url || item.image || '/images/placeholder.png' %>"
+                                alt="<%= item.product_name || item.name %>"
+                            >
+                        </div>
 
-        <!-- DOWNPAYMENT -->
-        <div class="downpayment-box">
+                        <div class="product-details">
 
-          <div class="downpayment-label">
-            <span>Required</span>
+                            <span class="product-name">
+                                <%= item.product_name || item.name %>
+                            </span>
 
-            <strong>
-              Downpayment (70%)
-            </strong>
-          </div>
+                            <span class="product-qty">
+                                Qty:<%= item.quantity %>
+                            </span>
 
-          <strong class="downpayment-price">
-            ₱<%= (Number(order.total) * 0.70).toFixed(2) %>
-          </strong>
+                        </div>
 
-        </div>
+                        <div class="product-price">
+                            ₱<%= Number(item.price * item.quantity).toFixed(0) %>
+                        </div>
 
+                    </div>
 
-        <div class="summary-divider"></div>
-
-        <!-- REMAINING BALANCE -->
-        <div class="summary-row">
-
-          <span>
-            Remaining Balance
-          </span>
-
-          <strong>
-            ₱<%= (Number(order.total) * 0.30).toFixed(2) %>
-          </strong>
-
-        </div>
-
-      </div>
-
-      <div class="important-note-card">
-
-        <div class="important-note-title">
-
-          <span class="info-symbol">
-            ⓘ
-          </span>
-
-          <strong>
-            IMPORTANT NOTE
-          </strong>
-
-        </div>
-
-
-        <p>
-          Work begins once the 60% downpayment is verified,
-          and cancellations are no longer allowed after payment.
-        </p>
-
-        <p>
-          The remaining 40% balance is required before shipping
-          and can be paid via GCash.
-        </p>
-
-        <p>
-          If you choose to pay later, go to
-          <strong>My Orders</strong> to access the payment.
-        </p>
-
-        <p>
-          Please complete your downpayment within
-          <strong>3 days</strong> to avoid automatic cancellation.
-        </p>
-
-      </div>
-
-    </aside>
-
-    <div class="payment-column">
-
-      <section class="gcash-payment-card">
-
-
-        <!-- QR SIDE -->
-        <div class="qr-section">
-
-          <div class="qr-frame">
-
-            <% if (paymentSettings && paymentSettings.gcash_qr_url) { %>
-
-              <img
-                src="<%= paymentSettings.gcash_qr_url %>"
-                alt="KV Artchives GCash QR Code"
-                class="gcash-qr"
-              >
-
-            <% } else { %>
-
-              <div class="qr-unavailable">
-
-                <span>QR</span>
-
-                <p>
-                  GCash QR is currently unavailable.
-                </p>
-
-              </div>
+                <% }) %>
 
             <% } %>
 
-          </div>
+        </div>
 
+        <div class="summary-divider"></div>
 
-          <span class="scan-qr-label">
-            Scan the QR code
-          </span>
+        <div class="summary-row">
+            <span>Subtotal</span>
+
+            <span>
+                ₱<%= Number(order.subtotal).toFixed(0) %>
+            </span>
+        </div>
+
+        <div class="summary-row">
+            <span>Shipping (Standard)</span>
+
+            <span>
+                ₱<%= Number(order.shipping_fee || 150).toFixed(0) %>
+            </span>
+        </div>
+
+        <div class="summary-divider total-divider"></div>
+
+        <div class="summary-row total-row">
+            <span>Total</span>
+
+            <strong>
+                ₱<%= Number(order.total).toFixed(0) %>
+            </strong>
+        </div>
+
+        <div class="important-note">
+
+            <div class="important-note-title">
+                <span class="note-icon">!</span>
+                <strong>IMPORTANT NOTE!</strong>
+            </div>
+
+            <p>
+                Please wait for the seller's confirmation before making
+                your <strong>60% downpayment via GCash.</strong>
+                Once your order is confirmed, the payment instructions
+                will be available in My Orders. The remaining 30% is due upon 
+                completion before shipping.
+            </p>
+
+            <p>
+                Please complete your downpayment within
+                <strong>3 days after confirmation</strong> to avoid
+                automatic cancellation.
+            </p>
 
         </div>
 
+    </section>
 
-
-        <!-- PAYMENT DETAILS -->
-        <div class="gcash-payment-details">
-
-          <h2>
-            Send Payment to GCash
-          </h2>
-
-
-          <p class="payment-description">
-            Please send the exact amount to the account below.
-          </p>
-
-
-          <!-- ACCOUNT INFORMATION -->
-          <div class="gcash-account-box">
-
-
-            <!-- ACCOUNT NAME -->
-            <div class="account-information-row">
-
-              <span>
-                ACCOUNT NAME
-              </span>
-
-              <strong>
-                <%= paymentSettings.gcash_account_name %>
-              </strong>
-
-            </div>
-
-
-            <!-- ACCOUNT NUMBER -->
-            <div class="account-information-row">
-
-              <span>
-                ACCOUNT NUMBER
-              </span>
-
-              <strong>
-                <%= paymentSettings.gcash_account_number %>
-              </strong>
-
-            </div>
-
-
-            <!-- AMOUNT -->
-            <div class="amount-to-pay">
-
-              <span>
-                AMOUNT TO PAY
-              </span>
-
-              <strong>
-                ₱<%= (Number(order.total) * 0.70).toFixed(2) %>
-              </strong>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <section class="payment-verification-card">
-
-
-        <h2>
-          Payment Verification Details
-
-        </h2>
-
-
-        <form
-          action="/orders/<%= order.id %>/payment"
-          method="POST"
-          enctype="multipart/form-data"
-          class="payment-form"
-        >
-
-          <div class="payment-form-group">
-
-            <label for="payment_reference">
-              PAYMENT REFERENCE NUMBER
-            </label>
-
-            <input
-              type="text"
-              id="payment_reference"
-              name="payment_reference"
-              placeholder="e.g. 10023456789"
-              autocomplete="off"
-              required
-            >
-
-          </div>
-
-          <div class="payment-form-group">
-
-            <label>
-              UPLOAD PAYMENT RECEIPT
-            </label>
-
-
-            <label
-              for="payment_receipt"
-              class="receipt-upload-area"
-            >
-
-              <div class="upload-cloud">
-                ☁
-              </div>
-
-
-              <span class="upload-main-text">
-                Click to upload or drag and drop
-              </span>
-
-
-              <small>
-                JPG, PNG, PDF (Max 5MB)
-              </small>
-
-
-              <input
-                type="file"
-                id="payment_receipt"
-                name="payment_receipt"
-                accept=".jpg,.jpeg,.png,.pdf"
-                required
-              >
-
-            </label>
-
-
-            <!-- Selected file name -->
-            <p
-              id="selected-file-name"
-              class="selected-file-name"
-            ></p>
-
-          </div>
-
-          <button
-            type="submit"
-            class="submit-payment-button"
-          >
-            Submit Payment
-          </button>
-
-        </form>
-
-      </section>
-
-      <div class="order-payment-actions">
+    <div class="order-actions">
 
         <a
-          href="/orders/<%= order.id %>"
-          class="view-order-button"
+            href="/orders/<%= order.id %>"
+            class="view-order-btn"
         >
-          View my Order
+            View my Order
         </a>
-
 
         <a
-          href="/shop"
-          class="back-shop-button"
+            href="/shop"
+            class="back-shop-btn"
         >
-          Back to Shop
+            Back to Shop
         </a>
-
-      </div>
-
 
     </div>
 
-  </section>
-
 </main>
-
-<script>
-
-  const receiptInput =
-    document.getElementById('payment_receipt');
-
-  const selectedFileName =
-    document.getElementById('selected-file-name');
-
-
-  if (receiptInput) {
-
-    receiptInput.addEventListener('change', function () {
-
-      if (this.files && this.files.length > 0) {
-
-        selectedFileName.textContent =
-          "Selected file: " + this.files[0].name;
-
-      } else {
-
-        selectedFileName.textContent = "";
-
-      }
-
-    });
-
-  }
-
-</script>
