@@ -1,0 +1,364 @@
+<main class="order-submitted-page">
+
+  <section class="order-submitted-header">
+
+    <div class="success-circle">
+      <span>✓</span>
+    </div>
+
+    <h1>Order Submitted!</h1>
+
+    <p>
+      Your order has been successfully submitted, but your
+      60% downpayment is still pending.
+    </p>
+
+  </section>
+
+  <section class="order-payment-layout">
+
+    <aside class="order-sidebar">
+
+      <!-- ORDER SUMMARY -->
+      <div class="order-summary-card">
+
+        <h2>Order Summary</h2>
+
+        <div class="summary-divider"></div>
+
+
+        <div class="summary-row">
+          <span>Order Total</span>
+
+          <strong>
+            ₱<%= Number(order.total).toFixed(2) %>
+          </strong>
+        </div>
+
+
+        <!-- DOWNPAYMENT -->
+        <div class="downpayment-box">
+
+          <div class="downpayment-label">
+            <span>Required</span>
+
+            <strong>
+              Downpayment (70%)
+            </strong>
+          </div>
+
+          <strong class="downpayment-price">
+            ₱<%= (Number(order.total) * 0.70).toFixed(2) %>
+          </strong>
+
+        </div>
+
+
+        <div class="summary-divider"></div>
+
+        <!-- REMAINING BALANCE -->
+        <div class="summary-row">
+
+          <span>
+            Remaining Balance
+          </span>
+
+          <strong>
+            ₱<%= (Number(order.total) * 0.30).toFixed(2) %>
+          </strong>
+
+        </div>
+
+      </div>
+
+      <div class="important-note-card">
+
+        <div class="important-note-title">
+
+          <span class="info-symbol">
+            ⓘ
+          </span>
+
+          <strong>
+            IMPORTANT NOTE
+          </strong>
+
+        </div>
+
+
+        <p>
+          Work begins once the 60% downpayment is verified,
+          and cancellations are no longer allowed after payment.
+        </p>
+
+        <p>
+          The remaining 40% balance is required before shipping
+          and can be paid via GCash.
+        </p>
+
+        <p>
+          If you choose to pay later, go to
+          <strong>My Orders</strong> to access the payment.
+        </p>
+
+        <p>
+          Please complete your downpayment within
+          <strong>3 days</strong> to avoid automatic cancellation.
+        </p>
+
+      </div>
+
+    </aside>
+
+    <div class="payment-column">
+
+      <section class="gcash-payment-card">
+
+
+        <!-- QR SIDE -->
+        <div class="qr-section">
+
+          <div class="qr-frame">
+
+            <% if (paymentSettings && paymentSettings.gcash_qr_url) { %>
+
+              <img
+                src="<%= paymentSettings.gcash_qr_url %>"
+                alt="KV Artchives GCash QR Code"
+                class="gcash-qr"
+              >
+
+            <% } else { %>
+
+              <div class="qr-unavailable">
+
+                <span>QR</span>
+
+                <p>
+                  GCash QR is currently unavailable.
+                </p>
+
+              </div>
+
+            <% } %>
+
+          </div>
+
+
+          <span class="scan-qr-label">
+            Scan the QR code
+          </span>
+
+        </div>
+
+
+
+        <!-- PAYMENT DETAILS -->
+        <div class="gcash-payment-details">
+
+          <h2>
+            Send Payment to GCash
+          </h2>
+
+
+          <p class="payment-description">
+            Please send the exact amount to the account below.
+          </p>
+
+
+          <!-- ACCOUNT INFORMATION -->
+          <div class="gcash-account-box">
+
+
+            <!-- ACCOUNT NAME -->
+            <div class="account-information-row">
+
+              <span>
+                ACCOUNT NAME
+              </span>
+
+              <strong>
+                <%= paymentSettings.gcash_account_name %>
+              </strong>
+
+            </div>
+
+
+            <!-- ACCOUNT NUMBER -->
+            <div class="account-information-row">
+
+              <span>
+                ACCOUNT NUMBER
+              </span>
+
+              <strong>
+                <%= paymentSettings.gcash_account_number %>
+              </strong>
+
+            </div>
+
+
+            <!-- AMOUNT -->
+            <div class="amount-to-pay">
+
+              <span>
+                AMOUNT TO PAY
+              </span>
+
+              <strong>
+                ₱<%= (Number(order.total) * 0.70).toFixed(2) %>
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="payment-verification-card">
+
+
+        <h2>
+          Payment Verification Details
+
+        </h2>
+
+
+        <form
+          action="/orders/<%= order.id %>/payment"
+          method="POST"
+          enctype="multipart/form-data"
+          class="payment-form"
+        >
+
+          <div class="payment-form-group">
+
+            <label for="payment_reference">
+              PAYMENT REFERENCE NUMBER
+            </label>
+
+            <input
+              type="text"
+              id="payment_reference"
+              name="payment_reference"
+              placeholder="e.g. 10023456789"
+              autocomplete="off"
+              required
+            >
+
+          </div>
+
+          <div class="payment-form-group">
+
+            <label>
+              UPLOAD PAYMENT RECEIPT
+            </label>
+
+
+            <label
+              for="payment_receipt"
+              class="receipt-upload-area"
+            >
+
+              <div class="upload-cloud">
+                ☁
+              </div>
+
+
+              <span class="upload-main-text">
+                Click to upload or drag and drop
+              </span>
+
+
+              <small>
+                JPG, PNG, PDF (Max 5MB)
+              </small>
+
+
+              <input
+                type="file"
+                id="payment_receipt"
+                name="payment_receipt"
+                accept=".jpg,.jpeg,.png,.pdf"
+                required
+              >
+
+            </label>
+
+
+            <!-- Selected file name -->
+            <p
+              id="selected-file-name"
+              class="selected-file-name"
+            ></p>
+
+          </div>
+
+          <button
+            type="submit"
+            class="submit-payment-button"
+          >
+            Submit Payment
+          </button>
+
+        </form>
+
+      </section>
+
+      <div class="order-payment-actions">
+
+        <a
+          href="/orders/<%= order.id %>"
+          class="view-order-button"
+        >
+          View my Order
+        </a>
+
+
+        <a
+          href="/shop"
+          class="back-shop-button"
+        >
+          Back to Shop
+        </a>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+
+  const receiptInput =
+    document.getElementById('payment_receipt');
+
+  const selectedFileName =
+    document.getElementById('selected-file-name');
+
+
+  if (receiptInput) {
+
+    receiptInput.addEventListener('change', function () {
+
+      if (this.files && this.files.length > 0) {
+
+        selectedFileName.textContent =
+          "Selected file: " + this.files[0].name;
+
+      } else {
+
+        selectedFileName.textContent = "";
+
+      }
+
+    });
+
+  }
+
+</script>
