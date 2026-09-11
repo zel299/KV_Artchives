@@ -136,4 +136,145 @@ async function insertOrder(userId, lines, subtotal, downPayment, shipping) {
   return order;
 }
 
-module.exports = { placeOrder, insertOrder, createOrder };
+async function getOrderForCustomer(db, orderId, userId) {
+  const { data, error } = await db
+    .from("orders")
+    .select(`
+      id, code, status, subtotal, shipping_fee, down_payment_amount,
+      ship_full_name, ship_contact_no, ship_address, ship_barangay,
+      ship_city, ship_province, ship_zip, customer_note,
+      tracking_no, down_payment_due_at, placed_at, shipped_at,
+      completed_at, cancelled_at, cancel_reason,
+      items:order_items ( id, product_id, product_name, unit_price, quantity, line_total ),
+      payments ( id, type, status, amount_due, reference_no, requested_at, submitted_at, confirmed_at ),
+      history:order_status_history ( id, from_status, to_status, note, created_at )
+    `)
+    .eq("id", orderId)
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (error) throw new Error(`getOrderForCustomer failed: ${error.message}`);
+  return toCustomerOrder(data);
+}
+
+const STATUS_LABELS = {
+  pending: "Pending review",
+  confirmed: "Confirmed",
+  awaiting_down_payment: "Awaiting down payment",
+  in_production: "In production",
+  awaiting_balance: "Awaiting balance",
+  ready_to_ship: "Ready to ship",
+  shipped: "Shipped",
+  completed: "Completed",
+  declined: "Declined",
+  expired: "Expired",
+  cancelled: "Cancelled",
+};
+
+const ORDER_TABS = {
+  all: null,
+  to_pay: ["awaiting_down_payment", "awaiting_balance"],
+  to_confirm: ["pending"],
+  in_progress: ["confirmed", "in_production"],
+  to_ship: ["ready_to_ship", "shipped"],
+  completed: ["completed"],
+  cancelled: ["cancelled", "declined", "expired"],
+};
+
+function toCustomerOrder(row) {
+  if (!row) return null;
+
+  const payments = row.payments || [];
+  const downPayment = payments.find((p) => p.type === "down_payment") || null;
+  const balance = payments.find((p) => p.type === "balance") || null;
+
+  const history = (row.history || [])
+    .slice()
+    .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+
+  return {
+    id: row.id,
+    code: row.code,
+    status: row.status,
+    statusLabel: STATUS_LABELS[row.status] || row.status,
+
+    subtotal: Number(row.subtotal),
+    shippingFee: row.shipping_fee === null ? null : Number(row.shipping_fee),
+    downPaymentAmount: Number(row.down_payment_amount),
+
+    shipping: {
+      fullName: row.ship_full_name,
+      contactNo: row.ship_contact_no,
+      address: row.ship_address,
+      barangay: row.ship_barangay,
+      city: row.ship_city,
+      province: row.ship_province,
+      zip: row.ship_zip,
+    },
+
+    customerNote: row.customer_note,
+    trackingNo: row.tracking_no,
+
+    downPaymentDueAt: row.down_payment_due_at,
+    placedAt: row.placed_at,
+    shippedAt: row.shipped_at,
+    completedAt: row.completed_at,
+    cancelledAt: row.cancelled_at,
+    cancelReason: row.cancel_reason,
+
+    items: (row.items || []).map((item) => ({
+      id: item.id,
+      productId: item.product_id,
+      name: item.product_name,
+      unitPrice: Number(item.unit_price),
+      quantity: item.quantity,
+      lineTotal: Number(item.line_total),
+    })),
+
+    downPayment,
+    balance,
+    history,
+  };
+}
+
+async function listOrdersForCustomer(db, userId, status = null) {
+  let query = db
+    .from("orders")
+    .select(`
+      id, code, status, subtotal, shipping_fee, down_payment_amount,
+      placed_at, down_payment_due_at,
+      items:order_items ( id, product_id, product_name, quantity, line_total )
+    `)
+    .eq("user_id", userId);
+
+  if (status) {
+    query = Array.isArray(status)
+      ? query.in("status", status)
+      : query.eq("status", status);
+  }
+
+  const { data, error } = await query.order("placed_at", { ascending: false });
+
+  if (error) throw new Error(`listOrdersForCustomer failed: ${error.message}`);
+
+  return (data || []).map((row) => ({
+    id: row.id,
+    code: row.code,
+    status: row.status,
+    statusLabel: STATUS_LABELS[row.status] || row.status,
+    subtotal: Number(row.subtotal),
+    downPaymentAmount: Number(row.down_payment_amount),
+    placedAt: row.placed_at,
+    downPaymentDueAt: row.down_payment_due_at,
+    itemCount: (row.items || []).reduce((sum, i) => sum + i.quantity, 0),
+    items: (row.items || []).map((item) => ({
+      id: item.id,
+      productId: item.product_id,
+      name: item.product_name,
+      quantity: item.quantity,
+      lineTotal: Number(item.line_total),
+    })),
+  }));
+}
+
+module.exports = { placeOrder, insertOrder, createOrder, getOrderForCustomer, toCustomerOrder, listOrdersForCustomer, STATUS_LABELS, ORDER_TABS };

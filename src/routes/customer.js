@@ -4,6 +4,7 @@ const ctrl = require("../controllers/customerController");
 const { requireAuth } = require("../middleware/auth");
 const cartCtrl = require("../controllers/cartController");
 const checkoutCtrl = require("../controllers/checkoutController");
+const orderCtrl = require("../controllers/orderController");
 
 router.get("/", ctrl.home);
 router.get("/shop", ctrl.shop);
@@ -16,7 +17,6 @@ router.get("/faqs", ctrl.faqs);
 router.get("/shipping-info", ctrl.shippinginfo);
 router.get("/privacy-policy", ctrl.privacypolicy);
 router.get("/account", requireAuth, ctrl.accountsettings);
-router.get("/account/orders", requireAuth, ctrl.myorders);
 router.get("/cart", cartCtrl.showCart);
 router.post("/cart/add", cartCtrl.addToCart);
 router.post("/cart/:id/update", cartCtrl.updateCartItem);
@@ -24,5 +24,7 @@ router.post("/cart/:id/remove", cartCtrl.removeCartItem);
 router.get("/checkout", requireAuth, checkoutCtrl.showDetails);
 router.post("/checkout/review", requireAuth, checkoutCtrl.showReview);
 router.post("/checkout", requireAuth, checkoutCtrl.doCheckout);
+router.get("/account/orders", requireAuth, orderCtrl.listOrders);
+router.get("/orders/:id", requireAuth, orderCtrl.showOrder);
 
 module.exports = router;

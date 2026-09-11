@@ -174,7 +174,7 @@ CREATE TABLE cart_items (
 
 CREATE TABLE orders (
   id                   BIGSERIAL PRIMARY KEY,
-  code                 TEXT NOT NULL UNIQUE,      -- e.g. KV-001
+  code                 TEXT NOT NULL UNIQUE,      -- e.g. KV-2026-001
   user_id              UUID NOT NULL REFERENCES profiles(id) ON DELETE RESTRICT,
   status               order_status NOT NULL DEFAULT 'pending',
 
@@ -329,8 +329,12 @@ INSERT INTO settings (id) VALUES (TRUE);
 -- ============================================================
 -- ORDER CODE GENERATOR
 -- ============================================================
--- Produces KV-001, KV-002, ... Sequence-based so two simultaneous
+-- Produces KV-2026-001, KV-2026-002, ... Sequence-based so two simultaneous
 -- checkouts can never collide on the same code.
+--
+-- The sequence does not reset each year, so the first order of 2027 continues
+-- the numbering rather than starting again at 001. That keeps every code
+-- unique for the life of the shop, which matters more than tidy yearly runs.
 
 CREATE SEQUENCE order_code_seq START 1;
 
@@ -340,7 +344,8 @@ LANGUAGE plpgsql
 AS $$
 BEGIN
   IF NEW.code IS NULL OR NEW.code = '' THEN
-    NEW.code := 'KV-' || LPAD(nextval('order_code_seq')::TEXT, 3, '0');
+    NEW.code := 'KV-' || TO_CHAR(NOW(), 'YYYY') || '-' ||
+                LPAD(nextval('order_code_seq')::TEXT, 3, '0');
   END IF;
   RETURN NEW;
 END;
@@ -395,6 +400,39 @@ CREATE TRIGGER trg_carts_touch    BEFORE UPDATE ON carts
   FOR EACH ROW EXECUTE FUNCTION touch_updated_at();
 CREATE TRIGGER trg_settings_touch BEFORE UPDATE ON settings
   FOR EACH ROW EXECUTE FUNCTION touch_updated_at();
+
+
+-- ============================================================
+-- ATOMIC STOCK DECREMENT
+-- ============================================================
+-- Checkout must not oversell. Reading the quantity and then writing a new one
+-- leaves a gap where two simultaneous checkouts both see the last item and
+-- both succeed. Here the read and the write are a single UPDATE, so Postgres
+-- locks the row and the second caller sees the already-decremented value.
+--
+-- A negative p_quantity adds stock back, which is how a failed multi-item
+-- checkout rolls back the items it had already taken.
+
+CREATE OR REPLACE FUNCTION decrement_stock(p_product_id BIGINT, p_quantity INTEGER)
+RETURNS INTEGER
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  new_qty INTEGER;
+BEGIN
+  UPDATE products
+     SET quantity = quantity - p_quantity
+   WHERE id = p_product_id
+     AND quantity >= p_quantity
+  RETURNING quantity INTO new_qty;
+
+  IF new_qty IS NULL THEN
+    RAISE EXCEPTION 'Not enough stock for product %', p_product_id;
+  END IF;
+
+  RETURN new_qty;
+END;
+$$;
 
 
 -- ============================================================
