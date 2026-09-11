@@ -1,11 +1,13 @@
 <section class="order-hero">
+
     <h1 class="order-hero__title">
-        Complete Your Order <span class="heart">&#9825;</span>
+        Complete Your Order
     </h1>
 
     <p class="order-hero__subtitle">
         Almost yours. Just a few details to finalize your order.
     </p>
+
 </section>
 
 <section class="order-review">
@@ -16,9 +18,10 @@
 
     <div class="order-review__grid">
 
+        <!-- LEFT: CUSTOMER INFORMATION -->
         <div class="order-review__left">
 
-            <div class="panel">
+            <div class="panel customer-details-panel">
 
                 <h2 class="panel__title">
                     <span class="icon">&#128100;</span>
@@ -27,62 +30,58 @@
 
                 <div class="info-group">
                     <label>Full Name</label>
-                    <p class="info-value"><%= values.full_name %></p>
+                    <p class="info-value">
+                        <%= values.full_name %>
+                    </p>
                 </div>
 
                 <div class="info-group">
                     <label>Email</label>
-                    <p class="info-value info-value--disabled"><%= user.email %></p>
+                    <p class="info-value info-value--disabled">
+                        <%= user.email %>
+                    </p>
                 </div>
 
                 <div class="info-group">
-                    <label>Phone Number</label>
-                    <p class="info-value"><%= values.contact_no %></p>
+                    <label>Contact Number</label>
+                    <p class="info-value">
+                        <%= values.contact_no %>
+                    </p>
                 </div>
 
-            </div>
+                <div class="section-divider"></div>
 
-            <div class="panel">
-
-                <div class="panel__header">
-                    <h2 class="panel__title">
-                        <span class="icon">&#128205;</span>
-                        Delivery Address
-                    </h2>
-                </div>
+                <h2 class="panel__title">
+                    <span class="icon">&#128205;</span>
+                    Delivery Address
+                </h2>
 
                 <div class="address-box">
-                    <p class="address-box__name"><%= values.full_name %></p>
-                    <p><%= values.contact_no %></p>
-                    <p><%= values.address %>,</p>
-                    <p><%= values.barangay %>,</p>
-                    <p><%= values.city %>, <%= values.province %>, <%= values.zip %></p>
+
+                    <p class="address-box__name">
+                        <%= values.full_name %>
+                    </p>
+
+                    <p> <%= values.contact_no %></p>
+                    <p> <%= values.address %></p>
+                    
+
+                    <p>
+                        <%= values.barangay %>,
+                        <%= values.city %>,
+                        <%= values.province %>
+                        <%= values.zip %>
+                    </p>
+
                 </div>
 
                 <div class="address-actions">
+
                     <a href="/checkout" class="btn-pill btn-pill--edit">
                         <span class="icon">&#9998;</span>
                         Edit Details
                     </a>
-                </div>
 
-            </div>
-
-            <div class="notice">
-
-                <span class="notice__icon">&#9432;</span>
-
-                <div>
-                    <p class="notice__title">60% Down Payment Required</p>
-
-                    <p class="notice__text">
-                        Placing this order does not charge you yet. Once we
-                        confirm it, you will be asked to pay a down payment of
-                        <strong><%= formatPeso(downPayment) %></strong> via GCash.
-                        You will have 3 days from that request to pay it and keep
-                        your order active. Shipping is calculated once your pieces
-                        are ready and is added to the remaining balance.
-                    </p>
                 </div>
 
             </div>
@@ -104,69 +103,175 @@
 
                         <div class="summary-item">
 
-                            <img src="<%= item.product.primaryImage ? item.product.primaryImage.url : '/images/placeholder.png' %>" alt="<%= item.product.name %>" class="summary-item__img">
+                            <img
+                                src="<%= item.product.primaryImage ? item.product.primaryImage.url : '/images/placeholder.png' %>"
+                                alt="<%= item.product.name %>"
+                                class="summary-item__img"
+                            >
 
                             <div class="summary-item__info">
-                                <p class="summary-item__name"><%= item.product.name %></p>
-                                <p class="summary-item__category"><%= item.product.category ? item.product.category.name : '' %></p>
-                                <span class="summary-item__qty">Qty: <%= item.quantity %></span>
+
+                                <p class="summary-item__name">
+                                    <%= item.product.name %>
+                                </p>
+
+                                <p class="summary-item__category">
+                                    <%= item.product.category
+                                        ? item.product.category.name
+                                        : '' %>
+                                </p>
+
+                                <span class="summary-item__qty">
+                                    Qty: <%= item.quantity %>
+                                </span>
+
                             </div>
 
-                            <div class="summary-item__price"><%= formatPeso(item.lineTotal) %></div>
+                            <div class="summary-item__price">
+                                <%= formatPeso(item.lineTotal) %>
+                            </div>
 
                         </div>
 
                     <% }); %>
 
+
                     <% if (values.customer_note) { %>
 
                         <div class="order-note">
+
                             <p class="order-note__title">
                                 <span class="icon">&#128221;</span>
                                 Order Note
                             </p>
-                            <p class="order-note__text">"<%= values.customer_note %>"</p>
+
+                            <p class="order-note__text">
+                                "<%= values.customer_note %>"
+                            </p>
+
                         </div>
 
                     <% } %>
 
                 </div>
 
+
                 <div class="summary-card__totals">
 
                     <div class="totals-row">
+
                         <span>Subtotal</span>
-                        <span><%= formatPeso(subtotal) %></span>
+
+                        <span>
+                            <%= formatPeso(subtotal) %>
+                        </span>
+
                     </div>
 
                     <div class="totals-row">
+
                         <span>Down payment (60%)</span>
-                        <span><%= formatPeso(downPayment) %></span>
+
+                        <span>
+                            <%= formatPeso(downPayment) %>
+                        </span>
+
                     </div>
 
                     <hr>
 
                     <div class="totals-row totals-row--total">
+
                         <span>Due after confirmation</span>
-                        <span><%= formatPeso(downPayment) %></span>
+
+                        <span>
+                            <%= formatPeso(downPayment) %>
+                        </span>
+
                     </div>
 
-                    <p class="totals-note">
-                        Shipping is added to the balance later.
-                    </p>
 
                     <form action="/checkout" method="POST">
-                        <input type="hidden" name="full_name" value="<%= values.full_name %>">
-                        <input type="hidden" name="contact_no" value="<%= values.contact_no %>">
-                        <input type="hidden" name="address" value="<%= values.address %>">
-                        <input type="hidden" name="barangay" value="<%= values.barangay %>">
-                        <input type="hidden" name="city" value="<%= values.city %>">
-                        <input type="hidden" name="province" value="<%= values.province %>">
-                        <input type="hidden" name="zip" value="<%= values.zip %>">
-                        <input type="hidden" name="customer_note" value="<%= values.customer_note %>">
 
-                        <button type="submit" class="btn-submit">Submit Order</button>
+                        <input
+                            type="hidden"
+                            name="full_name"
+                            value="<%= values.full_name %>"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="contact_no"
+                            value="<%= values.contact_no %>"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="address"
+                            value="<%= values.address %>"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="barangay"
+                            value="<%= values.barangay %>"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="city"
+                            value="<%= values.city %>"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="province"
+                            value="<%= values.province %>"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="zip"
+                            value="<%= values.zip %>"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="customer_note"
+                            value="<%= values.customer_note || '' %>"
+                        >
+
+                        <button
+                            type="submit"
+                            class="btn-submit"
+                        >
+                            Submit Order
+                        </button>
+
                     </form>
+
+                </div>
+
+            </div>
+
+            <div class="notice">
+
+                <div class="notice__icon">
+                    !
+                </div>
+
+                <div>
+
+                    <h3 class="notice__title">
+                        60% DOWNPAYMENT REQUIRED
+                    </h3>
+
+                    <p class="notice__text">
+                        A 60% downpayment is required to confirm your order. You may 
+                        complete the payment after submitting your order using the available 
+                        GCash. The downpayment must be paid within 3 days from order submission 
+                        to keep your order active.
+                    </p>
 
                 </div>
 
@@ -175,4 +280,5 @@
         </div>
 
     </div>
+
 </section>
