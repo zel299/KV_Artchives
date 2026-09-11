@@ -80,6 +80,23 @@
 
             <textarea id="customer_note" name="customer_note" rows="4" placeholder="Special instructions for delivery or a sweet message..."><%= values.customer_note %></textarea>
         </div>
+        
+        <div class="checkbox-group">
+            <input
+                type="checkbox"
+                id="saveAddress"
+                name="saveAddress"
+                <%= locals.saveAddress ? 'checked' : '' %>
+            >
+            
+            <label for="saveAddress">
+                Save this address as my default address
+
+                <span class="checkbox-group__hint">
+                    This will be used for your future orders.
+                </span>
+            </label>
+        </div>
 
         <hr class="divider">
 
