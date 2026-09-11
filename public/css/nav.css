@@ -87,12 +87,12 @@
 
 .account-arrow {
     font-family: "Bebas Neue", sans-serif;
-    font-size: 17px;
+    font-size: 14px;
     color: #fffbf1;
     font-weight: 800;
     line-height: 1;
     position: relative;
-    top: -7px;
+    top: 0px;
     left: 2px;
 }
 
