@@ -1,4 +1,3 @@
-
 -- ============================================================
 -- KV Artchives Ordering System — Database Schema
 -- Platform: Supabase (PostgreSQL)
@@ -183,8 +182,13 @@ CREATE TABLE orders (
   ship_full_name       TEXT NOT NULL,
   ship_contact_no      TEXT NOT NULL,
   ship_address         TEXT NOT NULL,
+  ship_barangay        TEXT,
   ship_city            TEXT NOT NULL,
   ship_province        TEXT NOT NULL,
+  ship_zip             TEXT,
+
+  -- Anything the customer wants the shop to know about this order.
+  customer_note        TEXT,
 
   -- Money
   subtotal             NUMERIC(10,2) NOT NULL CHECK (subtotal >= 0),

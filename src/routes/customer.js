@@ -1,4 +1,3 @@
-
 const express = require("express");
 const router = express.Router();
 const ctrl = require("../controllers/customerController");
@@ -22,7 +21,8 @@ router.get("/cart", cartCtrl.showCart);
 router.post("/cart/add", cartCtrl.addToCart);
 router.post("/cart/:id/update", cartCtrl.updateCartItem);
 router.post("/cart/:id/remove", cartCtrl.removeCartItem);
-router.get("/checkout", requireAuth, checkoutCtrl.showCheckout);
+router.get("/checkout", requireAuth, checkoutCtrl.showDetails);
+router.post("/checkout/review", requireAuth, checkoutCtrl.showReview);
 router.post("/checkout", requireAuth, checkoutCtrl.doCheckout);
 
 module.exports = router;

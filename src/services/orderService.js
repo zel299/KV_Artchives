@@ -1,4 +1,3 @@
-
 const { supabaseAdmin } = require("../config/supabase");
 const productService = require("./productService");
 const money = require("../utils/money");
@@ -88,8 +87,11 @@ async function insertOrder(userId, lines, subtotal, downPayment, shipping) {
       ship_full_name: shipping.full_name,
       ship_contact_no: shipping.contact_no,
       ship_address: shipping.address,
+      ship_barangay: shipping.barangay,
       ship_city: shipping.city,
       ship_province: shipping.province,
+      ship_zip: shipping.zip,
+      customer_note: shipping.customer_note || null,
       subtotal,
       down_payment_amount: downPayment,
     })
