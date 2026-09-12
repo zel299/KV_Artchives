@@ -4,6 +4,7 @@ const router = express.Router();
 const { requireAdmin } = require('../middleware/auth');
 const products = require('../controllers/adminProductController');
 const { productImages } = require("../middleware/upload");
+const orderCtrl = require("../controllers/adminOrderController");
 
 // Every route below this line requires an admin account.
 // Applied once here rather than repeated on each route, so a new route
@@ -28,5 +29,17 @@ router.post("/products/:id", productImages, products.doEdit);
 router.post("/products/:id/archive", products.doArchive);
 router.post("/products/:id/restore", products.doRestore);
 router.post("/products/:id/delete", products.doDelete);
+router.get("/orders", orderCtrl.list);
+router.get("/orders/:id", orderCtrl.detail);
+
+router.post("/orders/:id/confirm", orderCtrl.confirmOrder);
+router.post("/orders/:id/decline", orderCtrl.declineOrder);
+router.post("/orders/:id/request-down-payment", orderCtrl.requestDownPayment);
+router.post("/orders/:id/confirm-down-payment", orderCtrl.confirmDownPayment);
+router.post("/orders/:id/request-balance", orderCtrl.requestBalance);
+router.post("/orders/:id/confirm-balance", orderCtrl.confirmBalance);
+router.post("/orders/:id/ship", orderCtrl.markShipped);
+router.post("/orders/:id/complete", orderCtrl.markCompleted);
+router.post("/orders/:id/cancel", orderCtrl.cancelOrder);
 
 module.exports = router;
