@@ -47,6 +47,7 @@
                 action="/signup"
                 class="signup-form"
             >
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div class="form-group">
                     <label for="full_name">
                         Full Name

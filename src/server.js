@@ -4,6 +4,9 @@ const app = require('./app');
 const config = require('./config');
 
 const { supabaseAdmin } = require('./config/supabase');
+const { expireOverdueOrders } = require('./services/adminOrderService');
+
+const ONE_HOUR = 1000 * 60 * 60;
 
 
 async function verifySupabase() {
@@ -62,5 +65,10 @@ async function verifySupabase() {
         console.log('');
 
     });
+
+    if (ok) {
+        expireOverdueOrders();
+        setInterval(expireOverdueOrders, ONE_HOUR);
+    }
 
 })();

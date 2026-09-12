@@ -15,6 +15,7 @@
     <% } %>
 
     <form class="checkout-form" action="/checkout/review" method="POST">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
         <div class="checkout-form__grid">
 

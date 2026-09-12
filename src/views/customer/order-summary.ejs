@@ -192,6 +192,7 @@
 
 
                     <form action="/checkout" method="POST">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
                         <input
                             type="hidden"

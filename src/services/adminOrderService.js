@@ -428,6 +428,48 @@ async function cancelOrder(orderId, adminId, reason) {
   return result;
 }
 
+async function expireOverdueOrders() {
+  const now = new Date().toISOString();
+
+  const { data, error } = await supabaseAdmin
+    .from("orders")
+    .select("id")
+    .eq("status", "awaiting_down_payment")
+    .lt("down_payment_due_at", now);
+
+  if (error) {
+    console.error("[expiry] lookup failed:", error.message);
+    return 0;
+  }
+
+  let expired = 0;
+
+  for (const row of data || []) {
+    try {
+      const order = await getOrder(row.id);
+      if (!order) continue;
+
+      await changeStatus(
+        row.id,
+        "awaiting_down_payment",
+        "expired",
+        null,
+        "Down payment was not received within 3 days",
+        { cancelled_at: now }
+      );
+
+      await returnStock(order, null, "order_expired");
+      expired += 1;
+    } catch (err) {
+      console.error(`[expiry] order ${row.id} failed:`, err.message);
+    }
+  }
+
+  if (expired > 0) console.log(`[expiry] expired ${expired} order(s)`);
+
+  return expired;
+}
+
 module.exports = {
   listOrders,
   getOrder,
@@ -441,6 +483,7 @@ module.exports = {
   confirmBalance,
   markShipped,
   markCompleted,
-  cancelOrder,
+  cancelOrder, 
+  expireOverdueOrders,
   STATUS_LABELS,
 };

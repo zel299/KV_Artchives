@@ -55,6 +55,7 @@
                 <% if (product.inStock) { %>
 
                     <form method="post" action="/cart/add" class="add-to-cart-form">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <input type="hidden" name="product_id" value="<%= product.id %>">
 
                         <label for="quantity" class="qty-label">Quantity</label>

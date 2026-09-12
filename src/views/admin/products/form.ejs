@@ -9,6 +9,7 @@
       action="<%= product ? '/admin/products/' + product.id : '/admin/products' %>"
       enctype="multipart/form-data"
       class="panel form-narrow">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
   <label>Product name
     <input type="text" name="name" required maxlength="120" value="<%= values.name || '' %>">

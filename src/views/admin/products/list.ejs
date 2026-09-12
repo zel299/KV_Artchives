@@ -69,10 +69,12 @@
             <a href="/admin/products/<%= p.id %>/edit" class="small">Edit</a>
             <% if (p.isArchived) { %>
               <form method="post" action="/admin/products/<%= p.id %>/restore" class="inline">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <button type="submit" class="linkish small">Restore</button>
               </form>
             <% } else { %>
               <form method="post" action="/admin/products/<%= p.id %>/archive" class="inline">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <button type="submit" class="linkish small">Archive</button>
               </form>
             <% } %>

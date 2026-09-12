@@ -75,6 +75,7 @@
                                 data-price="<%= item.product.price %>"
 
                             >
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
                                 <button
                                     type="button"
@@ -121,6 +122,7 @@
                             action="/cart/<%= item.id %>/remove"
                             class="cart-remove-form"
                         >
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
                             <button
                                 type="submit"

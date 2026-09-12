@@ -46,10 +46,12 @@
   <h3>Manage</h3>
   <% if (product.isArchived) { %>
     <form method="post" action="/admin/products/<%= product.id %>/restore" class="inline">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <button type="submit" class="btn btn-ghost btn-sm">Restore to catalog</button>
     </form>
   <% } else { %>
     <form method="post" action="/admin/products/<%= product.id %>/archive" class="inline">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <button type="submit" class="btn btn-ghost btn-sm">Archive</button>
     </form>
     <p class="small muted">Archiving hides it from the catalog but keeps its order history.</p>
@@ -57,6 +59,7 @@
 
   <form method="post" action="/admin/products/<%= product.id %>/delete" class="inline"
         onsubmit="return confirm('Permanently delete this product? This cannot be undone.')">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <button type="submit" class="linkish small danger">Delete permanently</button>
   </form>
   <p class="small muted">Only possible if the product has never been ordered.</p>

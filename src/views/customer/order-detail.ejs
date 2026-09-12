@@ -118,6 +118,7 @@
                         </div>
 
                         <form method="post" action="/orders/<%= order.id %>/pay" enctype="multipart/form-data" class="payment-form">
+                              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
                             <input type="hidden" name="payment_type" value="<%= activePayment.type %>">
 

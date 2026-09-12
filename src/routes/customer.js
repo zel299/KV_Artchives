@@ -1,11 +1,27 @@
 const express = require("express");
 const router = express.Router();
+const rateLimit = require("express-rate-limit");
 const ctrl = require("../controllers/customerController");
 const { requireAuth } = require("../middleware/auth");
 const cartCtrl = require("../controllers/cartController");
 const checkoutCtrl = require("../controllers/checkoutController");
 const orderCtrl = require("../controllers/orderController");
 const { receiptImage } = require("../middleware/upload");
+const csrf = require("csurf");
+const csrfProtection = csrf({ cookie: true });
+
+const orderLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (req, res) => {
+    res.redirect(
+      "/cart?err=" +
+        encodeURIComponent("Too many orders placed. Please try again later.")
+    );
+  },
+});
 
 // --- Storefront ---
 router.get("/", ctrl.home);
@@ -30,13 +46,13 @@ router.post("/cart/:id/remove", cartCtrl.removeCartItem);
 // --- Checkout ---
 router.get("/checkout", requireAuth, checkoutCtrl.showDetails);
 router.post("/checkout/review", requireAuth, checkoutCtrl.showReview);
-router.post("/checkout", requireAuth, checkoutCtrl.doCheckout);
+router.post("/checkout", requireAuth, orderLimiter, checkoutCtrl.doCheckout);
 
 // --- Account and orders ---
 router.get("/account", requireAuth, ctrl.accountsettings);
 router.get("/account/orders", requireAuth, orderCtrl.listOrders);
 router.get("/orders/:id/submitted", requireAuth, orderCtrl.showSubmitted);
 router.get("/orders/:id", requireAuth, orderCtrl.showOrder);
-router.post("/orders/:id/pay", requireAuth, receiptImage, orderCtrl.submitPayment);
+router.post("/orders/:id/pay", requireAuth, orderLimiter, receiptImage, csrfProtection, orderCtrl.submitPayment);
 
 module.exports = router;
