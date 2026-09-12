@@ -46,9 +46,13 @@
 
                         <div class="order-card__items">
                             <% order.items.slice(0, 2).forEach(function (item) { %>
-                                <p class="order-card__item">
-                                    <%= item.name %> &times; <%= item.quantity %>
-                                </p>
+                                <div class="order-card__item">
+                                    <img src="<%= item.image || '/images/placeholder.png' %>" alt="<%= item.name %>">
+                                    <div>
+                                        <p class="order-card__item-name"><%= item.name %></p>
+                                        <p class="order-card__item-qty">Qty: <%= item.quantity %></p>
+                                    </div>
+                                </div>
                             <% }); %>
 
                             <% if (order.items.length > 2) { %>

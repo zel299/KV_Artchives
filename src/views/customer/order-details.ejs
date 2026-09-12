@@ -1,0 +1,214 @@
+
+<main class="order-detail-page">
+
+    <section class="order-detail-header">
+        <a href="/account/orders" class="back-link">&larr; Back to My Orders</a>
+
+        <div class="order-detail-title">
+            <h1>Order <%= order.code %></h1>
+            <span class="order-status"><%= order.statusLabel %></span>
+        </div>
+
+        <p class="order-placed">Placed <%= new Date(order.placedAt).toLocaleDateString() %></p>
+    </section>
+
+    <% if (flash) { %><div class="alert alert-ok"><%= flash %></div><% } %>
+    <% if (error) { %><div class="alert"><%= error %></div><% } %>
+
+    <div class="order-detail-layout">
+
+        <div class="order-detail-main">
+
+            <% if (order.status === "pending" || order.status === "confirmed") { %>
+                <section class="panel status-note">
+                    <h2>What happens next</h2>
+                    <p>
+                        We're reviewing your order. Once it's confirmed you'll be
+                        asked to pay a down payment of
+                        <strong><%= formatPeso(order.downPaymentAmount) %></strong>
+                        via GCash, and the payment details will appear here.
+                    </p>
+                </section>
+            <% } %>
+
+            <% if (order.status === "in_production") { %>
+                <section class="panel status-note">
+                    <h2>In production</h2>
+                    <p>
+                        Your down payment is confirmed and your pieces are being
+                        made. We'll let you know the shipping fee and remaining
+                        balance once they're finished.
+                    </p>
+                </section>
+            <% } %>
+
+            <% if (order.status === "ready_to_ship") { %>
+                <section class="panel status-note">
+                    <h2>Ready to ship</h2>
+                    <p>Your order is packed and waiting for pickup. Tracking details will appear here shortly.</p>
+                </section>
+            <% } %>
+
+            <% if (order.status === "shipped") { %>
+                <section class="panel status-note">
+                    <h2>On its way</h2>
+                    <p>Tracking number: <strong><%= order.trackingNo %></strong></p>
+                </section>
+            <% } %>
+
+            <% if (order.status === "declined" || order.status === "cancelled" || order.status === "expired") { %>
+                <section class="panel status-note status-note--closed">
+                    <h2><%= order.statusLabel %></h2>
+                    <% if (order.cancelReason) { %>
+                        <p><%= order.cancelReason %></p>
+                    <% } else if (order.status === "expired") { %>
+                        <p>The down payment wasn't received within 3 days, so this order was closed automatically.</p>
+                    <% } %>
+                </section>
+            <% } %>
+
+            <% const activePayment = order.status === "awaiting_down_payment" ? order.downPayment
+                 : order.status === "awaiting_balance" ? order.balance : null; %>
+
+            <% if (activePayment) { %>
+
+                <section class="panel payment-panel">
+
+                    <h2><%= order.status === "awaiting_down_payment" ? "Pay your down payment" : "Pay your balance" %></h2>
+
+                    <% if (activePayment.status === "confirmed") { %>
+
+                        <p class="payment-confirmed">This payment is confirmed. Thank you!</p>
+
+                    <% } else if (activePayment.status === "submitted") { %>
+
+                        <p class="payment-submitted">
+                            We've received your reference number
+                            <strong><%= activePayment.reference_no %></strong>
+                            and are verifying it. This usually takes a day.
+                        </p>
+
+                    <% } else { %>
+
+                        <div class="payment-amount">
+                            <span>Amount to pay</span>
+                            <strong><%= formatPeso(activePayment.amount_due) %></strong>
+                        </div>
+
+                        <p class="payment-exact">
+                            Please send this exact amount, including the centavos.
+                            It helps us find your payment quickly.
+                        </p>
+
+                        <% if (order.downPaymentDueAt && order.status === "awaiting_down_payment") { %>
+                            <p class="payment-due">
+                                Due by <%= new Date(order.downPaymentDueAt).toLocaleDateString() %>
+                            </p>
+                        <% } %>
+
+                        <div class="gcash-details">
+                            <% if (settings && settings.gcashQrUrl) { %>
+                                <img src="<%= settings.gcashQrUrl %>" alt="GCash QR code" class="gcash-qr">
+                            <% } %>
+
+                            <div class="gcash-account">
+                                <p><span>Account name</span><strong><%= settings && settings.gcashAccountName ? settings.gcashAccountName : "—" %></strong></p>
+                                <p><span>Account number</span><strong><%= settings && settings.gcashAccountNumber ? settings.gcashAccountNumber : "—" %></strong></p>
+                            </div>
+                        </div>
+
+                        <form method="post" action="/orders/<%= order.id %>/pay" enctype="multipart/form-data" class="payment-form">
+
+                            <input type="hidden" name="payment_type" value="<%= activePayment.type %>">
+
+                            <div class="form-group">
+                                <label for="reference_no">GCash reference number</label>
+                                <input type="text" id="reference_no" name="reference_no" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="receipt">Screenshot (optional)</label>
+                                <input type="file" id="receipt" name="receipt" accept="image/jpeg,image/png,image/webp">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit Payment</button>
+
+                        </form>
+
+                    <% } %>
+
+                </section>
+
+            <% } %>
+
+            <section class="panel">
+                <h2>Items</h2>
+
+                <% order.items.forEach(function (item) { %>
+                    <div class="order-line">
+                        <span class="order-line__name"><%= item.name %> &times; <%= item.quantity %></span>
+                        <span class="order-line__total"><%= formatPeso(item.lineTotal) %></span>
+                    </div>
+                <% }); %>
+
+                <div class="order-line order-line--sub">
+                    <span>Subtotal</span>
+                    <strong><%= formatPeso(order.subtotal) %></strong>
+                </div>
+
+                <div class="order-line">
+                    <span>Down payment (60%)</span>
+                    <strong><%= formatPeso(order.downPaymentAmount) %></strong>
+                </div>
+
+                <div class="order-line">
+                    <span>Shipping</span>
+                    <strong><%= order.shippingFee === null ? "Calculated later" : formatPeso(order.shippingFee) %></strong>
+                </div>
+
+                <% if (order.balanceAmount !== null) { %>
+                    <div class="order-line order-line--sub">
+                        <span>Balance</span>
+                        <strong><%= formatPeso(order.balanceAmount) %></strong>
+                    </div>
+                <% } %>
+            </section>
+
+            <section class="panel">
+                <h2>Delivery Address</h2>
+                <p class="address-name"><%= order.shipping.fullName %></p>
+                <p><%= order.shipping.contactNo %></p>
+                <p><%= order.shipping.address %></p>
+                <p><%= order.shipping.barangay %></p>
+                <p><%= order.shipping.city %>, <%= order.shipping.province %> <%= order.shipping.zip %></p>
+
+                <% if (order.customerNote) { %>
+                    <div class="order-note">
+                        <span>Your note</span>
+                        <p>"<%= order.customerNote %>"</p>
+                    </div>
+                <% } %>
+            </section>
+
+        </div>
+
+        <aside class="order-timeline">
+            <h2>Order Timeline</h2>
+
+            <ol class="timeline-list">
+                <% order.history.forEach(function (entry) { %>
+                    <li class="timeline-entry">
+                        <span class="timeline-dot"></span>
+                        <div>
+                            <p class="timeline-status"><%= entry.to_status.replace(/_/g, " ") %></p>
+                            <% if (entry.note) { %><p class="timeline-note"><%= entry.note %></p><% } %>
+                            <p class="timeline-date"><%= new Date(entry.created_at).toLocaleString() %></p>
+                        </div>
+                    </li>
+                <% }); %>
+            </ol>
+        </aside>
+
+    </div>
+
+</main>

@@ -21,5 +21,6 @@ const upload = multer({
 
 const productImages = upload.array("images", 5);
 const settingsImage = upload.single("gcash_qr");
+const receiptImage = upload.single("receipt");
 
-module.exports = { productImages, settingsImage };
+module.exports = { productImages, settingsImage, receiptImage };

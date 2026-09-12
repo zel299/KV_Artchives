@@ -1,6 +1,31 @@
 const { supabaseAdmin } = require("../config/supabase");
 const productService = require("./productService");
 const money = require("../utils/money");
+const { uploadReceipt } = require("../utils/imageUpload");
+
+const STATUS_LABELS = {
+  pending: "Pending review",
+  confirmed: "Confirmed",
+  awaiting_down_payment: "Awaiting down payment",
+  in_production: "In production",
+  awaiting_balance: "Awaiting balance",
+  ready_to_ship: "Ready to ship",
+  shipped: "Shipped",
+  completed: "Completed",
+  declined: "Declined",
+  expired: "Expired",
+  cancelled: "Cancelled",
+};
+
+const ORDER_TABS = {
+  all: null,
+  to_pay: ["awaiting_down_payment", "awaiting_balance"],
+  to_confirm: ["pending"],
+  in_progress: ["confirmed", "in_production"],
+  to_ship: ["ready_to_ship", "shipped"],
+  completed: ["completed"],
+  cancelled: ["cancelled", "declined", "expired"],
+};
 
 async function createOrder(db, userId, cartItems, shipping) {
   if (!cartItems || cartItems.length === 0) {
@@ -136,52 +161,7 @@ async function insertOrder(userId, lines, subtotal, downPayment, shipping) {
   return order;
 }
 
-async function getOrderForCustomer(db, orderId, userId) {
-  const { data, error } = await db
-    .from("orders")
-    .select(`
-      id, code, status, subtotal, shipping_fee, down_payment_amount,
-      ship_full_name, ship_contact_no, ship_address, ship_barangay,
-      ship_city, ship_province, ship_zip, customer_note,
-      tracking_no, down_payment_due_at, placed_at, shipped_at,
-      completed_at, cancelled_at, cancel_reason,
-      items:order_items ( id, product_id, product_name, unit_price, quantity, line_total ),
-      payments ( id, type, status, amount_due, reference_no, requested_at, submitted_at, confirmed_at ),
-      history:order_status_history ( id, from_status, to_status, note, created_at )
-    `)
-    .eq("id", orderId)
-    .eq("user_id", userId)
-    .maybeSingle();
-
-  if (error) throw new Error(`getOrderForCustomer failed: ${error.message}`);
-  return toCustomerOrder(data);
-}
-
-const STATUS_LABELS = {
-  pending: "Pending review",
-  confirmed: "Confirmed",
-  awaiting_down_payment: "Awaiting down payment",
-  in_production: "In production",
-  awaiting_balance: "Awaiting balance",
-  ready_to_ship: "Ready to ship",
-  shipped: "Shipped",
-  completed: "Completed",
-  declined: "Declined",
-  expired: "Expired",
-  cancelled: "Cancelled",
-};
-
-const ORDER_TABS = {
-  all: null,
-  to_pay: ["awaiting_down_payment", "awaiting_balance"],
-  to_confirm: ["pending"],
-  in_progress: ["confirmed", "in_production"],
-  to_ship: ["ready_to_ship", "shipped"],
-  completed: ["completed"],
-  cancelled: ["cancelled", "declined", "expired"],
-};
-
-function toCustomerOrder(row) {
+function toCustomerOrder(row, images = {}) {
   if (!row) return null;
 
   const payments = row.payments || [];
@@ -192,15 +172,23 @@ function toCustomerOrder(row) {
     .slice()
     .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
 
+  const subtotal = Number(row.subtotal);
+  const downPaymentAmount = Number(row.down_payment_amount);
+  const shippingFee = row.shipping_fee === null ? null : Number(row.shipping_fee);
+
   return {
     id: row.id,
     code: row.code,
     status: row.status,
     statusLabel: STATUS_LABELS[row.status] || row.status,
 
-    subtotal: Number(row.subtotal),
-    shippingFee: row.shipping_fee === null ? null : Number(row.shipping_fee),
-    downPaymentAmount: Number(row.down_payment_amount),
+    subtotal,
+    shippingFee,
+    downPaymentAmount,
+    balanceAmount:
+      shippingFee === null
+        ? null
+        : money.calcBalance(subtotal, downPaymentAmount, shippingFee),
 
     shipping: {
       fullName: row.ship_full_name,
@@ -226,15 +214,42 @@ function toCustomerOrder(row) {
       id: item.id,
       productId: item.product_id,
       name: item.product_name,
-      unitPrice: Number(item.unit_price),
+      unitPrice: item.unit_price === undefined ? null : Number(item.unit_price),
       quantity: item.quantity,
       lineTotal: Number(item.line_total),
+      image: images[String(item.product_id)] || null,
     })),
 
     downPayment,
     balance,
     history,
   };
+}
+
+async function getOrderForCustomer(db, orderId, userId) {
+  const { data, error } = await db
+    .from("orders")
+    .select(`
+      id, code, status, subtotal, shipping_fee, down_payment_amount,
+      ship_full_name, ship_contact_no, ship_address, ship_barangay,
+      ship_city, ship_province, ship_zip, customer_note,
+      tracking_no, down_payment_due_at, placed_at, shipped_at,
+      completed_at, cancelled_at, cancel_reason,
+      items:order_items ( id, product_id, product_name, unit_price, quantity, line_total ),
+      payments ( id, type, status, amount_due, reference_no, requested_at, submitted_at, confirmed_at ),
+      history:order_status_history ( id, from_status, to_status, note, created_at )
+    `)
+    .eq("id", orderId)
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (error) throw new Error(`getOrderForCustomer failed: ${error.message}`);
+  if (!data) return null;
+
+  const productIds = (data.items || []).map((item) => item.product_id);
+  const images = await productService.getPrimaryImages(productIds);
+
+  return toCustomerOrder(data, images);
 }
 
 async function listOrdersForCustomer(db, userId, status = null) {
@@ -257,7 +272,15 @@ async function listOrdersForCustomer(db, userId, status = null) {
 
   if (error) throw new Error(`listOrdersForCustomer failed: ${error.message}`);
 
-  return (data || []).map((row) => ({
+  const rows = data || [];
+
+  const productIds = [
+    ...new Set(rows.flatMap((row) => (row.items || []).map((i) => i.product_id))),
+  ];
+
+  const images = await productService.getPrimaryImages(productIds);
+
+  return rows.map((row) => ({
     id: row.id,
     code: row.code,
     status: row.status,
@@ -273,6 +296,7 @@ async function listOrdersForCustomer(db, userId, status = null) {
       name: item.product_name,
       quantity: item.quantity,
       lineTotal: Number(item.line_total),
+      image: images[String(item.product_id)] || null,
     })),
   }));
 }
@@ -300,16 +324,58 @@ async function getLastShippingDetails(db, userId) {
     city: data.ship_city,
     province: data.ship_province,
     zip: data.ship_zip || "",
-    customer_note: ""
+    customer_note: "",
   };
 }
 
-module.exports = { placeOrder, 
-  insertOrder, 
-  createOrder, 
-  getOrderForCustomer, 
-  toCustomerOrder, 
-  listOrdersForCustomer, 
+
+
+async function submitPayment(db, orderId, userId, type, referenceNo, receiptBuffer) {
+  const reference = (referenceNo || "").trim();
+
+  if (!reference) {
+    throw new Error("Enter your GCash reference number.");
+  }
+
+  const order = await getOrderForCustomer(db, orderId, userId);
+  if (!order) throw new Error("That order does not exist.");
+
+  const payment = type === "down_payment" ? order.downPayment : order.balance;
+
+  if (!payment) {
+    throw new Error("That payment has not been requested yet.");
+  }
+
+  if (payment.status === "confirmed") {
+    throw new Error("That payment is already confirmed.");
+  }
+
+  const patch = {
+    status: "submitted",
+    reference_no: reference,
+    submitted_at: new Date().toISOString(),
+  };
+
+  if (receiptBuffer) {
+    patch.receipt_path = await uploadReceipt(receiptBuffer);
+  }
+
+  const { error } = await supabaseAdmin
+    .from("payments")
+    .update(patch)
+    .eq("id", payment.id);
+
+  if (error) throw new Error(`submitPayment failed: ${error.message}`);
+}
+
+module.exports = {
+  placeOrder,
+  insertOrder,
+  createOrder,
+  getOrderForCustomer,
+  listOrdersForCustomer,
   getLastShippingDetails, 
-  STATUS_LABELS, 
-  ORDER_TABS };
+  submitPayment,
+  STATUS_LABELS,
+  ORDER_TABS,
+};

@@ -404,6 +404,26 @@ async function getManyPublic(ids) {
   return (data || []).map(toPublicProduct);
 }
 
+async function getPrimaryImages(ids) {
+  if (!ids || ids.length === 0) return {};
+
+  const { data, error } = await supabaseAdmin
+    .from("product_images")
+    .select("product_id, storage_path, sort_order")
+    .in("product_id", ids)
+    .order("sort_order", { ascending: true });
+
+  if (error) throw new Error(`getPrimaryImages failed: ${error.message}`);
+
+  const map = {};
+  for (const row of data || []) {
+    const key = String(row.product_id);
+    if (!map[key]) map[key] = productImageUrl(row.storage_path);
+  }
+
+  return map;
+}
+
 module.exports = {
   listAvailable,
   getPublicById,
@@ -419,5 +439,6 @@ module.exports = {
   setStock,
   listCategories,
   addImages, 
-  getManyPublic
+  getManyPublic,
+  getPrimaryImages
 };

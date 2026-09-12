@@ -116,7 +116,7 @@ async function doCheckout(req, res, next) {
 
     await cartService.clearCart(req.db, req.user.id);
 
-    res.redirect(`/orders/${order.id}?msg=Order+placed`);
+    res.redirect(`/orders/${order.id}/submitted`);
   } catch (err) {
     if (err.message && !err.message.includes("failed:")) {
       const { items, subtotal } = await cartService.getCartItems(req.db, req.user.id);
