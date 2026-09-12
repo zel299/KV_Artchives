@@ -15,7 +15,8 @@ const app = express();
 
 app.use(
   helmet({
-    contentSecurityPolicy: {
+    hsts: false,
+    contentSecurityPolicy: process.env.NODE_ENV === "production" ? undefined : false,
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
@@ -25,7 +26,7 @@ app.use(
         connectSrc: ["'self'", "https://*.supabase.co"],
       },
     },
-  })
+  )
 );
 
 const generalLimiter = rateLimit({

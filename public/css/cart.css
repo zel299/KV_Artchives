@@ -124,6 +124,13 @@
   align-items: start;
 }
 
+@media (max-width: 900px) {
+  .cart-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
 .cart-items {
   width: 100%;
 

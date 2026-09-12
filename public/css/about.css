@@ -75,7 +75,7 @@
 }
 
 .view-gallery-btn i {
-    margin-right:6px;
+    margin-right: 6px;
 }
 
 .view-gallery-btn:hover {
@@ -83,6 +83,9 @@
     color: white;
     transform: translateY(-2px);
 }
+
+
+/* --- Story --- */
 
 .story-section {
     width: calc(100% - 90px);
@@ -142,14 +145,16 @@
     border-radius: 10px;
 }
 
+
+/* --- Journey timeline --- */
+
 .journey-section {
     width: 100%;
-    margin: 0 auto 55px;
+    margin: -40px auto 55px;
     padding: 38px 20px 35px;
     background: #fff5f5;
     border-radius: 22px;
     box-shadow: 0 10px 30px rgba(150, 100, 100, 0.06);
-    margin-top: -40px;
 }
 
 .section-title {
@@ -254,8 +259,9 @@
 }
 
 .timeline-image {
-    width: 70px;
-    height: 70px;
+    width: 68px;
+    height: 68px;
+    padding: 3px;
     border: 3px solid #ffa7a7;
     border-radius: 50%;
     overflow: hidden;
@@ -269,67 +275,6 @@
     display: block;
     object-fit: cover;
     transform: scale(1.7);
-}
-
-
-@media (max-width: 560px) {
-
-    .timeline::before {
-        left: 35px;
-    }
-
-    .timeline-item {
-        display: block;
-
-        min-height: 120px;
-
-        padding-left: 95px;
-    }
-
-    .timeline-item::after {
-        left: 35px;
-    }
-
-    .timeline-item.left .timeline-content,
-    .timeline-item.right .timeline-content {
-        padding: 25px 0 0;
-
-        text-align: left;
-    }
-
-    .timeline-item.left .timeline-image,
-    .timeline-item.right .timeline-image {
-        position: absolute;
-
-        top: 25px;
-        left: 0;
-
-        justify-self: unset;
-    }
-
-}
-
-.timeline-item.right .timeline-image {
-    grid-column: 1;
-    justify-self: end;
-}
-
-
-.timeline-item.right .timeline-content {
-    grid-column: 3;
-    padding-left: 25px;
-    text-align: left;
-}
-
-.timeline-image {
-    width: 68px;
-    height: 68px;
-    padding: 3px;
-    border: 3px solid #ffa7a7;
-    border-radius: 50%;
-    background: white;
-    overflow: hidden;
-    z-index: 3;
 }
 
 .timeline-heart {
@@ -347,6 +292,9 @@
     box-shadow: 0 8px 20px rgba(150, 100, 100, 0.10);
     z-index: 4;
 }
+
+
+/* --- Values --- */
 
 .values-section {
     width: calc(100% - 90px);
@@ -399,58 +347,106 @@
     text-align: justify;
 }
 
+
+/* --- Responsive --- */
+
+@media (max-width: 900px) {
+
+    .story-section,
+    .values-section {
+        width: calc(100% - 48px);
+        grid-template-columns: 1fr;
+    }
+
+    .story-image-card {
+        height: 280px;
+    }
+}
+
 @media (max-width: 560px) {
 
     .about-page {
         background-image: none;
     }
 
+    .about-hero {
+        min-height: auto;
+        padding: 30px 18px;
+    }
 
     .hero-content h1 {
         font-size: 28px;
     }
 
+    .hero-content p {
+        margin-top: 14px;
+        font-size: 16px;
+    }
+
+    .view-gallery-btn {
+        margin-top: 22px;
+    }
+
+    .little-star {
+        right: -14px;
+        font-size: 20px;
+    }
+
+    .story-section,
+    .values-section {
+        width: calc(100% - 32px);
+    }
+
+    .story-text-card {
+        padding: 24px;
+        min-height: 0;
+    }
+
+    .journey-section {
+        margin: 0 auto 40px;
+        padding: 30px 16px;
+        border-radius: 0;
+    }
 
     .timeline::before {
         left: 25px;
     }
 
-
     .timeline-item {
         display: block;
-
-        min-height: 130px;
-
-        padding-left: 75px;
+        min-height: 0;
+        padding: 0 0 32px 75px;
     }
-
 
     .timeline-item::after {
+        top: 30px;
         left: 25px;
     }
-
 
     .timeline-item.left .timeline-content,
     .timeline-item.right .timeline-content {
         padding: 0;
-
         text-align: left;
     }
 
-
-    .timeline-image {
-        position: absolute;
-
-        top: 25px;
-        left: 0 !important;
-    }
-
-
+    .timeline-item.left .timeline-image,
+    .timeline-item.right .timeline-image,
     .timeline-heart {
         position: absolute;
-
-        top: 25px;
+        top: 0;
         left: 0;
+        grid-column: auto;
+        justify-self: auto;
     }
 
+    .timeline-heart {
+        width: 50px;
+        height: 50px;
+        font-size: 28px;
+    }
+
+    .value-card {
+        min-height: 0;
+        padding: 65px 22px 26px;
+    }
 }
