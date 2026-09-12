@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const rateLimit = require('express-rate-limit');
-const { redirectIfAuthed } = require('../middleware/auth');
+const { redirectIfAuthed, requireAuth } = require('../middleware/auth');
 const ctrl = require('../controllers/authController');
 
 const authLimiter = rateLimit({
@@ -29,6 +29,8 @@ router.post('/signup', authLimiter, ctrl.doSignup);
 router.get('/logout', ctrl.doLogout);
 router.post('/logout', ctrl.doLogout);
 
+router.get('/account/password', requireAuth, ctrl.showChangePassword);
+router.post('/account/password', requireAuth, authLimiter, ctrl.doChangePassword);
 // --- Google OAuth ---
 router.get('/auth/google', ctrl.googleStart);
 router.get('/auth/callback', ctrl.oauthCallback);

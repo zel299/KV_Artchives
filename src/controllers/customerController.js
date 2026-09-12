@@ -1,4 +1,5 @@
 const productService = require("../services/productService");
+const orderService = require("../services/orderService");
 
 async function home(req, res, next) {
   try {
@@ -116,11 +117,23 @@ function cart(req, res) {
   });
 }
 
-function accountsettings(req, res) {
-  res.render("customer/account-settings", {
-    title: "Account Settings",
-    pageCss: "account-setting",
-  });
+
+
+async function accountsettings(req, res, next) {
+  try {
+    const lastAddress = await orderService.getLastShippingDetails(
+      req.db,
+      req.user.id
+    );
+
+    res.render("customer/account-settings", {
+      title: "Account Settings",
+      pageCss: "account-settings",
+      lastAddress,
+    });
+  } catch (err) {
+    next(err);
+  }
 }
 
 function myorders(req, res) {

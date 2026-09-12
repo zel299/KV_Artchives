@@ -1,9 +1,3 @@
-<link rel="stylesheet" href="/css/account-settings.css">
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
->
-
 <main class="account-page">
 
     <section class="account-header">
@@ -18,8 +12,6 @@
             <div class="card-title">
                 <i class="fa-solid fa-user"></i>
                 <span>Personal Information</span>
-
-                <a href="#" class="edit-link">✎ Edit</a>
             </div>
 
             <div class="personal-info-grid">
@@ -41,7 +33,7 @@
                 <div class="info-item">
                     <span class="info-label">Email Address</span>
                     <span class="info-value">
-                        <%= user.email || "Not provided" %>
+                        <%= user.email %>
                     </span>
                 </div>
 
@@ -57,25 +49,30 @@
             </div>
 
             <p class="card-description">
-                Your most recent delivery address is used to fill in the
-                checkout form automatically. You can change it at checkout.
+                This is the address from your most recent order. It fills in the
+                checkout form automatically, and you can change it there.
             </p>
 
             <div class="address-box">
 
-                <div class="address-top">
-                    <strong>
-                        <%= user.full_name || "Your Name" %>
-                    </strong>
-                </div>
+                <% if (lastAddress) { %>
 
-                <p>
-                    ☎ <%= user.contact_no || "No contact number" %>
-                </p>
+                    <div class="address-top">
+                        <strong><%= lastAddress.full_name %></strong>
+                    </div>
 
-                <p>
-                    Your delivery address appears here after your first order.
-                </p>
+                    <p>☎ <%= lastAddress.contact_no %></p>
+                    <p><%= lastAddress.address %></p>
+                    <% if (lastAddress.barangay) { %><p><%= lastAddress.barangay %></p><% } %>
+                    <p><%= lastAddress.city %>, <%= lastAddress.province %> <%= lastAddress.zip %></p>
+
+                <% } else { %>
+
+                    <p class="address-empty">
+                        Your delivery address will appear here after your first order.
+                    </p>
+
+                <% } %>
 
             </div>
 
@@ -87,7 +84,7 @@
                 <i class="fa-solid fa-key"></i>
                 <span>Password</span>
 
-                <a href="/forgot-password" class="change-password">
+                <a href="/account/password" class="change-password">
                     Change Password
                 </a>
             </div>

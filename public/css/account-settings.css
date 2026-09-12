@@ -225,3 +225,137 @@
     }
 
 }
+
+/* --- Change password --- */
+
+.password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    max-width: 420px;
+}
+
+.password-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.password-form label {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #5e2e00;
+}
+
+.password-form input {
+    height: 46px;
+    padding: 0 16px;
+
+    border: 1px solid #ffa7a7;
+    border-radius: 10px;
+
+    background: #fffbf1;
+    color: #5e2e00;
+
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+
+    transition: 0.2s ease;
+}
+
+.password-form input:focus {
+    outline: none;
+    border-color: #e75353;
+    box-shadow: 0 0 0 3px rgba(231, 83, 83, 0.12);
+}
+
+.password-form .btn-primary {
+    align-self: flex-start;
+
+    min-height: 46px;
+    padding: 0 32px;
+    margin-top: 6px;
+
+    border: none;
+    border-radius: 30px;
+    background: #ef5555;
+
+    color: #ffffff;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.password-form .btn-primary:hover {
+    background: #e84b4b;
+    transform: translateY(-2px);
+}
+
+.password-done {
+    margin: 0 0 20px;
+
+    font-family: "Albert Sans", sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #5e2e00;
+}
+
+.account-card .alert {
+    margin-bottom: 18px;
+    padding: 12px 16px;
+
+    border-radius: 10px;
+    background: #fdecec;
+    border: 1px solid #f0b7b4;
+
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: #8a4141;
+}
+
+.address-empty {
+    margin: 0;
+
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: #5e2e00;
+    opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+
+    .password-form {
+        max-width: 100%;
+    }
+
+    .password-form .btn-primary {
+        align-self: stretch;
+    }
+}
+
+.password-form .password-wrapper {
+    position: relative;
+}
+
+.password-form .password-wrapper input {
+    width: 100%;
+    padding-right: 46px;
+}
+
+.password-form .toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 1;
+}

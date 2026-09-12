@@ -16,10 +16,15 @@ function setSession(res, session) {
 }
 
 function clearSession(res) {
-  res.clearCookie(ACCESS_COOKIE);
-  res.clearCookie(REFRESH_COOKIE);
-}
+  const opts = {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+  };
 
+  res.clearCookie(ACCESS_COOKIE, opts);
+  res.clearCookie(REFRESH_COOKIE, opts);
+}
 /**
  * Runs on every request. If a valid session cookie is present, loads the
  * user and their profile (which carries the role) onto the request.

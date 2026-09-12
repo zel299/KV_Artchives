@@ -1,4 +1,3 @@
-
 const { setSession, clearSession } = require('../middleware/auth');
 const { supabaseAnon, supabaseAdmin, supabaseForUser, SUPABASE_URL } = require('../config/supabase');
 const cartService = require('../services/cartService');
@@ -58,7 +57,6 @@ async function doLogin(req, res) {
   }
 
   res.redirect(nextUrl.startsWith('/') ? nextUrl : '/');
-
 }
 
 // ---------------------------------------------------------------
@@ -110,6 +108,7 @@ async function doSignup(req, res) {
 
   res.render('customer/check-email', {
     title: 'Check your email',
+    pageCss: 'auth-pages',
     email,
   });
 }
@@ -182,11 +181,16 @@ async function oauthSession(req, res) {
 }
 
 // ---------------------------------------------------------------
-// Password reset
+// Password reset (not logged in)
 // ---------------------------------------------------------------
 
 function showForgot(req, res) {
-  res.render('customer/forgot-password', { title: 'Forgot password', sent: false, error: null });
+  res.render('customer/forgot-password', {
+    title: 'Forgot password',
+    pageCss: 'auth-pages',
+    sent: false,
+    error: null,
+  });
 }
 
 async function doForgot(req, res) {
@@ -200,11 +204,20 @@ async function doForgot(req, res) {
 
   // Always report success, so this page cannot be used to discover
   // which email addresses have accounts.
-  res.render('customer/forgot-password', { title: 'Forgot password', sent: true, error: null });
+  res.render('customer/forgot-password', {
+    title: 'Forgot password',
+    pageCss: 'auth-pages',
+    sent: true,
+    error: null,
+  });
 }
 
 function showReset(req, res) {
-  res.render('customer/reset-password', { title: 'Set a new password', error: null });
+  res.render('customer/reset-password', {
+    title: 'Set a new password',
+    pageCss: 'auth-pages',
+    error: null,
+  });
 }
 
 async function doReset(req, res) {
@@ -213,6 +226,7 @@ async function doReset(req, res) {
   const fail = (msg) =>
     res.status(400).render('customer/reset-password', {
       title: 'Set a new password',
+      pageCss: 'auth-pages',
       error: msg,
     });
 
@@ -228,7 +242,74 @@ async function doReset(req, res) {
   });
   if (error) return fail(error.message);
 
-  res.render('customer/reset-done', { title: 'Password updated' });
+  res.render('customer/reset-done', {
+    title: 'Password updated',
+    pageCss: 'auth-pages',
+  });
+}
+
+// ---------------------------------------------------------------
+// Change password (logged in)
+// ---------------------------------------------------------------
+
+function showChangePassword(req, res) {
+  res.render('customer/change-password', {
+    title: 'Change password',
+    pageCss: 'account-settings',
+    error: null,
+    done: false,
+  });
+}
+
+/**
+ * Supabase has no "verify this password" call, so the current password is
+ * checked by attempting a sign-in with it. Without that, anyone reaching an
+ * unlocked browser could change the password without knowing the old one.
+ *
+ * The session is cleared afterwards: changing a password should end every
+ * session, including any the owner did not start.
+ */
+async function doChangePassword(req, res, next) {
+  const { current_password, password, confirm_password } = req.body;
+
+  const fail = (msg) =>
+    res.status(400).render('customer/change-password', {
+      title: 'Change password',
+      pageCss: 'account-settings',
+      error: msg,
+      done: false,
+    });
+
+  try {
+    if (!current_password) return fail('Enter your current password.');
+    if (!password || password.length < 8) return fail('Use at least 8 characters.');
+    if (password !== confirm_password) return fail('Those passwords do not match.');
+    if (password === current_password) return fail('That is your current password.');
+
+    const { error: checkErr } = await supabaseAnon.auth.signInWithPassword({
+      email: req.user.email,
+      password: current_password,
+    });
+
+    if (checkErr) return fail('Your current password is not correct.');
+
+    const { error } = await supabaseAdmin.auth.admin.updateUserById(req.user.id, {
+      password,
+    });
+
+    if (error) return fail(error.message);
+
+    clearSession(res);
+
+    res.render('customer/change-password', {
+      title: 'Password updated',
+      pageCss: 'account-settings',
+      error: null,
+      done: true,
+    });
+  } catch (err) {
+    next(err);
+  }
 }
 
 // ---------------------------------------------------------------
@@ -265,7 +346,9 @@ async function doAdminLogin(req, res) {
     return fail('That account does not have admin access.');
   }
 
-  setSession(res, data.session);
+  // Admin sessions are shorter than customer ones: an admin session can
+  // confirm payments and cancel orders, so it should not last a week.
+  setSession(res, data.session, true);
   res.redirect('/admin');
 }
 
@@ -282,6 +365,8 @@ module.exports = {
   doForgot,
   showReset,
   doReset,
+  showChangePassword,
+  doChangePassword,
   showAdminLogin,
   doAdminLogin,
 };
