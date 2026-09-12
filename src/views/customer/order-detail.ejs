@@ -150,36 +150,89 @@
             <% } %>
 
             <section class="panel">
+
                 <h2>Items</h2>
 
                 <% order.items.forEach(function (item) { %>
+
                     <div class="order-line">
-                        <span class="order-line__name"><%= item.name %> &times; <%= item.quantity %></span>
-                        <span class="order-line__total"><%= formatPeso(item.lineTotal) %></span>
+
+                        <% if (item.image) { %>
+
+                            <img
+                                src="<%= item.image %>"
+                                alt="<%= item.name %>"
+                                class="order-line__image"
+                            >
+
+                        <% } else { %>
+
+                            <div class="order-line__image order-line__image--placeholder">
+                                <span>No Image</span>
+                            </div>
+
+                        <% } %>
+
+                        <div class="order-line__info">
+
+                            <span class="order-line__name">
+                                <%= item.name %>
+                            </span>
+
+                            <span class="order-line__quantity">
+                                Qty: <%= item.quantity %>
+                            </span>
+
+                        </div>
+
+                        <span class="order-line__total">
+                            <%= formatPeso(item.lineTotal) %>
+                        </span>
+
                     </div>
+
                 <% }); %>
 
                 <div class="order-line order-line--sub">
+
                     <span>Subtotal</span>
+
                     <strong><%= formatPeso(order.subtotal) %></strong>
+
                 </div>
 
                 <div class="order-line">
+
                     <span>Down payment (60%)</span>
+
                     <strong><%= formatPeso(order.downPaymentAmount) %></strong>
+
                 </div>
 
                 <div class="order-line">
+
                     <span>Shipping</span>
-                    <strong><%= order.shippingFee === null ? "Calculated later" : formatPeso(order.shippingFee) %></strong>
+
+                    <strong>
+                        <%= order.shippingFee === null
+                            ? "Calculated later"
+                            : formatPeso(order.shippingFee) %>
+                    </strong>
+
                 </div>
 
                 <% if (order.balanceAmount !== null) { %>
+
                     <div class="order-line order-line--sub">
+
                         <span>Balance</span>
+
                         <strong><%= formatPeso(order.balanceAmount) %></strong>
+
                     </div>
+
                 <% } %>
+
             </section>
 
             <section class="panel">
