@@ -29,6 +29,7 @@ module.exports = {
   images: {
     productMaxWidth: 1200,
     receiptMaxWidth: 1000,
+    settingsMaxWidth: 1000,
     quality: 80,
     maxUploadBytes: 5 * 1024 * 1024, // 5 MB
   },

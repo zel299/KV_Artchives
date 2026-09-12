@@ -97,7 +97,14 @@ async function doSignup(req, res) {
     },
   });
 
-  if (error) return fail(error.message);
+    if (error) {
+    if (error.message && error.message.toLowerCase().includes("rate limit")) {
+      return fail(
+        "We can't send confirmation emails right now. Please try again in a few minutes."
+      );
+    }
+    return fail(error.message);
+  }
 
   // The handle_new_user trigger creates the profile row automatically.
   // If email confirmation is on, there is no session yet.

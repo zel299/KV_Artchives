@@ -26,7 +26,11 @@
                         We're reviewing your order. Once it's confirmed you'll be
                         asked to pay a down payment of
                         <strong><%= formatPeso(order.downPaymentAmount) %></strong>
-                        via GCash, and the payment details will appear here.
+                        via GCash, and the payment details will appear on this page.
+                    </p>
+                    <p>
+                        We'll also message you on Instagram or Facebook when it's
+                        ready to pay, so keep an eye out there.
                     </p>
                 </section>
             <% } %>
@@ -45,7 +49,10 @@
             <% if (order.status === "ready_to_ship") { %>
                 <section class="panel status-note">
                     <h2>Ready to ship</h2>
-                    <p>Your order is packed and waiting for pickup. Tracking details will appear here shortly.</p>
+                    <p>
+                        Your order is packed and waiting for pickup. The tracking
+                        number will appear here once it's on its way.
+                    </p>
                 </section>
             <% } %>
 
