@@ -12,6 +12,7 @@
   </main>
 
   <form method="post" action="/auth/session" id="f">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <input type="hidden" name="access_token" id="at">
     <input type="hidden" name="refresh_token" id="rt">
   </form>
