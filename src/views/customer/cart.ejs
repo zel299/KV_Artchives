@@ -17,31 +17,12 @@
 
     <% } else { %>
 
-        <div class="cart-select-all">
-
-            <input
-                type="checkbox"
-                id="select-all"
-            >
-
-            <label for="select-all">
-                Select All (<%= items.length %> item/s)
-            </label>
-
-        </div>
-
         <section class="cart-layout">
 
             <section class="cart-items">
                 <% items.forEach(function (item) { %>
 
                     <article class="cart-item">
-
-                        <input
-                            type="checkbox"
-                            class="cart-item-checkbox"
-                            data-price="<%= item.product.price %>"
-                        >
 
                         <img
                             src="<%= item.product.primaryImage ? item.product.primaryImage.url : '/images/placeholder.png' %>"
@@ -72,10 +53,8 @@
                                 method="post"
                                 action="/cart/<%= item.id %>/update"
                                 class="cart-qty-form"
-                                data-price="<%= item.product.price %>"
-
                             >
-                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
                                 <button
                                     type="button"
@@ -112,9 +91,7 @@
                         </div>
 
                         <p class="cart-line-total">
-                            <span class="line-total-value">
-                                <%= formatPeso(item.lineTotal) %>
-                            </span>
+                            <%= formatPeso(item.lineTotal) %>
                         </p>
 
                         <form
@@ -122,7 +99,7 @@
                             action="/cart/<%= item.id %>/remove"
                             class="cart-remove-form"
                         >
-                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
                             <button
                                 type="submit"
@@ -133,7 +110,6 @@
                             </button>
                         </form>
                     </article>
-
 
                 <% }); %>
 
@@ -149,21 +125,14 @@
                         Subtotal
                     </span>
 
-                    <strong id="cart-subtotal">
-                        ₱0.00
-                    </strong>
+                    <strong><%= formatPeso(subtotal) %></strong>
                 </div>
 
                 <p class="cart-note">
                     Shipping is calculated after your order is confirmed.
                 </p>
 
-                <a
-                    href="/checkout"
-                    class="btn btn-primary checkout-disabled"
-                    id="checkout-button"
-                    aria-disabled="true"
-                >
+                <a href="/checkout" class="btn btn-primary">
                     Proceed to Checkout
                 </a>
             </section>
@@ -176,194 +145,33 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    const selectAll = document.getElementById("select-all");
-    const itemCheckboxes = document.querySelectorAll(".cart-item-checkbox");
-    const subtotalElement = document.getElementById("cart-subtotal");
-    const checkoutButton = document.getElementById("checkout-button");
-
-    function formatPeso(amount) {
-        return new Intl.NumberFormat("en-PH", {
-            style: "currency",
-            currency: "PHP"
-        }).format(amount);
-    }
-
-    function updateCart() {
-
-        let subtotal = 0;
-        let selectedCount = 0;
-
-        itemCheckboxes.forEach(function (checkbox) {
-
-            const cartItem = checkbox.closest(".cart-item");
-            const quantityInput = cartItem.querySelector(
-                'input[name="quantity"]'
-            );
-
-            const lineTotalElement = cartItem.querySelector(
-                ".line-total-value"
-            );
-
-            const price = parseFloat(checkbox.dataset.price) || 0;
-            const quantity = parseInt(quantityInput.value) || 1;
-
-            // Calculate line total
-            const lineTotal = price * quantity;
-
-            // Update displayed line total
-            if (lineTotalElement) {
-                lineTotalElement.textContent = formatPeso(lineTotal);
-            }
-
-            // Add only selected items
-            if (checkbox.checked) {
-                subtotal += lineTotal;
-                selectedCount++;
-            }
-        });
-
-        // Update subtotal
-        subtotalElement.textContent = formatPeso(subtotal);
-
-
-        // Update Select All state
-        if (selectedCount === 0) {
-
-            selectAll.checked = false;
-            selectAll.indeterminate = false;
-
-        } else if (selectedCount === itemCheckboxes.length) {
-
-            selectAll.checked = true;
-            selectAll.indeterminate = false;
-
-        } else {
-
-            selectAll.checked = false;
-            selectAll.indeterminate = true;
-        }
-
-
-        // Enable / disable checkout
-        if (selectedCount === 0) {
-
-            checkoutButton.classList.add("checkout-disabled");
-            checkoutButton.setAttribute("aria-disabled", "true");
-            checkoutButton.removeAttribute("href");
-
-        } else {
-
-            checkoutButton.classList.remove("checkout-disabled");
-            checkoutButton.setAttribute("aria-disabled", "false");
-            checkoutButton.setAttribute("href", "/checkout");
-        }
-    }
-
-
-    // SELECT ALL
-    if (selectAll) {
-
-        selectAll.addEventListener("change", function () {
-
-            itemCheckboxes.forEach(function (checkbox) {
-                checkbox.checked = selectAll.checked;
-            });
-
-            updateCart();
-        });
-    }
-
-
-    // INDIVIDUAL CHECKBOXES
-    itemCheckboxes.forEach(function (checkbox) {
-
-        checkbox.addEventListener("change", function () {
-            updateCart();
-        });
-    });
-
-
-    // QUANTITY CONTROLS
     document.querySelectorAll(".cart-qty-form").forEach(function (form) {
 
         const minusButton = form.querySelector(".qty-minus");
         const plusButton = form.querySelector(".qty-plus");
-        const quantityInput = form.querySelector(
-            'input[name="quantity"]'
-        );
+        const quantityInput = form.querySelector('input[name="quantity"]');
 
+        if (!quantityInput) return;
 
-        // MINUS
         if (minusButton) {
-
             minusButton.addEventListener("click", function () {
-
-                let quantity =
-                    parseInt(quantityInput.value) || 1;
+                let quantity = parseInt(quantityInput.value) || 1;
 
                 if (quantity > 1) {
-                    quantity--;
-                    quantityInput.value = quantity;
-
-                    updateCart();
+                    quantityInput.value = quantity - 1;
+                    form.submit();
                 }
             });
         }
 
-
-        // PLUS
         if (plusButton) {
-
             plusButton.addEventListener("click", function () {
-
-                let quantity =
-                    parseInt(quantityInput.value) || 1;
-
-                quantity++;
-                quantityInput.value = quantity;
-
-                updateCart();
-            });
-        }
-
-
-        // MANUAL INPUT
-        if (quantityInput) {
-
-            quantityInput.addEventListener("input", function () {
-
-                let quantity =
-                    parseInt(quantityInput.value) || 1;
-
-                if (quantity < 1) {
-                    quantity = 1;
-                    quantityInput.value = 1;
-                }
-
-                updateCart();
+                let quantity = parseInt(quantityInput.value) || 1;
+                quantityInput.value = quantity + 1;
+                form.submit();
             });
         }
     });
-
-
-    // PREVENT CHECKOUT WHEN NOTHING IS SELECTED
-    if (checkoutButton) {
-
-        checkoutButton.addEventListener("click", function (event) {
-
-            if (
-                checkoutButton.classList.contains(
-                    "checkout-disabled"
-                )
-            ) {
-                event.preventDefault();
-            }
-        });
-    }
-
-
-    // INITIAL STATE
-    updateCart();
 
 });
 </script>
