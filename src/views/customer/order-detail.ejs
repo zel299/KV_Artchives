@@ -21,16 +21,12 @@
 
             <% if (order.status === "pending" || order.status === "confirmed") { %>
                 <section class="panel status-note">
-                    <h2>What happens next</h2>
+                    <h2>What happens next?</h2>
                     <p>
                         We're reviewing your order. Once it's confirmed you'll be
                         asked to pay a down payment of
                         <strong><%= formatPeso(order.downPaymentAmount) %></strong>
                         via GCash, and the payment details will appear on this page.
-                    </p>
-                    <p>
-                        We'll also message you on Instagram or Facebook when it's
-                        ready to pay, so keep an eye out there.
                     </p>
                 </section>
             <% } %>
