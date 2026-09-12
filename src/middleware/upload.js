@@ -3,6 +3,7 @@ const multer = require("multer");
 const config = require("../config");
 
 const ALLOWED = ["image/jpeg", "image/png", "image/webp"];
+const settingsImage = upload.single("gcash_qr");
 
 function fileFilter(req, file, cb) {
     if (!ALLOWED.includes(file.mimetype)) {

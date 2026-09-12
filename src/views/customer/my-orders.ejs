@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/css/my-orders.css">
-
 <main class="orders-page">
 
     <section class="orders-header">
@@ -8,38 +6,71 @@
     </section>
 
     <div class="order-filters">
-
-        <button type="button" class="filter active">ALL</button>
-        <button type="button" class="filter">TO CONFIRM</button>
-        <button type="button" class="filter">TO PAY</button>
-        <button type="button" class="filter">IN PROGRESS</button>
-        <button type="button" class="filter">TO SHIP</button>
-        <button type="button" class="filter">COMPLETED</button>
-        <button type="button" class="filter">CANCELLED</button>
-
+        <a href="/account/orders?tab=all" class="filter <%= tab === 'all' ? 'active' : '' %>">ALL</a>
+        <a href="/account/orders?tab=to_confirm" class="filter <%= tab === 'to_confirm' ? 'active' : '' %>">TO CONFIRM</a>
+        <a href="/account/orders?tab=to_pay" class="filter <%= tab === 'to_pay' ? 'active' : '' %>">TO PAY</a>
+        <a href="/account/orders?tab=in_progress" class="filter <%= tab === 'in_progress' ? 'active' : '' %>">IN PROGRESS</a>
+        <a href="/account/orders?tab=to_ship" class="filter <%= tab === 'to_ship' ? 'active' : '' %>">TO SHIP</a>
+        <a href="/account/orders?tab=completed" class="filter <%= tab === 'completed' ? 'active' : '' %>">COMPLETED</a>
+        <a href="/account/orders?tab=cancelled" class="filter <%= tab === 'cancelled' ? 'active' : '' %>">CANCELLED</a>
     </div>
 
-    <section class="orders-empty">
+    <% if (orders.length === 0) { %>
 
-        <h2>NO ORDER/S YET</h2>
-        <p>
-            You haven't placed any orders yet.
-            Your little treasures will appear here once you do.
-        </p>
+        <section class="orders-empty">
+            <h2>NO ORDER/S YET</h2>
+            <p>
+                <% if (tab === "all") { %>
+                    You haven't placed any orders yet.
+                    Your little treasures will appear here once you do.
+                <% } else { %>
+                    Nothing here right now. Try another filter.
+                <% } %>
+            </p>
+        </section>
 
-    </section>
-<script>
-    const filters = document.querySelectorAll(".filter");
+    <% } else { %>
 
-    filters.forEach(filter => {
-        filter.addEventListener("click", function () {
+        <section class="orders-list">
 
-            filters.forEach(button => {
-                button.classList.remove("active");
-            });
+            <% orders.forEach(function (order) { %>
 
-            this.classList.add("active");
-        });
-    });
-</script>
+                <article class="order-card">
+
+                    <div class="order-card__head">
+                        <span class="order-card__code">Order <%= order.code %></span>
+                        <span class="order-status"><%= order.statusLabel %></span>
+                    </div>
+
+                    <div class="order-card__body">
+
+                        <div class="order-card__items">
+                            <% order.items.slice(0, 2).forEach(function (item) { %>
+                                <p class="order-card__item">
+                                    <%= item.name %> &times; <%= item.quantity %>
+                                </p>
+                            <% }); %>
+
+                            <% if (order.items.length > 2) { %>
+                                <p class="order-card__more">
+                                    +<%= order.items.length - 2 %> more item<%= order.items.length - 2 > 1 ? 's' : '' %>
+                                </p>
+                            <% } %>
+                        </div>
+
+                        <div class="order-card__meta">
+                            <span class="order-card__total">Total: <%= formatPeso(order.subtotal) %></span>
+                            <a href="/orders/<%= order.id %>" class="order-card__link">View Order</a>
+                        </div>
+
+                    </div>
+
+                </article>
+
+            <% }); %>
+
+        </section>
+
+    <% } %>
+
 </main>
