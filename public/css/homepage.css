@@ -677,11 +677,31 @@ a {
         height: 100px;
         left: 0;
     }
-
     .product-grid {
         grid-template-columns: 1fr;
     }
 
+    .product-grid--scroll {
+        display: flex;
+        gap: 16px;
+
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+
+        margin: 0 -18px;
+        padding: 0 18px 10px;
+
+        scrollbar-width: none;
+    }
+
+    .product-grid--scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+    .product-grid--scroll .product-card {
+        flex: 0 0 78%;
+        scroll-snap-align: start;
+    }
     .story-content {
         padding: 35px 28px;
     }

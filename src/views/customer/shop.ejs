@@ -9,6 +9,10 @@
 
         <form method="get" action="/shop" class="shop-filters">
 
+            <% if (categoryId) { %>
+                <input type="hidden" name="category" value="<%= categoryId %>">
+            <% } %>
+
             <input
                 type="search"
                 name="q"
@@ -16,16 +20,21 @@
                 placeholder="Search creations..."
             >
 
-            <select name="category">
-                <option value="">All categories</option>
-                <% categories.forEach(function (c) { %>
-                    <option value="<%= c.id %>" <%= String(categoryId) === String(c.id) ? "selected" : "" %>><%= c.name %></option>
-                <% }); %>
-            </select>
-
             <button type="submit" class="btn btn-primary">Search</button>
 
         </form>
+
+        <div class="shop-categories">
+
+            <a href="/shop<%= search ? '?q=' + encodeURIComponent(search) : '' %>"
+               class="cat-pill <%= !categoryId ? 'active' : '' %>">All</a>
+
+            <% categories.forEach(function (c) { %>
+                <a href="/shop?category=<%= c.id %><%= search ? '&q=' + encodeURIComponent(search) : '' %>"
+                   class="cat-pill <%= String(categoryId) === String(c.id) ? 'active' : '' %>"><%= c.name %></a>
+            <% }); %>
+
+        </div>
 
         <% if (products.length === 0) { %>
 
