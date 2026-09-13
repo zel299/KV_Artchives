@@ -328,8 +328,6 @@ async function getLastShippingDetails(db, userId) {
   };
 }
 
-
-
 async function submitPayment(db, orderId, userId, type, referenceNo, receiptBuffer) {
   const reference = (referenceNo || "").trim();
 
@@ -368,6 +366,68 @@ async function submitPayment(db, orderId, userId, type, referenceNo, receiptBuff
   if (error) throw new Error(`submitPayment failed: ${error.message}`);
 }
 
+const CANCELLABLE = ["pending", "confirmed"];
+
+async function cancelOwnOrder(db, orderId, userId) {
+  const order = await getOrderForCustomer(db, orderId, userId);
+  if (!order) throw new Error("That order does not exist.");
+
+  if (!CANCELLABLE.includes(order.status)) {
+    throw new Error(
+      "This order can no longer be cancelled here. Message us on Instagram or Facebook and we'll help."
+    );
+  }
+
+  const now = new Date().toISOString();
+
+  const { data, error } = await supabaseAdmin
+    .from("orders")
+    .update({
+      status: "cancelled",
+      cancelled_at: now,
+      cancel_reason: "Cancelled by customer",
+    })
+    .eq("id", orderId)
+    .eq("user_id", userId)
+    .in("status", CANCELLABLE)
+    .select("id")
+    .maybeSingle();
+
+  if (error) throw new Error(`cancelOwnOrder failed: ${error.message}`);
+
+  if (!data) {
+    throw new Error("That order has already moved on. Refresh and try again.");
+  }
+
+  await supabaseAdmin.from("order_status_history").insert({
+    order_id: orderId,
+    from_status: order.status,
+    to_status: "cancelled",
+    changed_by: userId,
+    note: "Cancelled by customer",
+  });
+
+  for (const item of order.items) {
+    const { error: stockErr } = await supabaseAdmin.rpc("decrement_stock", {
+      p_product_id: item.productId,
+      p_quantity: -item.quantity,
+    });
+
+    if (stockErr) {
+      console.error("[stock] return failed:", stockErr.message);
+      continue;
+    }
+
+    await supabaseAdmin.from("stock_log").insert({
+      product_id: item.productId,
+      order_id: orderId,
+      change: item.quantity,
+      reason: "order_cancelled",
+      created_by: userId,
+    });
+  }
+}
+
 module.exports = {
   placeOrder,
   insertOrder,
@@ -375,7 +435,8 @@ module.exports = {
   getOrderForCustomer,
   listOrdersForCustomer,
   getLastShippingDetails, 
-  submitPayment,
+  submitPayment, 
+  cancelOwnOrder,
   STATUS_LABELS,
   ORDER_TABS,
 };

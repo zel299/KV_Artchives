@@ -256,3 +256,24 @@
         font-size: 25px;
     }
 }
+
+.product-thumb.active {
+    border-color: var(--dark-pink);
+    opacity: 1;
+}
+
+.product-thumb {
+    opacity: 0.75;
+}
+
+.product-thumb:hover {
+    opacity: 1;
+}
+
+.product-summary .btn {
+    cursor: pointer;
+}
+
+.product-summary .btn:disabled {
+    cursor: not-allowed;
+}

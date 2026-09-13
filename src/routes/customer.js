@@ -47,6 +47,7 @@ router.post("/cart/:id/remove", cartCtrl.removeCartItem);
 router.get("/checkout", requireAuth, checkoutCtrl.showDetails);
 router.post("/checkout/review", requireAuth, checkoutCtrl.showReview);
 router.post("/checkout", requireAuth, orderLimiter, checkoutCtrl.doCheckout);
+router.post("/orders/:id/cancel", requireAuth, orderCtrl.cancelOrder);
 
 // --- Account and orders ---
 router.get("/account", requireAuth, ctrl.accountsettings);

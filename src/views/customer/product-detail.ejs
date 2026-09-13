@@ -138,4 +138,24 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const mainImage = document.getElementById("mainImage");
+    const thumbs = document.querySelectorAll(".product-thumb");
+
+    if (!mainImage || thumbs.length === 0) return;
+
+    thumbs[0].classList.add("active");
+
+    thumbs.forEach(function (thumb) {
+        thumb.addEventListener("click", function () {
+            mainImage.src = thumb.dataset.full;
+
+            thumbs.forEach(function (t) { t.classList.remove("active"); });
+            thumb.classList.add("active");
+        });
+    });
+
+});
 </script>

@@ -94,4 +94,15 @@ async function submitPayment(req, res, next) {
   }
 }
 
-module.exports = { showSubmitted, showOrder, listOrders, submitPayment };
+async function cancelOrder(req, res) {
+  const id = req.params.id;
+
+  try {
+    await orderService.cancelOwnOrder(req.db, id, req.user.id);
+    res.redirect("/account/orders?msg=Order+cancelled");
+  } catch (err) {
+    res.redirect(`/orders/${id}?err=${encodeURIComponent(err.message)}`);
+  }
+}
+
+module.exports = { showSubmitted, showOrder, listOrders, submitPayment, cancelOrder };

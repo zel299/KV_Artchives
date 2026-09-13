@@ -699,4 +699,32 @@
         font-size: 2rem;
     }
 
+        .contact-cards {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .contact-card {
+        min-height: 0;
+        padding: 26px 22px 24px;
+    }
+
+    .contact-hero h1 {
+        font-size: 32px;
+    }
+
+    .contact-hero p {
+        font-size: 16px;
+    }
+
+    .contact-hero p br,
+    .custom-orders p br {
+        display: none;
+    }
+
+    .custom-orders {
+        padding: 24px 22px;
+        margin-top: 40px;
+    }
+
 }
