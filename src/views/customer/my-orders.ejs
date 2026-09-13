@@ -63,8 +63,23 @@
                         </div>
 
                         <div class="order-card__meta">
-                            <span class="order-card__total">Total: <%= formatPeso(order.subtotal) %></span>
-                            <a href="/orders/<%= order.id %>" class="order-card__link">View Order</a>
+                        
+                            <span class="order-card__total">
+                                Total: <%= formatPeso(order.subtotal) %>
+                            </span>
+
+                            <div class="order-card__actions">
+
+                            <% if (order.status === "pending" || order.status === "confirmed") { %>
+                                <form method="post" action="/orders/<%= order.id %>/cancel" class="cancel-order-form">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <button type="submit" class="order-card__cancel">Cancel Order</button>
+                                </form>
+                            <% } %> 
+                            <a href="/orders/<%= order.id %>" class="order-card__link">
+                                    View Order
+                                </a>
+
                         </div>
 
                     </div>

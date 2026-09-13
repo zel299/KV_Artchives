@@ -1,4 +1,3 @@
-
 <main class="order-detail-page">
 
     <section class="order-detail-header">
@@ -21,16 +20,12 @@
 
             <% if (order.status === "pending" || order.status === "confirmed") { %>
                 <section class="panel status-note">
-                    <h2>What happens next</h2>
+                    <h2>What happens next?</h2>
                     <p>
                         We're reviewing your order. Once it's confirmed you'll be
                         asked to pay a down payment of
                         <strong><%= formatPeso(order.downPaymentAmount) %></strong>
                         via GCash, and the payment details will appear on this page.
-                    </p>
-                    <p>
-                        We'll also message you on Instagram or Facebook when it's
-                        ready to pay, so keep an eye out there.
                     </p>
                 </section>
             <% } %>
@@ -150,36 +145,89 @@
             <% } %>
 
             <section class="panel">
+
                 <h2>Items</h2>
 
                 <% order.items.forEach(function (item) { %>
+
                     <div class="order-line">
-                        <span class="order-line__name"><%= item.name %> &times; <%= item.quantity %></span>
-                        <span class="order-line__total"><%= formatPeso(item.lineTotal) %></span>
+
+                        <% if (item.image) { %>
+
+                            <img
+                                src="<%= item.image %>"
+                                alt="<%= item.name %>"
+                                class="order-line__image"
+                            >
+
+                        <% } else { %>
+
+                            <div class="order-line__image order-line__image--placeholder">
+                                <span>No Image</span>
+                            </div>
+
+                        <% } %>
+
+                        <div class="order-line__info">
+
+                            <span class="order-line__name">
+                                <%= item.name %>
+                            </span>
+
+                            <span class="order-line__quantity">
+                                Qty: <%= item.quantity %>
+                            </span>
+
+                        </div>
+
+                        <span class="order-line__total">
+                            <%= formatPeso(item.lineTotal) %>
+                        </span>
+
                     </div>
+
                 <% }); %>
 
                 <div class="order-line order-line--sub">
+
                     <span>Subtotal</span>
+
                     <strong><%= formatPeso(order.subtotal) %></strong>
+
                 </div>
 
                 <div class="order-line">
+
                     <span>Down payment (60%)</span>
+
                     <strong><%= formatPeso(order.downPaymentAmount) %></strong>
+
                 </div>
 
                 <div class="order-line">
+
                     <span>Shipping</span>
-                    <strong><%= order.shippingFee === null ? "Calculated later" : formatPeso(order.shippingFee) %></strong>
+
+                    <strong>
+                        <%= order.shippingFee === null
+                            ? "Calculated later"
+                            : formatPeso(order.shippingFee) %>
+                    </strong>
+
                 </div>
 
                 <% if (order.balanceAmount !== null) { %>
+
                     <div class="order-line order-line--sub">
+
                         <span>Balance</span>
+
                         <strong><%= formatPeso(order.balanceAmount) %></strong>
+
                     </div>
+
                 <% } %>
+
             </section>
 
             <section class="panel">

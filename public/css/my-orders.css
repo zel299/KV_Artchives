@@ -201,9 +201,9 @@
 
 .order-card__meta {
     display: flex;
-    align-items: center;
-    gap: 16px;
-
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
     flex-shrink: 0;
 }
 
@@ -214,6 +214,22 @@
     color: #5e2e00;
 
     white-space: nowrap;
+}
+
+.order-card__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.order-card__cancel {
+    border: none;
+    background: none;
+    color: #5e2e00;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
 }
 
 .order-card__link {
