@@ -65,7 +65,9 @@
 
 .order-card {
   width: 100%;
-  max-width: 544px;
+  height: max-content;
+  max-width: 800px;
+  
 
   margin: 0 auto;
 
@@ -83,12 +85,20 @@
 .order-card h2 {
   margin: 0 0 16px;
 
-  color: #222222;
+  color: #5e2e00;
 
-  font-family: "Abhaya Libre", Georgia, serif;
-  font-size: 20px;
+  font-family: "Abhaya Libre", sans-serif;
+  font-size: 30px;
   font-weight: 700;
 }
+
+.order-card p {
+  font-family: "Inter", sans-serif;
+  color: #5e2e00;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
 
 .order-items {
   width: 100%;
@@ -161,8 +171,8 @@
 
   color: #5e2e00;
 
-  font-family: "Abhaya Libre", Georgia, serif;
-  font-size: 11px;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
 }
 
 .summary-divider {
@@ -171,7 +181,8 @@
 
   margin: 15px 0 17px;
 
-  background: #eee5e1;
+  background: #5e2e00;
+  opacity: 0.1;
 }
 
 .total-divider {
@@ -187,27 +198,29 @@
 
   margin-bottom: 11px;
 
-  color: #766760;
+  color: #5e2e00;
 
-  font-size: 11px;
+  font-size: 14px;
 }
 
 .summary-row:last-child {
   margin-bottom: 0;
 }
 
-.summary-row span:last-child,
+
 .summary-row strong {
-  color: #5c514c;
+  color: #5e2e00;
+  font-size: 18px;
+  font-family: "Inter", sans-serif;
 }
 
 .total-row {
   margin-bottom: 0;
 
-  color: #493d37;
+  color: #5e2e00;
 
-  font-family: "Abhaya Libre", Georgia, serif;
-  font-size: 12px;
+  font-family: "Abhaya Libre", sans-serif;
+  font-size: 16px;
 }
 
 .total-row strong {
@@ -237,7 +250,7 @@
 
   color: #b52e2e;
 
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 700;
 
   text-transform: uppercase;
@@ -265,10 +278,10 @@
 
 .important-note p {
   margin: 0 0 3px;
-
+  text-align: justify;
   color: #9b3939;
 
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.4;
 }
 
@@ -282,7 +295,7 @@
 
 .order-actions {
   width: 100%;
-  max-width: 340px;
+  max-width: 400px;
 
   margin: 20px auto 0;
 
@@ -295,8 +308,8 @@
 
 .view-order-btn,
 .back-shop-btn {
-  width: 181px;
-  height: 28px;
+  width: 190px;
+  height: 35px;
 
   display: flex;
   align-items: center;
@@ -318,10 +331,12 @@
 }
 
 .view-order-btn {
-  background: #f47c7c;
+  background: #F38383;
   color: #5e2e00;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 13px;
 
-  border: 1px solid #f47c7c;
+  
 }
 
 .view-order-btn:hover {
@@ -334,8 +349,10 @@
 .back-shop-btn {
   background: #ffffff;
   color: #5e2e00;
+  font-size: 13px;
+  font-family: "Albert Sans", sans-serif;
 
-  border: 1px solid #f47c7c;
+  border: 1px solid #F38383;
 }
 
 .back-shop-btn:hover {
