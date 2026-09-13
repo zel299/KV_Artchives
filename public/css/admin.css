@@ -1,434 +1,341 @@
-/* =========================================================
-   KV ARTCHIVES - ADMIN LAYOUT
-   Based ONLY on layouts/admin.ejs
-========================================================= */
-
-
-/* ---------------------------------------------------------
-   RESET
---------------------------------------------------------- */
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    min-height: 100vh;
+  min-height: 100vh;
 
-    font-family: "DM Sans", sans-serif;
+  font-family: "DM Sans", sans-serif;
 
-    color: #5e2e00;
-    background: #fff0f0;
+  color: #5e2e00;
+  background: #fff0f0;
 }
 
 button,
 input,
 select {
-    font-family: inherit;
+  font-family: inherit;
 }
 
 button {
-    border: none;
-    background: none;
-    cursor: pointer;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
-
-
-/* ---------------------------------------------------------
-   ADMIN BODY
---------------------------------------------------------- */
 
 body.admin {
-    min-height: 100vh;
-    background: #fff0f0;
+  min-height: 100vh;
+  background: #fff0f0;
 }
 
-
-/* ---------------------------------------------------------
-   SIDEBAR
-   Matches: <aside class="sidebar">
---------------------------------------------------------- */
-
 .sidebar {
-    position: fixed;
+  position: fixed;
 
-    top: 0;
-    left: 0;
+  top: 0;
+  left: 0;
 
-    width: 204px;
-    height: 100vh;
+  width: 204px;
+  height: 100vh;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    background: #fff4e8;
+  background: #fff4e8;
 
-    border-right: 1px solid #ead8cc;
+  border-right: 1px solid #ead8cc;
 
-    z-index: 100;
+  z-index: 100;
 }
 
 .brand-logo {
-    width: 47px;
-    height: 47px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+  width: 47px;
+  height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .brand-logo img {
-    width: 47px;
-    height: 47px;
-    object-fit: contain;
-    display: block;
+  width: 47px;
+  height: 47px;
+  object-fit: contain;
+  display: block;
 }
-
-/* ---------------------------------------------------------
-   SIDEBAR BRAND
-   Matches:
-   <div class="sidebar-brand">
-       <strong>KV Artchives</strong>
-       <span class="small muted">Admin portal</span>
-   </div>
---------------------------------------------------------- */
-
 .sidebar-brand {
-    height: 122px;
+  height: 122px;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    gap: 7px;
+  gap: 7px;
 
-    padding: 15px;
+  padding: 15px;
 
-    border-bottom: 1px solid rgba(203, 137, 119, 0.15);
+  border-bottom: 1px solid rgba(203, 137, 119, 0.15);
 }
 
 .sidebar-brand strong {
-    color: #e75353;
+  color: #e75353;
 
-    font-family: "Berkshire Swash", cursive;
+  font-family: "Berkshire Swash", cursive;
 
-    font-size: 17px;
-    font-weight: 400;
+  font-size: 17px;
+  font-weight: 400;
 
-    line-height: 1.1;
+  line-height: 1.1;
 
-    text-align: center;
+  text-align: center;
 }
 
 .sidebar-brand .small {
-    font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
 
-    font-size: 12px;
+  font-size: 12px;
 
-    color: #5e2e00;
+  color: #5e2e00;
 }
 
 .sidebar-brand .muted {
-    color: #5e2e00;
+  color: #5e2e00;
 }
-
-
-/* ---------------------------------------------------------
-   SIDEBAR NAV
-   Matches: <nav class="sidebar-nav">
---------------------------------------------------------- */
 
 .sidebar-nav {
-    flex: 1;
+  flex: 1;
 
-    padding: 20px 12px;
+  padding: 20px 12px;
 
-    overflow-y: auto;
+  overflow-y: auto;
 }
-/* =========================================
-   SIDEBAR ICONS
-========================================= */
 
 .sidebar-nav > a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .sidebar-nav > a i {
-    width: 20px;
-    min-width: 20px;
+  width: 20px;
+  min-width: 20px;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-    font-size: 16px;
-    color: #5e2e00;
+  font-size: 16px;
+  color: #5e2e00;
 }
 
 .sidebar-nav > a.active i {
-    color: #5e2e00;
+  color: #5e2e00;
 }
 
-
-/* LOGOUT ICON */
-
 .sidebar-foot a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .sidebar-foot a i {
-    width: 20px;
-    min-width: 20px;
+  width: 20px;
+  min-width: 20px;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-    font-size: 15px;
-    color: #5e2e00;
+  font-size: 15px;
+  color: #5e2e00;
 }
-
-/* ---------------------------------------------------------
-   NAV LABEL
-   Matches:
-   <span class="nav-label">Overview</span>
---------------------------------------------------------- */
 
 .nav-label {
-    display: block;
+  display: block;
 
-    margin: 0 10px 10px;
+  margin: 0 10px 10px;
 
-    color: #59413f;
+  color: #59413f;
 
-    opacity: 0.7;
+  opacity: 0.7;
 
-    font-family: "Bebas Neue", sans-serif;
+  font-family: "Bebas Neue", sans-serif;
 
-    font-size: 12px;
-    font-weight: 500;
+  font-size: 12px;
+  font-weight: 500;
 
-    text-transform: uppercase;
+  text-transform: uppercase;
 
-    letter-spacing: 2px;
+  letter-spacing: 2px;
 }
-
-
-/* ---------------------------------------------------------
-   SIDEBAR LINKS
-   Matches:
-   <a href="..." class="active">Dashboard</a>
---------------------------------------------------------- */
 
 .sidebar-nav > a {
-    position: relative;
+  position: relative;
 
-    min-height: 38px;
+  min-height: 38px;
 
-    display: flex;
+  display: flex;
 
-    align-items: center;
+  align-items: center;
 
-    padding: 0 12px;
+  padding: 0 12px;
 
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 
-    border-radius: 6px;
+  border-radius: 6px;
 
-    color: #5e2e00;
+  color: #5e2e00;
 
-    font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
 
-    font-size: 14px;
-    font-weight: 400;
+  font-size: 14px;
+  font-weight: 400;
 
-    transition:
-        background 0.2s ease,
-        color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
-
-
-/* HOVER */
 
 .sidebar-nav > a:hover {
-    background: #ffa7a7;
+  background: #ffa7a7;
 }
-
-
-/* ACTIVE */
 
 .sidebar-nav > a.active {
-    background: #ffc5c0;
+  background: #ffc5c0;
 
-    color: #5e2e00;
+  color: #5e2e00;
 
-    font-weight: 600;
+  font-weight: 600;
 }
-
-
-/* ACTIVE INDICATOR */
 
 .sidebar-nav > a.active::after {
-    content: "";
+  content: "";
 
-    position: absolute;
+  position: absolute;
 
-    top: 0;
-    right: 0;
+  top: 0;
+  right: 0;
 
-    width: 3px;
-    height: 100%;
+  width: 3px;
+  height: 100%;
 
-    background: #e75353;
+  background: #e75353;
 
-    border-radius: 0 6px 6px 0;
+  border-radius: 0 6px 6px 0;
 }
-
-
-/* ---------------------------------------------------------
-   SIDEBAR FOOTER
-   Matches:
-   <div class="sidebar-foot">
---------------------------------------------------------- */
 
 .sidebar-foot {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    gap: 8px;
+  gap: 8px;
 
-    padding: 18px 16px;
+  padding: 18px 16px;
 
-    border-top: 1px solid #f0ddd3;
+  border-top: 1px solid #f0ddd3;
 }
-
-
-/* USER NAME */
 
 .sidebar-foot .small {
-    font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
 
-    font-size: 12px;
+  font-size: 12px;
 }
 
-
-/* LOG OUT */
-
 .sidebar-foot a {
-    color: #5e2e00;
+  color: #5e2e00;
 
-    font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
 
-    font-size: 13px;
-    font-weight: 500;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .sidebar-foot a:hover {
-    color: #e75353;
+  color: #e75353;
 }
-
-
-/* MUTED */
 
 .muted {
-    color: #8b7770;
+  color: #8b7770;
 }
-
-
-/* ---------------------------------------------------------
-   MAIN CONTENT
-   Matches: <main class="admin-main">
---------------------------------------------------------- */
 
 .admin-main {
-    width: calc(100% - 204px);
+  width: calc(100% - 204px);
 
-    min-height: 100vh;
+  min-height: 100vh;
 
-    margin-left: 204px;
+  margin-left: 204px;
 
-    padding: 32px 40px;
+  padding: 32px 40px;
 
-    background: #fff0f0;
+  background: #fff0f0;
 }
 
-
-/* ---------------------------------------------------------
-   MOBILE
---------------------------------------------------------- */
-
 @media (max-width: 600px) {
+  .sidebar {
+    width: 65px;
+  }
 
-    .sidebar {
-        width: 65px;
-    }
+  .admin-main {
+    width: calc(100% - 65px);
 
-    .admin-main {
-        width: calc(100% - 65px);
+    margin-left: 65px;
 
-        margin-left: 65px;
+    padding: 24px 20px;
+  }
 
-        padding: 24px 20px;
-    }
+  .sidebar-brand {
+    height: 80px;
 
-    .sidebar-brand {
-        height: 80px;
+    padding: 8px;
+  }
 
-        padding: 8px;
-    }
+  .sidebar-brand strong {
+    font-size: 9px;
+  }
 
-    .sidebar-brand strong {
-        font-size: 9px;
-    }
+  .sidebar-brand .small {
+    display: none;
+  }
 
-    .sidebar-brand .small {
-        display: none;
-    }
+  .nav-label {
+    display: none;
+  }
 
-    .nav-label {
-        display: none;
-    }
+  .sidebar-nav {
+    padding: 15px 8px;
+  }
 
-    .sidebar-nav {
-        padding: 15px 8px;
-    }
+  .sidebar-nav > a {
+    justify-content: center;
 
-    .sidebar-nav > a {
-        justify-content: center;
+    padding: 0;
 
-        padding: 0;
+    font-size: 0;
+  }
 
-        font-size: 0;
-    }
+  .sidebar-foot {
+    align-items: center;
 
-    .sidebar-foot {
-        align-items: center;
+    padding: 12px 6px;
+  }
 
-        padding: 12px 6px;
-    }
+  .sidebar-foot .small {
+    display: none;
+  }
 
-    .sidebar-foot .small {
-        display: none;
-    }
-
-    .sidebar-foot a {
-        font-size: 0;
-    }
+  .sidebar-foot a {
+    font-size: 0;
+  }
 }
