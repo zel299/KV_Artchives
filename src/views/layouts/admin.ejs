@@ -4,31 +4,41 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><%= typeof title !== 'undefined' ? title : 'Admin' %> · KV Artchives</title>
-  <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/admin.css">
+     <link
+        href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@600&family=Albert+Sans:wght@400;500;600;700&family=Averia+Serif+Libre:wght@300;400;700&family=Bebas+Neue&family=Berkshire+Swash&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 </head>
 <body class="admin">
   <aside class="sidebar">
     <div class="sidebar-brand">
+        <div class="brand-logo">
+                <img src="/images/logo.png" alt="KV Artchives Logo">
+            </div>
       <strong>KV Artchives</strong>
       <span class="small muted">Admin portal</span>
     </div>
 
     <nav class="sidebar-nav">
       <span class="nav-label">Overview</span>
-      <a href="/admin" class="<%= currentPath === '/admin' ? 'active' : '' %>">Dashboard</a>
+      <a href="/admin" class="<%= currentPath === '/admin' ? 'active' : '' %>"><i class="fa-solid fa-grip"></i>Dashboard</a>
 
       <span class="nav-label">Catalog and sales</span>
-      <a href="/admin/products" class="<%= currentPath.startsWith('/admin/products') ? 'active' : '' %>">Products</a>
-      <a href="/admin/orders" class="<%= currentPath.startsWith('/admin/orders') ? 'active' : '' %>">Orders</a>
+      <a href="/admin/products" class="<%= currentPath.startsWith('/admin/products') ? 'active' : '' %>"><i class="fa-solid fa-box-archive"></i>Products</a>
+      <a href="/admin/orders" class="<%= currentPath.startsWith('/admin/orders') ? 'active' : '' %>"><i class="fa-solid fa-bag-shopping"></i>Orders</a>
 
       <span class="nav-label">System</span>
-      <a href="/admin/settings" class="<%= currentPath.startsWith('/admin/settings') ? 'active' : '' %>">Settings</a>
+      <a href="/admin/settings" class="<%= currentPath.startsWith('/admin/settings') ? 'active' : '' %>"><i class="fa-solid fa-gears"></i>Settings</a>
     </nav>
 
     <div class="sidebar-foot">
       <span class="small muted"><%= user.full_name %></span>
-      <a href="/logout" class="small">Log out</a>
+      <a href="/logout" class="small"><i class="fa-solid fa-right-from-bracket"></i>Log out</a>
     </div>
   </aside>
 
