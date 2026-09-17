@@ -1,0 +1,192 @@
+.page-head {
+  margin-bottom: 28px;
+}
+
+.page-head h1 {
+  margin: 0 0 8px;
+
+  color: #5e2e00;
+
+  font-family: "Berkshire Swash", cursive;
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.page-head .muted {
+  margin: 0;
+
+  color: #5e2e00;
+
+  font-family: "Albert Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.stat-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 28px;
+}
+
+.stat {
+  min-height: 125px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(211, 166, 155, 0.35);
+
+  border-radius: 12px;
+
+  box-shadow: 0 6px 18px rgba(118, 64, 48, 0.08);
+}
+
+.stat-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #765843;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  text-transform: none;
+}
+
+.stat-value {
+  display: block;
+
+  color: #5e2e00;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  line-height: 1.2;
+}
+
+.panel {
+  padding: 25px;
+
+  background: #ffffff;
+
+  border: 1px solid #ffa7a733;
+
+  border-radius: 12px;
+
+  box-shadow: 0 6px 18px rgba(118, 64, 48, 0.08);
+}
+
+.panel h2 {
+  margin: 0 0 8px;
+
+  color: #5e2e00;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.panel .muted {
+  margin: 0 0 20px;
+
+  color: #5e2e00;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+.small {
+  font-size: 13px;
+}
+
+.panel .btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 44px;
+
+  padding: 0 22px;
+
+  border: 1px solid #e75353;
+
+  border-radius: 24px;
+
+  background: #ffa7a7;
+
+  color: #5e2e00;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.panel .btn:hover {
+  background: #ff9494;
+
+  transform: translateY(-1px);
+}
+
+
+@media (max-width: 1000px) {
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .page-head h1 {
+    font-size: 30px;
+  }
+
+  .page-head .muted {
+    font-size: 14px;
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+
+  .stat {
+    min-height: 105px;
+
+    padding: 18px;
+  }
+
+  .stat-value {
+    font-size: 24px;
+  }
+
+  .panel {
+    padding: 20px;
+  }
+}
