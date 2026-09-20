@@ -1,4 +1,3 @@
-
 <header class="page-head row-between">
   <div>
     <a href="/admin/orders" class="small">&larr; Back to orders</a>
@@ -104,7 +103,8 @@
           <button type="submit" class="btn btn-sm">Confirm Order</button>
         </form>
 
-        <form method="post" action="/admin/orders/<%= order.id %>/decline" class="admin-action-form">
+        <form method="post" action="/admin/orders/<%= order.id %>/decline" class="admin-action-form"
+              data-confirm="Decline this order? Stock will be returned and the customer will see your reason.">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>">
           <label class="small">Decline reason
             <textarea name="reason" rows="2" required></textarea>
@@ -169,7 +169,8 @@
 
       <% const cancellable = ["confirmed", "awaiting_down_payment", "in_production", "awaiting_balance", "ready_to_ship"]; %>
       <% if (cancellable.includes(order.status)) { %>
-        <form method="post" action="/admin/orders/<%= order.id %>/cancel" class="admin-action-form">
+        <form method="post" action="/admin/orders/<%= order.id %>/cancel" class="admin-action-form"
+              data-confirm="Cancel this order? Stock will be returned and this cannot be undone.">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>">
           <label class="small">Cancel reason
             <textarea name="reason" rows="2" required></textarea>
