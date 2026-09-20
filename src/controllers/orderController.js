@@ -69,6 +69,7 @@ async function listOrders(req, res, next) {
       pageCss: "my-orders",
       orders,
       tab,
+      flash: req.query.msg || null,
     });
   } catch (err) {
     next(err);

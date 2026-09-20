@@ -58,7 +58,7 @@
   <% } %>
 
   <form method="post" action="/admin/products/<%= product.id %>/delete" class="inline"
-        onsubmit="return confirm('Permanently delete this product? This cannot be undone.')">
+        data-confirm="Permanently delete this product? This cannot be undone.">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <button type="submit" class="linkish small danger">Delete permanently</button>
   </form>

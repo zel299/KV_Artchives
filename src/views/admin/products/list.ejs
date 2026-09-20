@@ -609,8 +609,8 @@
 
                   </p>
 
-                  <form method="post" id="viewDeleteForm" class="inline"
-                    onsubmit="return confirm('Permanently delete this product? This cannot be undone.')">
+              <form method="post" id="viewDeleteForm" class="inline"
+                    data-confirm="Permanently delete this product? This cannot be undone.">
 
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 

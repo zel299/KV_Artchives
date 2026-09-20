@@ -8,7 +8,7 @@
             <span class="order-status"><%= order.statusLabel %></span>
         </div>
 
-        <p class="order-placed">Placed <%= new Date(order.placedAt).toLocaleDateString() %></p>
+        <p class="order-placed">Placed <%= formatDate(order.placedAt) %></p>
     </section>
 
     <% if (flash) { %><div class="alert alert-ok"><%= flash %></div><% } %>
@@ -104,7 +104,7 @@
 
                         <% if (order.downPaymentDueAt && order.status === "awaiting_down_payment") { %>
                             <p class="payment-due">
-                                Due by <%= new Date(order.downPaymentDueAt).toLocaleDateString() %>
+                                Due by <%= formatDate(order.downPaymentDueAt) %>
                             </p>
                         <% } %>
 
@@ -137,6 +137,14 @@
                             <button type="submit" class="btn btn-primary">Submit Payment</button>
 
                         </form>
+
+                        <% if (order.status === "awaiting_down_payment") { %>
+                            <form method="post" action="/orders/<%= order.id %>/cancel" class="payment-cancel"
+                                  data-confirm="Cancel this order? This cannot be undone.">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button type="submit" class="payment-cancel__button">Cancel Order</button>
+                            </form>
+                        <% } %>
 
                     <% } %>
 
@@ -258,7 +266,7 @@
                         <div>
                             <p class="timeline-status"><%= entry.to_status.replace(/_/g, " ") %></p>
                             <% if (entry.note) { %><p class="timeline-note"><%= entry.note %></p><% } %>
-                            <p class="timeline-date"><%= new Date(entry.created_at).toLocaleString() %></p>
+                            <p class="timeline-date"><%= formatDateTime(entry.created_at) %></p>
                         </div>
                     </li>
                 <% }); %>

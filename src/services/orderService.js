@@ -338,6 +338,13 @@ async function submitPayment(db, orderId, userId, type, referenceNo, receiptBuff
   const order = await getOrderForCustomer(db, orderId, userId);
   if (!order) throw new Error("That order does not exist.");
 
+  const expectedStatus =
+    type === "down_payment" ? "awaiting_down_payment" : "awaiting_balance";
+
+  if (order.status !== expectedStatus) {
+    throw new Error("This order isn't currently awaiting that payment.");
+  }
+
   const payment = type === "down_payment" ? order.downPayment : order.balance;
 
   if (!payment) {
@@ -366,7 +373,7 @@ async function submitPayment(db, orderId, userId, type, referenceNo, receiptBuff
   if (error) throw new Error(`submitPayment failed: ${error.message}`);
 }
 
-const CANCELLABLE = ["pending", "confirmed"];
+const CANCELLABLE = ["pending", "confirmed", "awaiting_down_payment"];
 
 async function cancelOwnOrder(db, orderId, userId) {
   const order = await getOrderForCustomer(db, orderId, userId);
@@ -376,7 +383,17 @@ async function cancelOwnOrder(db, orderId, userId) {
     throw new Error(
       "This order can no longer be cancelled here. Message us on Instagram or Facebook and we'll help."
     );
-  }
+}
+  const downPayment = order.downPayment;
+
+  const paymentSent =
+    downPayment && ["submitted", "confirmed"].includes(downPayment.status);
+
+  if (paymentSent) {
+    throw new Error(
+      "You've already sent your payment details, so this order can't be cancelled here. Message us on Instagram or Facebook and we'll help."
+    );
+}
 
   const now = new Date().toISOString();
 

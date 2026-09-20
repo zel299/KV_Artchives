@@ -949,3 +949,24 @@
     width: 100%;
   }
 }
+
+.payment-cancel {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.payment-cancel__button {
+    background: none;
+    border: 1px solid var(--dark-pink);
+    border-radius: 8px;
+    color: var(--dark-pink);
+    cursor: pointer;
+    font: inherit;
+    padding: 10px 20px;
+}
+
+.payment-cancel__button:hover {
+    background: var(--dark-pink);
+    color: #fff;
+}

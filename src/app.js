@@ -88,10 +88,13 @@ app.use((req, res, next) => {
 app.use(attachUser);
 
 const money = require('./utils/money');
+const dates = require("./utils/dates");
 
 app.use((req, res, next) => {
     res.locals.formatPeso = money.formatPeso;
     res.locals.formatPlain = money.formatPlain;
+    res.locals.formatDate = dates.formatDate;
+    res.locals.formatDateTime = dates.formatDateTime;
     res.locals.currentPath = req.path;
 
     next();

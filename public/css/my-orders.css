@@ -301,3 +301,18 @@
         justify-content: space-between;
     }
 }
+
+.alert {
+    margin-bottom: 24px;
+    padding: 14px 20px;
+
+    border-radius: 10px;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+}
+
+.alert-ok {
+    background: #e7f5e9;
+    border: 1px solid #b8dfc0;
+    color: #2f6b3a;
+}

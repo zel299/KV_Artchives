@@ -5,6 +5,10 @@
         <p>Keep track of your little treasures from order to delivery.</p>
     </section>
 
+        <% if (flash) { %>
+        <div class="alert alert-ok"><%= flash %></div>
+    <% } %>
+
     <div class="order-filters">
         <a href="/account/orders?tab=all" class="filter <%= tab === 'all' ? 'active' : '' %>">ALL</a>
         <a href="/account/orders?tab=to_confirm" class="filter <%= tab === 'to_confirm' ? 'active' : '' %>">TO CONFIRM</a>
@@ -72,7 +76,7 @@
 
                                 <% if (order.status === "pending" || order.status === "confirmed") { %>
                                     <form method="post" action="/orders/<%= order.id %>/cancel" class="cancel-order-form"
-                                          onsubmit="return confirm('Cancel this order? This cannot be undone.')">
+                                        data-confirm="Cancel this order? This cannot be undone.">
                                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                         <button type="submit" class="order-card__cancel">Cancel Order</button>
                                     </form>
