@@ -1,0 +1,208 @@
+
+<header class="page-head row-between">
+  <div>
+    <a href="/admin/orders" class="small">&larr; Back to orders</a>
+    <h1>Order <%= order.code %></h1>
+    <p class="muted mono small"><%= order.statusLabel %> · Placed <%= new Date(order.placedAt).toLocaleDateString() %></p>
+  </div>
+</header>
+
+<% if (flash) { %><div class="alert alert-ok"><%= flash %></div><% } %>
+<% if (error) { %><div class="alert"><%= error %></div><% } %>
+
+<div class="admin-order-layout">
+
+  <div class="admin-order-main">
+
+    <section class="panel">
+      <h3 class="small">Customer</h3>
+      <dl class="detail-list">
+        <div><dt>Name</dt><dd><%= order.shipping.fullName %></dd></div>
+        <div><dt>Contact</dt><dd><%= order.shipping.contactNo %></dd></div>
+        <div><dt>Address</dt><dd>
+          <%= order.shipping.address %>,
+          <%= order.shipping.barangay %>,
+          <%= order.shipping.city %>, <%= order.shipping.province %> <%= order.shipping.zip %>
+        </dd></div>
+        <% if (order.customerNote) { %>
+          <div><dt>Note</dt><dd>"<%= order.customerNote %>"</dd></div>
+        <% } %>
+      </dl>
+    </section>
+
+    <section class="panel">
+      <h3 class="small">Items</h3>
+      <% order.items.forEach(function (item) { %>
+        <div class="order-line">
+          <span><%= item.name %> &times; <%= item.quantity %></span>
+          <span><%= formatPeso(item.lineTotal) %></span>
+        </div>
+      <% }); %>
+
+      <div class="order-line order-line--sub">
+        <span>Subtotal</span>
+        <strong><%= formatPeso(order.subtotal) %></strong>
+      </div>
+      <div class="order-line">
+        <span>Down payment (60%)</span>
+        <strong><%= formatPeso(order.downPaymentAmount) %></strong>
+      </div>
+      <div class="order-line">
+        <span>Shipping</span>
+        <strong><%= order.shippingFee === null ? "Not set" : formatPeso(order.shippingFee) %></strong>
+      </div>
+      <% if (order.balanceAmount !== null) { %>
+        <div class="order-line order-line--sub">
+          <span>Balance</span>
+          <strong><%= formatPeso(order.balanceAmount) %></strong>
+        </div>
+      <% } %>
+    </section>
+
+    <% if (order.downPayment) { %>
+      <section class="panel">
+        <h3 class="small">Down Payment</h3>
+        <dl class="detail-list">
+          <div><dt>Status</dt><dd><%= order.downPayment.status %></dd></div>
+          <div><dt>Amount due</dt><dd><%= formatPeso(order.downPayment.amount_due) %></dd></div>
+          <% if (order.downPayment.reference_no) { %>
+            <div><dt>Reference</dt><dd><%= order.downPayment.reference_no %></dd></div>
+          <% } %>
+        </dl>
+        <% if (receipts.downPayment) { %>
+          <img src="<%= receipts.downPayment %>" alt="Down payment receipt" class="receipt-image">
+        <% } %>
+      </section>
+    <% } %>
+
+    <% if (order.balance) { %>
+      <section class="panel">
+        <h3 class="small">Balance Payment</h3>
+        <dl class="detail-list">
+          <div><dt>Status</dt><dd><%= order.balance.status %></dd></div>
+          <div><dt>Amount due</dt><dd><%= formatPeso(order.balance.amount_due) %></dd></div>
+          <% if (order.balance.reference_no) { %>
+            <div><dt>Reference</dt><dd><%= order.balance.reference_no %></dd></div>
+          <% } %>
+        </dl>
+        <% if (receipts.balance) { %>
+          <img src="<%= receipts.balance %>" alt="Balance receipt" class="receipt-image">
+        <% } %>
+      </section>
+    <% } %>
+
+  </div>
+
+  <aside class="admin-order-actions">
+
+    <section class="panel">
+      <h3 class="small">Actions</h3>
+
+      <% if (order.status === "pending") { %>
+        <form method="post" action="/admin/orders/<%= order.id %>/confirm" class="inline">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn btn-sm">Confirm Order</button>
+        </form>
+
+        <form method="post" action="/admin/orders/<%= order.id %>/decline" class="admin-action-form">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <label class="small">Decline reason
+            <textarea name="reason" rows="2" required></textarea>
+          </label>
+          <button type="submit" class="btn btn-ghost btn-sm">Decline Order</button>
+        </form>
+      <% } %>
+
+      <% if (order.status === "confirmed") { %>
+        <form method="post" action="/admin/orders/<%= order.id %>/request-down-payment" class="inline">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn btn-sm">Request Down Payment</button>
+        </form>
+      <% } %>
+
+      <% if (order.status === "awaiting_down_payment") { %>
+        <form method="post" action="/admin/orders/<%= order.id %>/confirm-down-payment" class="admin-action-form">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <label class="small">Note (optional)
+            <input type="text" name="admin_note">
+          </label>
+          <button type="submit" class="btn btn-sm">Confirm Down Payment</button>
+        </form>
+      <% } %>
+
+      <% if (order.status === "in_production") { %>
+        <form method="post" action="/admin/orders/<%= order.id %>/request-balance" class="admin-action-form">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <label class="small">Shipping fee (₱)
+            <input type="number" name="shipping_fee" step="0.01" min="0" required>
+          </label>
+          <button type="submit" class="btn btn-sm">Request Balance</button>
+        </form>
+      <% } %>
+
+      <% if (order.status === "awaiting_balance") { %>
+        <form method="post" action="/admin/orders/<%= order.id %>/confirm-balance" class="admin-action-form">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <label class="small">Note (optional)
+            <input type="text" name="admin_note">
+          </label>
+          <button type="submit" class="btn btn-sm">Confirm Balance</button>
+        </form>
+      <% } %>
+
+      <% if (order.status === "ready_to_ship") { %>
+        <form method="post" action="/admin/orders/<%= order.id %>/ship" class="admin-action-form">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <label class="small">Tracking number
+            <input type="text" name="tracking_no" required>
+          </label>
+          <button type="submit" class="btn btn-sm">Mark Shipped</button>
+        </form>
+      <% } %>
+
+      <% if (order.status === "shipped") { %>
+        <form method="post" action="/admin/orders/<%= order.id %>/complete" class="inline">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn btn-sm">Mark Completed</button>
+        </form>
+      <% } %>
+
+      <% const cancellable = ["confirmed", "awaiting_down_payment", "in_production", "awaiting_balance", "ready_to_ship"]; %>
+      <% if (cancellable.includes(order.status)) { %>
+        <form method="post" action="/admin/orders/<%= order.id %>/cancel" class="admin-action-form">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <label class="small">Cancel reason
+            <textarea name="reason" rows="2" required></textarea>
+          </label>
+          <button type="submit" class="btn btn-ghost btn-sm">Cancel Order</button>
+        </form>
+      <% } %>
+
+      <% const terminal = ["completed", "cancelled", "declined", "expired"]; %>
+      <% if (terminal.includes(order.status)) { %>
+        <p class="small muted">This order is closed.
+          <% if (order.cancelReason) { %>Reason: <%= order.cancelReason %><% } %>
+        </p>
+      <% } %>
+
+    </section>
+
+    <section class="panel">
+      <h3 class="small">History</h3>
+      <ol class="timeline-list">
+        <% order.history.forEach(function (entry) { %>
+          <li class="timeline-entry">
+            <span class="timeline-dot"></span>
+            <div>
+              <p class="timeline-status"><%= entry.to_status.replace(/_/g, " ") %></p>
+              <% if (entry.note) { %><p class="timeline-note"><%= entry.note %></p><% } %>
+              <p class="timeline-date"><%= new Date(entry.created_at).toLocaleString() %></p>
+            </div>
+          </li>
+        <% }); %>
+      </ol>
+    </section>
+
+  </aside>
+
+</div>

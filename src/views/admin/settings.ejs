@@ -1,0 +1,50 @@
+
+<header class="page-head">
+  <h1>Settings</h1>
+  <p class="muted">GCash payment details and social links shown to customers.</p>
+</header>
+
+<% if (flash) { %><div class="alert alert-ok"><%= flash %></div><% } %>
+<% if (error) { %><div class="alert"><%= error %></div><% } %>
+
+<form method="post" action="/admin/settings" enctype="multipart/form-data" class="panel form-narrow">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+  <section>
+    <h3 class="small">GCash</h3>
+
+    <label>Account name
+      <input type="text" name="gcash_account_name" value="<%= settings && settings.gcashAccountName ? settings.gcashAccountName : '' %>">
+    </label>
+
+    <label>Account number
+      <input type="text" name="gcash_account_number" value="<%= settings && settings.gcashAccountNumber ? settings.gcashAccountNumber : '' %>">
+    </label>
+
+    <label>QR code
+
+      <% if (settings && settings.gcashQrUrl) { %>
+        <img src="<%= settings.gcashQrUrl %>" alt="Current GCash QR code" class="settings-qr-preview">
+        <span class="small muted">Upload a new image below to replace it.</span>
+      <% } %>
+
+      <input type="file" name="gcash_qr" accept="image/jpeg,image/png,image/webp">
+    </label>
+  </section>
+
+  <section>
+    <h3 class="small">Social Links</h3>
+
+    <label>Instagram URL
+      <input type="url" name="instagram_url" value="<%= settings && settings.instagramUrl ? settings.instagramUrl : '' %>">
+    </label>
+
+    <label>Facebook URL
+      <input type="url" name="facebook_url" value="<%= settings && settings.facebookUrl ? settings.facebookUrl : '' %>">
+    </label>
+  </section>
+
+  <div class="form-actions">
+    <button type="submit" class="btn">Save Settings</button>
+  </div>
+</form>
