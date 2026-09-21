@@ -285,6 +285,7 @@
 
   font-size: 20px;
   font-weight: 700;
+  font-family: "Albert Sans", sans-serif;
 
   white-space: nowrap;
 }
@@ -492,7 +493,7 @@
 }
 
 .btn-primary {
-  min-width: 205px;
+  min-width: 100%;
   height: 41px;
 
   padding: 0 25px;
@@ -507,7 +508,7 @@
   border: none;
   border-radius: 22px;
 
-  background: #ef5555;
+  background: #e75353;
 
   color: #ffffff;
 
@@ -534,8 +535,6 @@
 .btn-primary:active {
   transform: translateY(0);
 }
-
-
 
 .order-line {
   min-height: 88px;
@@ -959,14 +958,19 @@
 .payment-cancel__button {
     background: none;
     border: 1px solid var(--dark-pink);
-    border-radius: 8px;
-    color: var(--dark-pink);
+    border-radius: 22px;
+    color: #e75353;
     cursor: pointer;
-    font: inherit;
+    font-family: "Albert Sans", sans-serif;
     padding: 10px 20px;
 }
 
 .payment-cancel__button:hover {
-    background: var(--dark-pink);
+    background: #dc143c ;
     color: #fff;
+}
+
+.payment-cancel__button {
+    display: block;
+    margin-left: auto;
 }

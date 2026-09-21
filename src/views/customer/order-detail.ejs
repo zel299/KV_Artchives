@@ -76,7 +76,7 @@
 
                 <section class="panel payment-panel">
 
-                    <h2><%= order.status === "awaiting_down_payment" ? "Pay your down payment" : "Pay your balance" %></h2>
+                    <h2><%= order.status === "awaiting_down_payment" ? "Pay your Down Payment" : "Pay your balance" %></h2>
 
                     <% if (activePayment.status === "confirmed") { %>
 
@@ -93,7 +93,7 @@
                     <% } else { %>
 
                         <div class="payment-amount">
-                            <span>Amount to pay</span>
+                            <span>Amount to Pay</span>
                             <strong><%= formatPeso(activePayment.amount_due) %></strong>
                         </div>
 
@@ -125,12 +125,12 @@
                             <input type="hidden" name="payment_type" value="<%= activePayment.type %>">
 
                             <div class="form-group">
-                                <label for="reference_no">GCash reference number</label>
+                                <label for="reference_no">GCash Reference Number</label>
                                 <input type="text" id="reference_no" name="reference_no" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="receipt">Screenshot (optional)</label>
+                                <label for="receipt">Screenshot (Optional)</label>
                                 <input type="file" id="receipt" name="receipt" accept="image/jpeg,image/png,image/webp">
                             </div>
 
