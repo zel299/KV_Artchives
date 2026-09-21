@@ -1,0 +1,265 @@
+.admin-main .page-head h1 {
+  margin: 0 0 6px;
+  color: #5e2e00;
+  font-family: "Berkshire Swash", cursive;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.admin-main .page-head p {
+  margin: 0;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 14px;
+  color: #5e2e00;
+}
+
+.admin-main .form-narrow {
+  width: min(760px, 100%);
+
+  box-sizing: border-box;
+
+  margin-top: 25px;
+
+  padding: 28px 30px;
+
+  border: 1px solid #f0d9d3;
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow: 0 8px 25px rgba(94, 46, 0, 0.06);
+}
+
+.admin-main .form-narrow section {
+  padding-bottom: 25px;
+
+  margin-bottom: 25px;
+
+  border-bottom: 1px solid #f1dfda;
+}
+
+.admin-main .form-narrow section:last-of-type {
+  margin-bottom: 0;
+}
+
+.admin-main .form-narrow section h3 {
+  margin: 0 0 18px;
+
+  color: #5e2e00;
+
+  font-family: "Berkshire Swash", cursive;
+
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.admin-main .form-narrow label {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  margin-bottom: 17px;
+
+  color: #5e2e00;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.admin-main .form-narrow label:last-child {
+  margin-bottom: 0;
+}
+
+.admin-main .form-narrow input[type="text"],
+.admin-main .form-narrow input[type="url"] {
+  width: 100%;
+
+  min-height: 44px;
+
+  box-sizing: border-box;
+
+  padding: 10px 13px;
+
+  border: 1px solid #e4bbb3;
+  border-radius: 10px;
+
+  background: #fffaf8;
+
+  color: #5e2e00;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.admin-main .form-narrow input[type="text"]:focus,
+.admin-main .form-narrow input[type="url"]:focus {
+  border-color: #ffaaa8;
+
+  background: #ffffff;
+
+  box-shadow: 0 0 0 3px rgba(255, 170, 168, 0.15);
+}
+
+.admin-main .settings-qr-preview {
+  display: block;
+
+  width: 180px;
+  height: 180px;
+
+  object-fit: contain;
+
+  margin: 5px 0 5px;
+
+  padding: 8px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #e5c7c0;
+  border-radius: 12px;
+
+  background: #fffaf8;
+}
+
+.admin-main .form-narrow input[type="file"] {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 10px;
+
+  border: 1px dashed #d9aaa1;
+  border-radius: 10px;
+
+  background: #fffaf8;
+
+  color: #5e2e00;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 13px;
+
+  cursor: pointer;
+}
+
+.admin-main .form-narrow input[type="file"]:hover {
+  border-color: #ffaaa8;
+}
+
+.admin-main .form-narrow .small {
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 12px;
+
+  line-height: 1.4;
+}
+
+.admin-main .form-narrow .muted {
+  color: #8b756c;
+}
+
+.admin-main .form-narrow .form-actions {
+  display: flex;
+
+  justify-content: flex-end;
+  align-items: center;
+
+  margin-top: 4px;
+
+  padding-top: 5px;
+}
+
+.admin-main .form-narrow .form-actions .btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+
+  padding: 0 24px;
+
+  border: 1px solid #f38383;
+  border-radius: 22px;
+
+  background: #ffa7a7;
+
+  color: #5e2e00;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.admin-main .form-narrow .form-actions .btn:hover {
+  background: #e75353;
+
+  border-color: #f38383;
+}
+
+.admin-main .alert {
+  margin: 15px 0;
+
+  padding: 12px 16px;
+
+  border: 1px solid #e3aaa0;
+  border-radius: 10px;
+
+  background: #fff1ee;
+
+  color: #8a3d30;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+}
+
+.admin-main .alert.alert-ok {
+  border-color: #b8d8bd;
+
+  background: #f1faf2;
+
+  color: #3d7045;
+}
+
+@media (max-width: 700px) {
+  .admin-main .form-narrow {
+    padding: 22px 20px;
+  }
+
+  .admin-main .page-head h1 {
+    font-size: 28px;
+  }
+
+  .admin-main .settings-qr-preview {
+    width: 150px;
+    height: 150px;
+  }
+
+  .admin-main .form-narrow .form-actions {
+    justify-content: stretch;
+  }
+
+  .admin-main .form-narrow .form-actions .btn {
+    width: 100%;
+  }
+}

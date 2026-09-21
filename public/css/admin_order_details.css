@@ -1,0 +1,449 @@
+.admin-main .page-head {
+  margin-bottom: 24px;
+}
+
+.admin-main .page-head h1 {
+  margin: 6px 0 5px;
+  color: #5e2e00;
+  font-family: "Berkshire Swash", cursive;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.admin-main .page-head > div > a {
+  color: #5e2e00;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.admin-main .page-head > div > a:hover {
+  color: #5e2e00;
+}
+
+.admin-main .page-head .muted {
+  color: #8b756c;
+
+  font-family: "Albert Sans", sans-serif;
+}
+
+.admin-main .alert {
+  margin-bottom: 18px;
+
+  padding: 12px 16px;
+
+  border: 1px solid #e3aaa0;
+  border-radius: 10px;
+
+  background: #fff1ee;
+
+  color: #8a3d30;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+}
+
+.admin-main .alert.alert-ok {
+  border-color: #b8d8bd;
+
+  background: #f1faf2;
+
+  color: #3d7045;
+}
+
+.admin-main .admin-order-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  align-items: start;
+  gap: 22px;
+}
+
+.admin-main .admin-order-main {
+  min-width: 0;
+}
+
+.admin-main .admin-order-actions {
+  min-width: 0;
+}
+
+.admin-main .admin-order-layout .panel {
+  box-sizing: border-box;
+
+  margin-bottom: 18px;
+
+  padding: 22px 24px;
+
+  border: 1px solid #ead8d3;
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  box-shadow: 0 5px 18px rgba(94, 46, 0, 0.04);
+}
+
+.admin-main .admin-order-layout .panel > h3 {
+  margin: 0 0 18px;
+
+  color: #5e2e00;
+
+  font-family: "Berkshire Swash", cursive;
+
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.admin-main .detail-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 28px;
+  margin: 0;
+}
+
+.admin-main .detail-list > div {
+  min-width: 0;
+}
+
+.admin-main .detail-list dt {
+  margin-bottom: 5px;
+  color: #806d65;
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+}
+
+.admin-main .detail-list dd {
+  margin: 0;
+
+  color: #4f413b;
+
+  font-family: "Albert Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.admin-main .detail-list dd {
+  overflow-wrap: anywhere;
+}
+
+.admin-main .detail-list dd {
+  white-space: normal;
+}
+
+.admin-main .order-line {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 12px 0;
+
+  border-bottom: 1px solid #f1e5e1;
+
+  color: #4f413b;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 13px;
+}
+
+.admin-main .order-line:last-child {
+  border-bottom: none;
+}
+
+.admin-main .order-line > span:last-child,
+.admin-main .order-line > strong {
+  color: #5e2e00;
+
+  white-space: nowrap;
+}
+
+.admin-main .order-line--sub {
+  margin-top: 4px;
+  padding-top: 16px;
+  color: #6f5a50;
+  border-top: 1px solid #ead8d3;
+}
+
+.admin-main .order-line--sub + .order-line {
+  border-bottom: 1px solid #f1e5e1;
+}
+
+.admin-main .receipt-image {
+  display: block;
+
+  max-width: 280px;
+  max-height: 360px;
+
+  margin-top: 18px;
+
+  object-fit: contain;
+
+  border: 1px solid #e5c7c0;
+  border-radius: 12px;
+
+  background: #fffaf8;
+}
+
+.admin-main .admin-order-actions .panel:first-child {
+  background: #fffaf8;
+}
+
+.admin-main .admin-action-form {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #ead8d3;
+}
+
+.admin-main .admin-action-form:first-of-type {
+  margin-top: 0;
+
+  padding-top: 0;
+
+  border-top: none;
+}
+
+.admin-main .inline {
+  display: inline;
+}
+
+.admin-main .admin-action-form label {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  margin-bottom: 10px;
+
+  color: #6f5a50;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.admin-main .admin-action-form input[type="text"],
+.admin-main .admin-action-form input[type="number"],
+.admin-main .admin-action-form textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 10px 12px;
+
+  border: 1px solid #e2beb6;
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #5e2e00;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 13px;
+
+  outline: none;
+
+  transition: 0.2s ease;
+}
+
+.admin-main .admin-action-form input[type="text"],
+.admin-main .admin-action-form input[type="number"] {
+  min-height: 40px;
+}
+
+.admin-main .admin-action-form textarea {
+  min-height: 70px;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.admin-main .admin-action-form input:focus,
+.admin-main .admin-action-form textarea:focus {
+  border-color: #ffaaa8;
+
+  box-shadow: 0 0 0 3px rgba(255, 170, 168, 0.13);
+}
+
+.admin-main .admin-order-actions .btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 38px;
+
+  padding: 0 18px;
+
+  border: 1px solid #f38383;
+  border-radius: 20px;
+
+  background: #ffa7a7;
+
+  color: #5e2e00;
+
+  font-family: "Albert Sans", sans-serif;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.admin-main .admin-order-actions .btn:hover {
+  background: #f38383;
+
+  border-color: #e75353;
+}
+
+.admin-main .admin-order-actions .btn.btn-ghost {
+  border-color: #d8b8af;
+  background: #cb4154;
+  color: #fff;
+}
+
+.admin-main .admin-order-actions .btn.btn-ghost:hover {
+  border-color: #ffaaa8;
+  background: #9b111e;
+}
+
+.admin-main .admin-order-actions .muted {
+  color: #8b756c;
+  font-family: "Albert Sans", sans-serif;
+  line-height: 1.5;
+}
+
+.admin-main .timeline-list {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 22px;
+  list-style: none;
+}
+
+.admin-main .timeline-list::before {
+  content: "";
+  position: absolute;
+
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+
+  width: 1px;
+
+  background: #ead8d3;
+}
+
+.admin-main .timeline-entry {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  padding-bottom: 20px;
+}
+
+.admin-main .timeline-entry:last-child {
+  padding-bottom: 0;
+}
+
+.admin-main .timeline-dot {
+  position: absolute;
+
+  top: 3px;
+  left: -22px;
+
+  width: 10px;
+  height: 10px;
+
+  box-sizing: border-box;
+
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+
+  background: #ef5759;
+
+  box-shadow: 0 0 0 1px #efb0aa;
+}
+
+.admin-main .timeline-status {
+  margin: 0 0 4px;
+  color: #5e2e00;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.admin-main .timeline-note {
+  margin: 0 0 4px;
+  color: #6f5a50;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.admin-main .timeline-date {
+  margin: 0;
+  color: #9a837a;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 11px;
+}
+
+@media (max-width: 950px) {
+  .admin-main .admin-order-layout {
+    grid-template-columns: 1fr;
+  }
+  .admin-main .admin-order-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .admin-main .admin-order-actions .panel {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .admin-main .page-head h1 {
+    font-size: 28px;
+  }
+  .admin-main .admin-order-layout {
+    display: block;
+  }
+  .admin-main .admin-order-actions {
+    display: block;
+  }
+  .admin-main .admin-order-layout .panel {
+    padding: 18px;
+  }
+  .admin-main .detail-list {
+    grid-template-columns: 1fr;
+  }
+  .admin-main .order-line {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .admin-main .order-line > span:last-child,
+  .admin-main .order-line > strong {
+    align-self: flex-end;
+  }
+  .admin-main .receipt-image {
+    max-width: 100%;
+  }
+}
