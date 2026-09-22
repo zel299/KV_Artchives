@@ -1,146 +1,212 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> | KV Artchives</title>
-    <link rel="stylesheet" href="/css/login.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@600&family=Albert+Sans:wght@400;500;600;700&family=Averia+Serif+Libre:wght@300;400;700&family=Bebas+Neue&family=Berkshire+Swash&family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
 
+    <title><%= title %> | KV Artchives</title>
+
+    <link rel="stylesheet" href="/css/login.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@600&family=Albert+Sans:wght@400;500;600;700&family=Averia+Serif+Libre:wght@300;400;700&family=Bebas+Neue&family=Berkshire+Swash&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 </head>
 
 <body>
-    <main class="login-page">
-        <a href="/" class="back-home">
-            <span class="back-arrow">←</span>
-            <span>BACK TO HOME</span>
-        </a>
 
+    <main class="login-page">
         <section class="login-card">
-            <div class="login-brand">
-                <div class="brand-logo">
-                    KV
+            <div class="welcome-panel">
+                <div class="welcome-content">
+
+                    <div class="welcome-icon">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+
+                    <h1>WELCOME, DEAR CUSTOMER!</h1>
+                    <p>
+                        Sign in to your account to<br>
+                        continue exploring our handpicked treasures.
+                    </p>
+
+                    <div class="welcome-shapes">
+                        <span class="shape shape-one">
+                            <i class="fa-solid fa-palette"></i>
+                        </span>
+
+                        <span class="shape shape-two">
+                            <i class="fa-solid fa-face-grin-hearts"></i>
+                        </span>
+
+                        <span class="shape shape-three">
+                            <i class="fa-solid fa-paintbrush"></i>
+                        </span>
+                    </div>
+
                 </div>
-                <h2>KV Artchives</h2>
             </div>
 
-            <h1>Welcome Back!</h1>
-            <p class="login-subtitle">
-                Sign in to your KV Artchives account to continue.
-            </p>
-
-
-            <% if (error) { %>
-                <div class="error-message">
-                    <%= error %>
-                </div>
-            <% } %>
-
-            <form
-                class="login-form"
-                method="POST"
-                action="/login"
-            >
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <input
-                    type="hidden"
-                    name="next"
-                    value="<%= next %>"
-                >
-
-                <div class="form-group">
-                    <label for="email">
-                        Email
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        required
-                    >
-                </div>
-
-
-                <div class="form-group">
-                    <div class="password-header">
-                        <label for="password">
-                            Password
-                        </label>
-
-                        <a href="/forgot-password">
-                            Forgot Password?
-                        </a>
-                    </div>
-
-
-                    <div class="password-wrapper">
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Enter your password"
-                            required
-                        >
-                        <button type="button" 
-                            class="toggle-password" 
-                            data-target="password" 
-                            aria-label="Show password">🙈</button>
-                    </div>
-                </div>
+            <div class="login-panel">
 
                 <button
-                    type="submit"
-                    class="login-btn"
+                    type="button"
+                    class="back-home"
+                    onclick="history.back()"
                 >
-                    LOG IN
+                    <span class="back-arrow">←</span>
+                    <span>BACK</span>
                 </button>
-            </form>
 
-            <div class="divider">
-                <span></span>
-                <p>OR</p>
-                <span></span>
+
+                <div class="login-content">
+                    <div class="login-brand">
+                        <div class="login-logo">
+                            <img src="/images/logo.png" alt="KV Artchives Logo">
+                        </div>
+
+                        <h2>KV Artchives</h2>
+                    </div>
+
+                    <p class="login-subtitle">
+                        Sign in to your KV Artchives account to continue.
+                    </p>
+
+                    <% if (error) { %>
+                        <div class="error-message">
+                            <%= error %>
+                        </div>
+                    <% } %>
+
+                    <form
+                        class="login-form"
+                        method="POST"
+                        action="/login"
+                    >
+                        <input
+                            type="hidden"
+                            name="_csrf"
+                            value="<%= csrfToken %>"
+                        >
+                        <input
+                            type="hidden"
+                            name="next"
+                            value="<%= next %>"
+                        >
+
+                        <div class="form-group">
+                            <label for="email">
+                                Username or Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="password-header">
+                                <label for="password">
+                                    Password
+                                </label>
+
+                                <a href="/forgot-password">
+                                    Forgot Password?
+                                </a>
+                            </div>
+
+
+                            <div class="password-wrapper">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    required
+                                >
+                                <button
+                                    type="button"
+                                    class="toggle-password"
+                                    data-target="password"
+                                    aria-label="Show password"
+                                >
+                                <i class="fa-solid fa-eye-slash"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="login-btn"
+                        >
+                            LOG IN
+                        </button>
+                    </form>
+
+                    <div class="divider">
+                        <span></span>
+                        <p>OR</p>
+                        <span></span>
+                    </div>
+
+                    <a
+                        href="/auth/google"
+                        class="google-btn"
+                    >
+                        <img
+                            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                            alt="Google"
+                            class="google-icon"
+                        >
+                        <span>Continue with Google</span>
+                    </a>
+
+                    <p class="create-account">
+                        Don't have a customer account yet?
+                        <a href="/signup">
+                            Create an Account
+                        </a>
+                    </p>
+                </div>
             </div>
-
-            <a href="/auth/google" class="google-btn">
-                <img
-                    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-                    alt="Google"
-                    class="google-icon"
-                >
-                <span>Continue with Google</span>
-            </a>
-            <p class="create-account">
-                Don't have a customer account yet?
-                <a href="/signup">
-                    Create an Account
-                </a>
-            </p>
         </section>
+
     </main>
 
     <script>
-        document.querySelectorAll(".toggle-password").forEach(function (button) {
-            button.addEventListener("click", function () {
-                const input = document.getElementById(button.dataset.target);
-                if (!input) return;
+        document
+            .querySelectorAll(".toggle-password")
+            .forEach(function (button) {
+                button.addEventListener("click", function () {
+                    const input = document.getElementById(
+                        button.dataset.target
+                    );
 
-                if (input.type === "password") {
-                    input.type = "text";
-                    button.textContent = "👁";
-                } else {
-                    input.type = "password";
-                    button.textContent = "🙈";
-                }
+                    if (!input) return;
+
+                    if (input.type === "password") {
+                        input.type = "text";
+                        button.innerHTML =
+                            '<i class="fa-solid fa-eye"></i>';
+                    } else {
+                        input.type = "password";
+                        button.innerHTML =
+                            '<i class="fa-solid fa-eye-slash"></i>';
+                    }
+                });
             });
-        });
     </script>
 
 </body>

@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/css/admin_order_list.css"> 
 
 <header class="page-head row-between">
   <div>
@@ -51,7 +52,14 @@
             <%= o.customer ? o.customer.full_name : o.shipping.fullName %>
             <div class="small muted"><%= o.customer ? o.customer.email : '' %></div>
           </td>
-          <td><span class="badge"><%= o.statusLabel %></span></td>
+          
+
+          <td>
+              <span class="badge status-<%= o.status %>">
+                  <%= o.statusLabel %>
+              </span>
+          </td>
+
           <td class="num"><%= formatPeso(o.subtotal) %></td>
           <td class="small muted"><%= new Date(o.placedAt).toLocaleDateString() %></td>
           <td class="actions">
