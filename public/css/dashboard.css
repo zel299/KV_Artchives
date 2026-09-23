@@ -190,3 +190,161 @@
     padding: 20px;
   }
 }
+
+/* --- Units Sold chart --- */
+
+.units-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+
+  height: 140px;
+  margin-top: 12px;
+  padding: 8px 4px 0;
+
+  border-bottom: 1px solid rgba(211, 166, 155, 0.35);
+}
+
+.units-bar {
+  flex: 1;
+  min-height: 2px;
+
+  background: #f38383;
+  border-radius: 4px 4px 0 0;
+
+  transition: background 0.2s ease;
+}
+
+.units-bar:hover {
+  background: #e75353;
+}
+
+
+/* --- Order status overview --- */
+
+.status-overview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  margin-top: 10px;
+}
+
+.status-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 16px;
+
+  background: #fff0f0;
+  border: 1px solid rgba(211, 166, 155, 0.35);
+  border-radius: 30px;
+
+  font-family: "Albert Sans", sans-serif;
+  font-size: 13px;
+}
+
+.status-chip__label {
+  color: #765843;
+  text-transform: capitalize;
+}
+
+.status-chip__count {
+  min-width: 22px;
+  padding: 2px 8px;
+
+  background: #f38383;
+  border-radius: 30px;
+
+  color: #ffffff;
+  font-weight: 700;
+  text-align: center;
+}
+
+
+/* --- Recent orders table --- */
+
+.table {
+  width: 100%;
+  margin-top: 10px;
+
+  border-collapse: collapse;
+
+  font-family: "Albert Sans", sans-serif;
+  font-size: 14px;
+}
+
+.table th {
+  padding: 10px 12px;
+
+  border-bottom: 2px solid rgba(211, 166, 155, 0.35);
+
+  color: #765843;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.table td {
+  padding: 12px;
+
+  border-bottom: 1px solid rgba(211, 166, 155, 0.2);
+
+  color: #5e2e00;
+}
+
+.table th.num,
+.table td.num {
+  text-align: right;
+}
+
+.table a {
+  color: #e75353;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.table a:hover {
+  text-decoration: underline;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+
+  background: #ffeecc;
+  border-radius: 20px;
+
+  color: #5e2e00;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+
+/* --- Dashboard panel spacing --- */
+
+.stat-grid + .panel,
+.panel + .panel {
+  margin-top: 20px;
+}
+
+
+@media (max-width: 600px) {
+
+  .units-chart {
+    height: 100px;
+  }
+
+  .table {
+    font-size: 13px;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px;
+  }
+}

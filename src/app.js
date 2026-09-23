@@ -13,7 +13,7 @@ const rateLimit = require("express-rate-limit");
 const csrf = require("csurf");
 
 const app = express();
-app.set("trust proxy", 1);
+app.set("trust proxy", process.env.NODE_ENV === "production" ? 1 : false);
 
 app.use((req, res, next) => {
   res.locals.currentPath = req.path;

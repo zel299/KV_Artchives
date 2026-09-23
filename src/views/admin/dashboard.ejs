@@ -1,21 +1,74 @@
 <link rel="stylesheet" href="/css/dashboard.css">
+
 <header class="page-head">
   <h1>Dashboard</h1>
   <p class="muted">Overview of the shop.</p>
 </header>
 
 <div class="stat-grid">
-  <div class="stat"><span class="stat-label">Total sales</span><span class="stat-value">—</span></div>
-  <div class="stat"><span class="stat-label">Total orders</span><span class="stat-value">—</span></div>
-  <div class="stat"><span class="stat-label">Transactions</span><span class="stat-value">—</span></div>
-  <div class="stat"><span class="stat-label">Customers</span><span class="stat-value">—</span></div>
+  <div class="stat"><span class="stat-label">Total sales</span><span class="stat-value"><%= formatPeso(stats.sales) %></span></div>
+  <div class="stat"><span class="stat-label">Total orders</span><span class="stat-value"><%= stats.orders %></span></div>
+  <div class="stat"><span class="stat-label">Transactions</span><span class="stat-value"><%= stats.transactions %></span></div>
+  <div class="stat"><span class="stat-label">Customers</span><span class="stat-value"><%= stats.customers %></span></div>
 </div>
 
 <section class="panel">
-  <h2>Coming next</h2>
-  <p class="muted small">
-    These figures, the Units Sold chart, and the New Orders table are filled in
-    once orders exist (Phase 6). Product management is ready now.
-  </p>
-  <a href="/admin/products" class="btn">Manage products</a>
+  <h2 class="small">Units Sold — last <%= units.length %> days</h2>
+
+  <% const maxUnits = Math.max(1, ...units.map(function (u) { return u.units; })); %>
+
+  <div class="units-chart">
+    <% units.forEach(function (u) { %>
+      <div class="units-bar" style="height: <%= Math.round((u.units / maxUnits) * 100) %>%" title="<%= u.date %>: <%= u.units %> unit<%= u.units === 1 ? '' : 's' %>"></div>
+    <% }); %>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="small">Order Status</h2>
+
+  <div class="status-overview">
+    <% statuses.forEach(function (s) { %>
+      <div class="status-chip">
+        <span class="status-chip__label"><%= s.status.replace(/_/g, " ") %></span>
+        <span class="status-chip__count"><%= s.count %></span>
+      </div>
+    <% }); %>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="small">Recent Orders</h2>
+
+  <% if (recent.length === 0) { %>
+
+    <p class="muted small">No orders yet.</p>
+
+  <% } else { %>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Customer</th>
+          <th>Status</th>
+          <th class="num">Total</th>
+          <th>Placed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recent.forEach(function (o) { %>
+          <tr>
+            <td class="mono small"><a href="/admin/orders/<%= o.id %>"><%= o.code %></a></td>
+            <td><%= o.customerName %></td>
+            <td><span class="badge"><%= o.status.replace(/_/g, " ") %></span></td>
+            <td class="num"><%= formatPeso(o.subtotal) %></td>
+            <td class="small muted"><%= new Date(o.placedAt).toLocaleDateString() %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+  <% } %>
+
 </section>
