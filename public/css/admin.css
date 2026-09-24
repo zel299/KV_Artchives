@@ -56,6 +56,8 @@ body.admin {
   border-right: 1px solid #ead8cc;
 
   z-index: 100;
+
+  transition: transform 0.25s ease;
 }
 
 .brand-logo {
@@ -282,60 +284,117 @@ body.admin {
   background: #fff0f0;
 }
 
+.mobile-topbar {
+  display: none;
+
+  align-items: center;
+  gap: 14px;
+
+  height: 56px;
+
+  padding: 0 16px;
+
+  background: #fff4e8;
+  border-bottom: 1px solid #ead8cc;
+
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+.menu-toggle {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  color: #5e2e00;
+
+  border-radius: 6px;
+}
+
+.menu-toggle:hover {
+  background: #ffe3d9;
+}
+
+.mobile-topbar-title {
+  font-family: "Berkshire Swash", cursive;
+  font-size: 15px;
+  color: #e75353;
+}
+
+.sidebar-backdrop {
+  display: none;
+
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.4);
+
+  z-index: 95;
+}
+
+.sidebar-backdrop.open {
+  display: block;
+}
+
 @media (max-width: 600px) {
+  .mobile-topbar {
+    display: flex;
+  }
+
   .sidebar {
-    width: 65px;
+    width: 240px;
+
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
   }
 
   .admin-main {
-    width: calc(100% - 65px);
+    width: 100%;
 
-    margin-left: 65px;
+    margin-left: 0;
 
-    padding: 24px 20px;
+    padding: 20px 16px;
   }
 
   .sidebar-brand {
-    height: 80px;
-
-    padding: 8px;
-  }
-
-  .sidebar-brand strong {
-    font-size: 9px;
-  }
-
-  .sidebar-brand .small {
-    display: none;
-  }
-
-  .nav-label {
-    display: none;
+    height: 100px;
   }
 
   .sidebar-nav {
-    padding: 15px 8px;
+    padding: 20px 12px;
   }
 
   .sidebar-nav > a {
-    justify-content: center;
+    justify-content: flex-start;
 
-    padding: 0;
+    padding: 0 12px;
 
-    font-size: 0;
+    font-size: 14px;
+  }
+
+  .nav-label {
+    display: block;
   }
 
   .sidebar-foot {
-    align-items: center;
+    align-items: flex-start;
 
-    padding: 12px 6px;
+    padding: 18px 16px;
   }
 
   .sidebar-foot .small {
-    display: none;
+    display: block;
   }
 
   .sidebar-foot a {
-    font-size: 0;
+    font-size: 13px;
   }
 }

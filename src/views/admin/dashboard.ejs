@@ -66,3 +66,41 @@
     <% }); %>
   </div>
 </section>
+
+<section class="panel">
+  <h2 class="small">Recent Orders</h2>
+
+  <% if (recent.length === 0) { %>
+
+    <p class="muted small">No orders yet.</p>
+
+  <% } else { %>
+
+  <div class="table-scroll">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Customer</th>
+          <th>Status</th>
+          <th class="num">Total</th>
+          <th>Placed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recent.forEach(function (o) { %>
+          <tr>
+            <td class="mono small"><a href="/admin/orders/<%= o.id %>"><%= o.code %></a></td>
+            <td><%= o.customerName %></td>
+            <td data-label="Status"><span class="badge badge-<%= o.status %>"><%= o.status.replace(/_/g, " ") %></span></td>
+            <td class="num"><%= formatPeso(o.subtotal) %></td>
+            <td class="small muted"><%= new Date(o.placedAt).toLocaleDateString() %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    </div>
+
+  <% } %>
+
+</section>

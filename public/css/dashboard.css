@@ -352,6 +352,58 @@
   text-transform: capitalize;
 }
 
+.badge-pending {
+  background: #ffeecc;
+  color: #875d25;
+}
+
+.badge-confirmed {
+  background: #dbeaff;
+  color: #2c5aa0;
+}
+
+.badge-awaiting_down_payment,
+.badge-awaiting_balance {
+  background: #fff0b3;
+  color: #7a5e00;
+}
+
+.badge-in_production {
+  background: #e0d4ff;
+  color: #5b3fa0;
+}
+
+.badge-ready_to_ship {
+  background: #d0f0e0;
+  color: #1f7a52;
+}
+
+.badge-shipped {
+  background: #c8e6ff;
+  color: #1a5a8a;
+}
+
+.badge-completed {
+  background: #d4f5d4;
+  color: #2d7a2d;
+}
+
+.badge-declined,
+.badge-expired,
+.badge-cancelled {
+  background: #ffd6d6;
+  color: #a13333;
+}
+
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll .table {
+  min-width: 560px;
+}
 
 /* --- Dashboard panel spacing --- */
 
