@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title><%= title %> | KV Artchives</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
 
     <link rel="stylesheet" href="/css/login.css">
 
@@ -55,11 +56,11 @@
 
             <div class="login-panel">
 
-                <button
-                    type="button"
-                    class="back-home"
-                    onclick="history.back()"
-                >
+                    <button
+                        type="button"
+                        class="back-home"
+                        id="back-btn"
+                    >
                     <span class="back-arrow">←</span>
                     <span>BACK</span>
                 </button>
@@ -186,6 +187,9 @@
     </main>
 
     <script>
+        document.getElementById("back-btn").addEventListener("click", function () {
+            history.back();
+        });
         document
             .querySelectorAll(".toggle-password")
             .forEach(function (button) {
