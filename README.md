@@ -22,7 +22,7 @@ CC106 Project
 | Bernardo, Ruzzel M. | Project Manager · Developer/Database |
 | Carmen, Paul Genesis L. | Developer |
 | Cuntapay, Karla S. | Research/Documents |
-| Ileto, Kyle Sonrey G. | UI/UX |
+| Ileto, Kyle Sonrey G. | Research/Documents |
 | Pascual, Kit Eriana Arvee B. | UI/UX · Developer |
 | Reyes, Tristan John Nicolas R. | Research/Documents |
 
