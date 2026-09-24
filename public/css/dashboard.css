@@ -194,31 +194,59 @@
 /* --- Units Sold chart --- */
 
 .units-chart {
-  display: flex;
-  align-items: flex-end;
-  gap: 6px;
-
-  height: 140px;
+  position: relative;
   margin-top: 12px;
-  padding: 8px 4px 0;
-
-  border-bottom: 1px solid rgba(211, 166, 155, 0.35);
+  padding-bottom: 24px;
 }
 
-.units-bar {
-  flex: 1;
-  min-height: 2px;
-
-  background: #f38383;
-  border-radius: 4px 4px 0 0;
-
-  transition: background 0.2s ease;
+.units-svg {
+  width: 100%;
+  height: 140px;
+  display: block;
+  overflow: visible;
 }
 
-.units-bar:hover {
-  background: #e75353;
+.units-area {
+  fill: #f3838333;
+  stroke: none;
 }
 
+.units-line {
+  fill: none;
+  stroke: #e75353;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.units-dot {
+  fill: #fff0f0;
+  stroke: #f38383;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.units-dot--active {
+  fill: #e75353;
+  stroke: #e75353;
+}
+
+.units-dates {
+  position: relative;
+  height: 16px;
+  margin-top: 4px;
+}
+
+.units-date {
+  position: absolute;
+  left: var(--pos);
+  transform: translateX(-50%);
+
+  color: #765843;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 11px;
+  white-space: nowrap;
+}
 
 /* --- Order status overview --- */
 
@@ -335,7 +363,7 @@
 
 @media (max-width: 600px) {
 
-  .units-chart {
+  .units-svg {
     height: 100px;
   }
 

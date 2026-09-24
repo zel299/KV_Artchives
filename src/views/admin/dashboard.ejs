@@ -16,11 +16,41 @@
   <h2 class="small">Units Sold — last <%= units.length %> days</h2>
 
   <% const maxUnits = Math.max(1, ...units.map(function (u) { return u.units; })); %>
+  <% const chartWidth = 800; %>
+  <% const chartHeight = 140; %>
+  <% const topPad = 12; %>
+  <% const step = units.length > 1 ? chartWidth / (units.length - 1) : 0; %>
+
+  <% const points = units.map(function (u, i) {
+       const x = i * step;
+       const y = topPad + (chartHeight - topPad) * (1 - u.units / maxUnits);
+       return { x: x, y: y, date: u.date, units: u.units };
+     }); %>
+
+  <% const linePoints = points.map(function (p) { return p.x + "," + p.y; }).join(" "); %>
+  <% const areaPoints = linePoints + " " + points[points.length - 1].x + "," + chartHeight + " " + points[0].x + "," + chartHeight; %>
 
   <div class="units-chart">
-    <% units.forEach(function (u) { %>
-      <div class="units-bar" style="height: <%= Math.round((u.units / maxUnits) * 100) %>%" title="<%= u.date %>: <%= u.units %> unit<%= u.units === 1 ? '' : 's' %>"></div>
-    <% }); %>
+    <svg viewBox="0 0 <%= chartWidth %> <%= chartHeight %>" preserveAspectRatio="none" class="units-svg">
+
+      <polygon points="<%= areaPoints %>" class="units-area"></polygon>
+      <polyline points="<%= linePoints %>" class="units-line"></polyline>
+
+      <% points.forEach(function (p) { %>
+        <circle cx="<%= p.x %>" cy="<%= p.y %>" r="4" class="units-dot <%= p.units > 0 ? 'units-dot--active' : '' %>">
+          <title><%= p.date %>: <%= p.units %> unit<%= p.units === 1 ? '' : 's' %></title>
+        </circle>
+      <% }); %>
+
+    </svg>
+
+    <div class="units-dates">
+      <% points.forEach(function (p, i) { %>
+        <% if (i % 5 === 0) { %>
+          <span class="units-date" style="--pos: <%= (p.x / chartWidth) * 100 %>%"><%= p.date.slice(5) %></span>
+        <% } %>
+      <% }); %>
+    </div>
   </div>
 </section>
 
@@ -35,40 +65,4 @@
       </div>
     <% }); %>
   </div>
-</section>
-
-<section class="panel">
-  <h2 class="small">Recent Orders</h2>
-
-  <% if (recent.length === 0) { %>
-
-    <p class="muted small">No orders yet.</p>
-
-  <% } else { %>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Code</th>
-          <th>Customer</th>
-          <th>Status</th>
-          <th class="num">Total</th>
-          <th>Placed</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% recent.forEach(function (o) { %>
-          <tr>
-            <td class="mono small"><a href="/admin/orders/<%= o.id %>"><%= o.code %></a></td>
-            <td><%= o.customerName %></td>
-            <td><span class="badge"><%= o.status.replace(/_/g, " ") %></span></td>
-            <td class="num"><%= formatPeso(o.subtotal) %></td>
-            <td class="small muted"><%= new Date(o.placedAt).toLocaleDateString() %></td>
-          </tr>
-        <% }); %>
-      </tbody>
-    </table>
-
-  <% } %>
-
 </section>
