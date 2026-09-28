@@ -381,21 +381,28 @@ function openViewModal(button) {
     product.id +
     "/delete";
 
+
+  /* PHOTOS */
+
+  let images = [];
+
+  try {
+    images = JSON.parse(button.dataset.images || "[]");
+  } catch (err) {
+    images = [];
+  }
+
   viewProductImages.innerHTML = "";
 
+  images.forEach(function (img) {
+    const el = document.createElement("img");
+    el.src = img.url;
+    el.alt = product.name;
+    viewProductImages.appendChild(el);
+  });
+
   viewNoPhotos.style.display =
-    "block";
-
-
-  /*
-   * NOTE:
-   * The product list currently doesn't provide
-   * product.images.
-   *
-   * Photos will be displayed once images are
-   * included in the product data.
-   */
-
+    images.length ? "none" : "block";
 
 
   formContainer.style.display =

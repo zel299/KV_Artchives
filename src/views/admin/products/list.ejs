@@ -202,7 +202,8 @@
                     data-quantity="<%= p.quantity %>" data-category="<%= p.category ? p.category.id : '' %>"
                     data-category-name="<%= p.category ? p.category.name : '—' %>"
                     data-one-of-a-kind="<%= p.isOneOfAKind ? 'true' : 'false' %>"
-                    data-status="<%= p.isArchived ? 'Archived' : 'Active' %>">
+                    data-status="<%= p.isArchived ? 'Archived' : 'Active' %>"
+                    data-images="<%= JSON.stringify(p.images.map(function (img) { return { id: img.id, url: img.url }; })) %>">
 
                     Edit
 
@@ -213,7 +214,8 @@
                     data-price="<%= p.price %>" data-quantity="<%= p.quantity %>"
                     data-category-name="<%= p.category ? p.category.name : '—' %>"
                     data-one-of-a-kind="<%= p.isOneOfAKind ? 'Yes' : 'No' %>"
-                    data-status="<%= p.isArchived ? 'Archived' : 'Active' %>">
+                    data-status="<%= p.isArchived ? 'Archived' : 'Active' %>"
+                    data-images="<%= JSON.stringify(p.images.map(function (img) { return { id: img.id, url: img.url }; })) %>">
 
                     View
 
