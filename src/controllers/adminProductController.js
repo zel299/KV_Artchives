@@ -272,6 +272,15 @@ async function handleImages(files, productId) {
   await productService.addImages(productId, paths);
 }
 
+async function doDeleteImage(req, res, next) {
+  try {
+    await productService.removeImage(req.params.id, req.params.imageId);
+    res.redirect("/admin/products?msg=Photo+deleted");
+  } catch (err) {
+    res.redirect(`/admin/products?msg=${encodeURIComponent(err.message)}`);
+  }
+}
+
 module.exports = {
   list,
   showCreate,
@@ -282,4 +291,5 @@ module.exports = {
   doArchive,
   doRestore,
   doDelete,
+  doDeleteImage
 };

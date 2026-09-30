@@ -511,6 +511,30 @@
   margin: 10px 0 0;
 }
 
+.edit-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.edit-photo form {
+  margin: 0;
+}
+
+.edit-photo .btn.danger,
+.edit-photo button.danger {
+  color: #d94f4f;
+  font-family: "Albert Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.edit-photo button.danger:hover {
+  color: #e75353;
+  text-decoration: underline;
+}
+
 .product-view-container .danger-zone h3 {
   margin: 0 0 12px;
 

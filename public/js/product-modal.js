@@ -22,6 +22,9 @@ const overlay =
 const form =
   document.getElementById("productForm");
 
+const csrfToken =
+  form.querySelector('input[name="_csrf"]').value;
+
 const formContainer =
   document.getElementById("productFormContainer");
 
@@ -89,6 +92,15 @@ const viewProductImages =
 const viewNoPhotos =
   document.getElementById("viewNoPhotos");
 
+const editPhotosSection =
+  document.getElementById("editPhotosSection");
+
+const editProductImages =
+  document.getElementById("editProductImages");
+
+const editNoPhotos =
+  document.getElementById("editNoPhotos");
+
 const viewEditProduct =
   document.getElementById("viewEditProduct");
 
@@ -140,6 +152,13 @@ function openCreateModal() {
     "/admin/products";
 
 
+  editPhotosSection.style.display =
+    "none";
+
+  editProductImages.innerHTML =
+    "";
+
+
   formContainer.style.display =
     "block";
 
@@ -148,6 +167,101 @@ function openCreateModal() {
 
 
   openModal();
+}
+
+function fillEditPhotos(productId, images) {
+
+  editProductImages.innerHTML =
+    "";
+
+  images.forEach(function (img) {
+
+    const wrapper =
+      document.createElement("div");
+
+    wrapper.className =
+      "edit-photo";
+
+
+    const el =
+      document.createElement("img");
+
+    el.src =
+      img.url;
+
+
+    const deleteForm =
+      document.createElement("form");
+
+    deleteForm.method =
+      "post";
+
+    deleteForm.action =
+      "/admin/products/" +
+      productId +
+      "/images/" +
+      img.id +
+      "/delete";
+
+    deleteForm.className =
+      "inline";
+
+    deleteForm.dataset.confirm =
+      "Delete this photo? This cannot be undone.";
+
+
+    const csrfInput =
+      document.createElement("input");
+
+    csrfInput.type =
+      "hidden";
+
+    csrfInput.name =
+      "_csrf";
+
+    csrfInput.value =
+      csrfToken;
+
+    deleteForm.appendChild(
+      csrfInput
+    );
+
+
+    const deleteButton =
+      document.createElement("button");
+
+    deleteButton.type =
+      "submit";
+
+    deleteButton.className =
+      "linkish small danger";
+
+    deleteButton.textContent =
+      "Delete";
+
+
+    deleteForm.appendChild(
+      deleteButton
+    );
+
+    wrapper.appendChild(el);
+
+    wrapper.appendChild(
+      deleteForm
+    );
+
+    editProductImages.appendChild(
+      wrapper
+    );
+
+  });
+
+  editNoPhotos.style.display =
+    images.length ? "none" : "block";
+
+  editPhotosSection.style.display =
+    "block";
+
 }
 
 function openEditModal(button) {
@@ -205,6 +319,17 @@ function openEditModal(button) {
 
   form.action =
     "/admin/products/" + id;
+
+
+  let images = [];
+
+  try {
+    images = JSON.parse(button.dataset.images || "[]");
+  } catch (err) {
+    images = [];
+  }
+
+  fillEditPhotos(id, images);
 
 
   formContainer.style.display =

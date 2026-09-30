@@ -391,6 +391,31 @@ async function addImages(productId, paths) {
     if (error) throw new Error(`addImages failed: ${error.message}`);
 }
 
+async function removeImage(productId, imageId) {
+  const { data: image, error: findError } = await supabaseAdmin
+    .from("product_images")
+    .select("id, storage_path")
+    .eq("id", imageId)
+    .eq("product_id", productId)
+    .maybeSingle();
+
+  if (findError) throw new Error(`removeImage lookup failed: ${findError.message}`);
+  if (!image) throw new Error("That photo no longer exists.");
+
+  const { error: deleteError } = await supabaseAdmin
+    .from("product_images")
+    .delete()
+    .eq("id", imageId);
+
+  if (deleteError) throw new Error(`removeImage failed: ${deleteError.message}`);
+
+  const { error: storageError } = await supabaseAdmin.storage
+    .from("product-images")
+    .remove([image.storage_path]);
+
+  if (storageError) console.error("[images] storage cleanup failed:", storageError.message);
+}
+
 async function getManyPublic(ids) {
   if (!ids || ids.length === 0) return [];
 
@@ -439,6 +464,7 @@ module.exports = {
   setStock,
   listCategories,
   addImages, 
+  removeImage,
   getManyPublic,
   getPrimaryImages
 };

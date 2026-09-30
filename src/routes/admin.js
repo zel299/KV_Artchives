@@ -31,6 +31,7 @@ router.post("/products/:id", productImages, csrfProtection, products.doEdit);
 router.post("/products/:id/archive", products.doArchive);
 router.post("/products/:id/restore", products.doRestore);
 router.post("/products/:id/delete", products.doDelete);
+router.post("/products/:id/images/:imageId/delete", csrfProtection, products.doDeleteImage);
 
 // --- Orders ---
 router.get("/orders", orderCtrl.list);

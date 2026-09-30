@@ -1,0 +1,28 @@
+
+.narrow {
+  max-width: 420px;
+  margin: 100px auto;
+  padding: 0 20px;
+
+  text-align: center;
+}
+
+.narrow h1 {
+  margin-bottom: 12px;
+
+  color: #5e2e00;
+
+  font-family: "Berkshire Swash", cursive;
+  font-size: 64px;
+  font-weight: 400;
+}
+
+.narrow p {
+  margin-bottom: 28px;
+
+  color: #765843;
+
+  font-family: "Albert Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
