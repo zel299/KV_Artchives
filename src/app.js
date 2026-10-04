@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
 
 const config = require('./config');
+const productService = require("./services/productService");
 const { attachUser } = require('./middleware/auth');
 
 const helmet = require("helmet");
@@ -105,6 +106,57 @@ app.get('/health', (req, res) => {
         ok: true,
         env: config.env
     });
+});
+
+app.get("/robots.txt", (req, res) => {
+  res.type("text/plain");
+  res.send(
+    "User-agent: *\n" +
+    "Disallow: /admin\n" +
+    "Disallow: /cart\n" +
+    "Disallow: /checkout\n" +
+    "Disallow: /account\n" +
+    "Disallow: /orders\n" +
+    "Disallow: /login\n" +
+    "Disallow: /signup\n" +
+    "Sitemap: https://kv-artchives.onrender.com/sitemap.xml\n"
+  );
+});
+
+
+app.get("/sitemap.xml", async (req, res, next) => {
+  try {
+    const base = "https://kv-artchives.onrender.com";
+
+    const pages = [
+      "/",
+      "/shop",
+      "/about",
+      "/gallery",
+      "/commissions",
+      "/contact",
+      "/faqs",
+      "/shipping-info",
+      "/privacy-policy",
+    ];
+
+    const ids = await productService.listIdsForSitemap();
+    const paths = pages.concat(ids.map((id) => "/products/" + id));
+
+    const entries = paths
+      .map((p) => "  <url><loc>" + base + p + "</loc></url>")
+      .join("\n");
+
+    res.type("application/xml");
+    res.send(
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+      "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n" +
+      entries +
+      "\n</urlset>\n"
+    );
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.use('/', require('./routes/auth'));

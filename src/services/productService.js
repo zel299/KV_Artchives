@@ -429,6 +429,16 @@ async function getManyPublic(ids) {
   return (data || []).map(toPublicProduct);
 }
 
+async function listIdsForSitemap() {
+  const { data, error } = await supabaseAnon
+    .from("products")
+    .select("id")
+    .eq("is_archived", false);
+
+  if (error) throw new Error(`listIdsForSitemap failed: ${error.message}`);
+  return (data || []).map((row) => row.id);
+}
+
 async function getPrimaryImages(ids) {
   if (!ids || ids.length === 0) return {};
 
@@ -466,5 +476,6 @@ module.exports = {
   addImages, 
   removeImage,
   getManyPublic,
-  getPrimaryImages
+  getPrimaryImages,
+  listIdsForSitemap
 };

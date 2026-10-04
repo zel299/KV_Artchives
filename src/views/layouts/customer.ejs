@@ -12,7 +12,8 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title><%= title || 'KV Artchives' %></title>
+    <title><%= title ? title + " | KV Artchives" : "KV Artchives" %></title>
+    <meta name="description" content="<%= typeof metaDescription !== "undefined" && metaDescription ? metaDescription : "Handmade clay creations from KV Artchives. Browse the shop and order online." %>">
 
     <link rel="stylesheet" href="/css/nav.css"> 
     
