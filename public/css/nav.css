@@ -1,3 +1,39 @@
+
+@view-transition {
+    navigation: auto;
+}
+
+@keyframes page-out {
+    to {
+        opacity: 0;
+        transform: translateY(-14px);
+    }
+}
+
+@keyframes page-in {
+    from {
+        opacity: 0;
+        transform: translateY(26px);
+    }
+}
+
+::view-transition-group(root) {
+    background: #fff0f0;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+    animation: page-out 0.2s ease-in both;
+}
+
+::view-transition-new(root) {
+    animation: page-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+}
+
 .site-header {
     height: 75px;
     background: #fff0f0;
@@ -8,6 +44,40 @@
     position: sticky;
     top: 0;
     z-index: 1000;
+    view-transition-name: site-nav;
+}
+
+@keyframes stripe-sweep {
+    0% {
+        clip-path: inset(0 100% 0 0);
+        opacity: 1;
+    }
+    60% {
+        clip-path: inset(0 0 0 0);
+        opacity: 1;
+    }
+    100% {
+        clip-path: inset(0 0 0 0);
+        opacity: 0;
+    }
+}
+
+.site-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 4px;
+    background: repeating-linear-gradient(
+        90deg,
+        #e75353 0,
+        #e75353 42px,
+        #f38383 42px,
+        #f38383 85px
+    );
+    pointer-events: none;
+    animation: stripe-sweep 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .nav-inner {
@@ -290,4 +360,96 @@
     .nav-links a {
         font-size: 13px;
     }
+}
+
+@keyframes splash-rise {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+}
+
+@keyframes splash-out {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.splash {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff0f0;
+    animation: splash-out 0.6s ease 2s forwards;
+}
+
+.splash-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: splash-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.splash-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #ffffff;
+}
+
+.splash-title {
+    margin-top: 22px;
+    font-family: "Berkshire Swash", cursive;
+    font-size: 34px;
+    font-weight: 400;
+    color: #e75353;
+}
+
+.splash-tag {
+    margin-top: 16px;
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    letter-spacing: 1.4px;
+    color: #5e2e00;
+}
+
+@keyframes splash-fill {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+.splash-bar {
+    width: 220px;
+    height: 6px;
+    margin-top: 26px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #ffd6d6;
+}
+
+.splash-bar span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        #e75353 0,
+        #e75353 42px,
+        #f38383 42px,
+        #f38383 85px
+    );
+    animation: splash-fill 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.3s both;
+}
+
+html.splash-seen .splash {
+    display: none;
 }

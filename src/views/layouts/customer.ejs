@@ -47,9 +47,22 @@
     <link rel="stylesheet" href="/css/<%= pageCss %>.css">
     <% } %>
 
+    <script src="/js/splash.js"></script>
+
 </head>
 
 <body>
+
+        <% if (currentPath === "/") { %>
+        <div class="splash" id="splash" aria-hidden="true">
+            <div class="splash-inner">
+                <img src="/images/logo.png" alt="" class="splash-logo">
+                <p class="splash-title">KV Artchives</p>
+                <div class="splash-bar"><span></span></div>
+                <p class="splash-tag">Handmade with Love</p>
+            </div>
+        </div>
+    <% } %>
 
     <%- include('../partials/nav') %>
 
