@@ -110,6 +110,14 @@ async function doSignup(req, res) {
   // If email confirmation is on, there is no session yet.
   if (data.session) {
     setSession(res, data.session);
+
+    try {
+      const db = supabaseForUser(data.session.access_token);
+      await cartService.mergeGuestCart(db, data.user.id, req, res);
+    } catch (err) {
+      console.error("[cart] signup merge failed:", err);
+    }
+
     return res.redirect('/');
   }
 
