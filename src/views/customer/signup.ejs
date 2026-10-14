@@ -14,6 +14,10 @@
         rel="stylesheet"
     >
     <link rel="stylesheet" href="/css/signup.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 
 </head>
 
@@ -100,6 +104,14 @@
                                 required
                                 minlength="8"
                             >
+                            <button
+                                type="button"
+                                class="toggle-password"
+                                data-target="password"
+                                aria-label="Show password"
+                            >
+                                <i class="fa-solid fa-eye-slash"></i>
+                            </button>
                         </div>
                     </div>
 
@@ -117,6 +129,14 @@
                                 required
                                 minlength="8"
                             >
+                            <button
+                                type="button"
+                                class="toggle-password"
+                                data-target="confirm_password"
+                                aria-label="Show password"
+                            >
+                                <i class="fa-solid fa-eye-slash"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -152,6 +172,23 @@
 
         </section>
     </main>
+
+    <script>
+        document.querySelectorAll(".toggle-password").forEach(function (button) {
+            button.addEventListener("click", function () {
+                var input = document.getElementById(button.dataset.target);
+                if (!input) return;
+
+                if (input.type === "password") {
+                    input.type = "text";
+                    button.innerHTML = '<i class="fa-solid fa-eye"></i>';
+                } else {
+                    input.type = "password";
+                    button.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+                }
+            });
+        });
+    </script>
 
 </body>
 
