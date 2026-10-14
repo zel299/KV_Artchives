@@ -53,7 +53,7 @@ async function doLogin(req, res) {
     const db = supabaseForUser(data.session.access_token);
     await cartService.mergeGuestCart(db, data.user.id, req, res);
   } catch (err) {
-    console.error("[cart] merge failed:", err.message);
+    console.error("[cart] merge failed:", err);
   }
 
   res.redirect(nextUrl.startsWith('/') ? nextUrl : '/');
@@ -172,6 +172,13 @@ async function oauthSession(req, res) {
   if (error || !data?.user) return res.redirect('/login');
 
   setSession(res, { access_token, refresh_token });
+
+  try {
+    const db = supabaseForUser(access_token);
+    await cartService.mergeGuestCart(db, data.user.id, req, res);
+  } catch (err) {
+    console.error("[cart] oauth merge failed:", err);
+  }
 
   // Google sign-ups arrive with no full_name on the profile; backfill it.
   const meta = data.user.user_metadata || {};

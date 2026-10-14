@@ -2,6 +2,12 @@
 const { supabaseAdmin } = require("../config/supabase");
 const productService = require("./productService");
 
+const MAX_QTY = 99; // backstop only; the real limit is stock
+
+function clampQty(value, max = MAX_QTY) {
+  return Math.min(max, Math.max(1, Math.floor(Number(value) || 1)));
+}
+
 async function getOrCreateCart(db, userId) {
   const { data: existing, error: readErr } = await db
     .from("carts")
@@ -45,11 +51,13 @@ async function getCartItems(db, userId) {
       const product = products.find((p) => String(p.id) === String(row.product_id));
       if (!product) return null;
 
+      const quantity = Math.min(row.quantity, Math.max(1, product.maxOrderQty));
+
       return {
         id: row.id,
-        quantity: row.quantity,
+        quantity,
         product,
-        lineTotal: product.price * row.quantity,
+        lineTotal: product.price * quantity,
       };
     })
     .filter(Boolean);
@@ -60,11 +68,12 @@ async function getCartItems(db, userId) {
 }
 
 async function addItem(db, userId, productId, quantity = 1) {
-  const qty = Math.max(1, Math.floor(Number(quantity) || 1));
-
   const product = await productService.getPublicById(productId);
   if (!product) throw new Error("That product is no longer available.");
   if (!product.inStock) throw new Error("That product is sold out.");
+
+  const cap = Math.min(MAX_QTY, product.maxOrderQty);
+  const qty = clampQty(quantity, cap);
 
   const cartId = await getOrCreateCart(db, userId);
 
@@ -80,7 +89,7 @@ async function addItem(db, userId, productId, quantity = 1) {
   if (existing) {
     const { error } = await db
       .from("cart_items")
-      .update({ quantity: existing.quantity + qty })
+      .update({ quantity: Math.min(cap, existing.quantity + qty) })
       .eq("id", existing.id);
 
     if (error) throw new Error(`addItem update failed: ${error.message}`);
@@ -101,9 +110,23 @@ async function updateItem(db, userId, itemId, quantity) {
 
   const cartId = await getOrCreateCart(db, userId);
 
+  const { data: row, error: rowErr } = await db
+    .from("cart_items")
+    .select("product_id")
+    .eq("id", itemId)
+    .eq("cart_id", cartId)
+    .maybeSingle();
+
+  if (rowErr) throw new Error(`updateItem lookup failed: ${rowErr.message}`);
+  if (!row) return;
+
+  const product = await productService.getPublicById(row.product_id);
+  const cap = product ? Math.min(MAX_QTY, product.maxOrderQty) : 0;
+  if (cap < 1) return removeItem(db, userId, itemId);
+
   const { error } = await db
     .from("cart_items")
-    .update({ quantity: qty })
+    .update({ quantity: Math.min(cap, qty) })
     .eq("id", itemId)
     .eq("cart_id", cartId);
 
@@ -157,7 +180,7 @@ function readGuestCart(req) {
       .filter((row) => row && row.p)
       .map((row) => ({
         productId: row.p,
-        quantity: Math.max(1, Math.floor(Number(row.q) || 1)),
+        quantity: clampQty(row.q),
       }))
       .slice(0, 50);
   } catch {
@@ -182,7 +205,7 @@ async function mergeGuestCart(db, userId, req, res) {
     try {
       await addItem(db, userId, item.productId, item.quantity);
     } catch (err) {
-      console.error("[cart] merge skipped an item:", err.message);
+      console.error("[cart] merge skipped an item:", item, err);
     }
   }
 
@@ -199,5 +222,7 @@ module.exports = {
   readGuestCart, 
   writeGuestCart, 
   clearGuestCart, 
-  mergeGuestCart
+  mergeGuestCart,
+  clampQty,
+  MAX_QTY,  
 };

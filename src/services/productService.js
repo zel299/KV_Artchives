@@ -49,6 +49,7 @@ function toPublicProduct(row) {
     description: row.description,
     price: Number(row.price),
     inStock: row.quantity > 0,
+    maxOrderQty: row.is_one_of_a_kind ? Math.min(1, row.quantity) : Math.max(0, row.quantity),
     isOneOfAKind: row.is_one_of_a_kind,
     category: row.category || null,
     images,
