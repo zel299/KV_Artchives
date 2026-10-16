@@ -72,10 +72,11 @@
                                     step="1"
                                 >
 
-                                <button
+                                                                <button
                                     type="button"
                                     class="qty-btn qty-plus"
                                     aria-label="Increase quantity"
+                                    <%= item.quantity >= item.product.maxOrderQty ? "disabled" : "" %>
                                 >
                                     +
                                 </button>
@@ -87,6 +88,10 @@
                                     Update
                                 </button>
                             </form>
+
+                                                        <% if (item.product.inStock && item.quantity >= item.product.maxOrderQty) { %>
+                                <p class="cart-stock-note">Maximum available quantity reached.</p>
+                            <% } %>
 
                         </div>
 

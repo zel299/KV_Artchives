@@ -780,3 +780,14 @@
     min-height: 54px;
   }
 }
+
+.qty-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.cart-stock-note {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: #b94e57;
+}

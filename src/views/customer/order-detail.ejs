@@ -5,7 +5,7 @@
 
         <div class="order-detail-title">
             <h1>Order <%= order.code %></h1>
-            <span class="order-status"><%= order.statusLabel %></span>
+            <span class="order-status status-<%= order.status %>"><%= order.statusLabel %></span>
         </div>
 
         <p class="order-placed">Placed <%= formatDate(order.placedAt) %></p>

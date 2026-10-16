@@ -75,6 +75,7 @@
                                 name="quantity"
                                 value="1"
                                 min="1"
+                                max="<%= product.maxOrderQty %>"
                                 step="1"
                             >
 
@@ -111,6 +112,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!quantityInput || !minusButton || !plusButton) return;
 
+    const maxQuantity = parseInt(quantityInput.max) || 1;
+
+    function refreshPlus() {
+        plusButton.disabled = (parseInt(quantityInput.value) || 1) >= maxQuantity;
+    }
+
     minusButton.addEventListener("click", function () {
         let quantity = parseInt(quantityInput.value) || 1;
 
@@ -118,13 +125,19 @@ document.addEventListener("DOMContentLoaded", function () {
             quantity--;
             quantityInput.value = quantity;
         }
+
+        refreshPlus();
+
     });
 
     plusButton.addEventListener("click", function () {
         let quantity = parseInt(quantityInput.value) || 1;
 
-        quantity++;
-        quantityInput.value = quantity;
+        if (quantity < maxQuantity) {
+            quantityInput.value = quantity + 1;
+        }
+
+        refreshPlus();
     });
 
     quantityInput.addEventListener("input", function () {
@@ -134,8 +147,14 @@ document.addEventListener("DOMContentLoaded", function () {
             quantity = 1;
         }
 
+        if (quantity > maxQuantity) quantity = maxQuantity;
+
         quantityInput.value = quantity;
+
+        refreshPlus();
     });
+
+    refreshPlus();
 
 });
 

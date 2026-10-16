@@ -316,3 +316,54 @@
     border: 1px solid #b8dfc0;
     color: #2f6b3a;
 }
+
+.order-status.status-pending {
+    background: #fff0d2;
+    color: #875d25;
+}
+
+.order-status.status-confirmed {
+    background: #e8f1ff;
+    color: #3f628f;
+}
+
+.order-status.status-awaiting_down_payment {
+    background: #ffdfc8;
+    color: #8a3f10;
+}
+
+.order-status.status-in_production {
+    background: #eee5ff;
+    color: #654a91;
+}
+
+.order-status.status-awaiting_balance {
+    background: #fff0d2;
+    color: #875d25;
+}
+
+.order-status.status-ready_to_ship {
+    background: #fbe0f0;
+    color: #d70386;
+}
+
+.order-status.status-shipped {
+    background: #fbe0f0;
+    color: #85285f;
+}
+
+.order-status.status-completed {
+    background: #e9f7e8;
+    color: #477342;
+}
+
+.order-status.status-cancelled,
+.order-status.status-declined {
+    background: #fdcaca;
+    color: #8f1a1a;
+}
+
+.order-status.status-expired {
+    background: #eeeeee;
+    color: #666666;
+}

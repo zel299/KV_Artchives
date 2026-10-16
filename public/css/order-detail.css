@@ -73,6 +73,67 @@
   font-weight: 600;
 }
 
+.order-status.status-pending {
+  background: #fff0d2;
+  border-color: #fff0d2;
+  color: #875d25;
+}
+
+.order-status.status-confirmed {
+  background: #e8f1ff;
+  border-color: #e8f1ff;
+  color: #3f628f;
+}
+
+.order-status.status-awaiting_down_payment {
+  background: #ffdfc8;
+  border-color: #ffdfc8;
+  color: #8a3f10;
+}
+
+.order-status.status-in_production {
+  background: #eee5ff;
+  border-color: #eee5ff;
+  color: #654a91;
+}
+
+.order-status.status-awaiting_balance {
+  background: #fff0d2;
+  border-color: #fff0d2;
+  color: #875d25;
+}
+
+.order-status.status-ready_to_ship {
+  background: #fbe0f0;
+  border-color: #fbe0f0;
+  color: #d70386;
+}
+
+.order-status.status-shipped {
+  background: #fbe0f0;
+  border-color: #fbe0f0;
+  color: #85285f;
+}
+
+.order-status.status-completed {
+  background: #e9f7e8;
+  border-color: #e9f7e8;
+  color: #477342;
+}
+
+.order-status.status-cancelled,
+.order-status.status-declined {
+  background: #fdcaca;
+  border-color: #fdcaca;
+  color: #8f1a1a;
+}
+
+.order-status.status-expired {
+  background: #eeeeee;
+  border-color: #eeeeee;
+  color: #666666;
+}
+
 .order-placed {
   margin: 7px 0 0;
 
